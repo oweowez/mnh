@@ -52,18 +52,18 @@ export default function HomePage() {
 
       {/* Header */}
       <header
-        className="px-6 sm:px-10 h-14 flex items-center justify-between"
-        style={{ borderBottom: `1px solid ${MIST}` }}
+        className="px-6 sm:px-10 h-20 flex items-center justify-between"
+        style={{ backgroundColor: NAVY }}
       >
         <Image
-          src="/assets/logo/logoFondationMnh.png"
+          src="/assets/logo/logofondblanc.png"
           alt="Fondation MNH"
           width={140}
           height={40}
-          className="h-8 w-auto"
+          className="h-12 w-auto"
           priority
         />
-        <span className="text-xs font-semibold" style={{ color: TEAL }}>
+        <span className="text-xs font-semibold" style={{ color: MIST }}>
           Santé des professionnels de santé
         </span>
       </header>
@@ -159,17 +159,17 @@ export default function HomePage() {
 
       {/* Footer */}
       <footer
-        className="px-6 sm:px-10 py-5 flex items-center justify-between"
-        style={{ borderTop: `1px solid ${MIST}` }}
+        className="px-6 sm:px-10 py-7 flex items-center justify-between"
+        style={{ backgroundColor: NAVY }}
       >
         <Image
-          src="/assets/logo/logoFondationMnh.png"
+          src="/assets/logo/logofondblanc.png"
           alt="Fondation MNH"
           width={110}
           height={32}
-          className="h-7 w-auto"
+          className="h-10 w-auto"
         />
-        <p className="text-xs" style={{ color: NAVY, opacity: 0.35 }}>
+        <p className="text-xs" style={{ color: "#fff", opacity: 0.45 }}>
           Mutuelle Nationale des Hospitaliers — Données Inserm, EHESP, IRDES, CNAM
         </p>
       </footer>

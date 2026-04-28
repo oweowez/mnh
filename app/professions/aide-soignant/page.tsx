@@ -22,22 +22,22 @@ export default function AideSoignantPage() {
 
       {/* Header */}
       <header
-        className="px-6 sm:px-10 h-14 flex items-center justify-between sticky top-0 z-10"
-        style={{ borderBottom: `1px solid ${MIST}`, backgroundColor: "#fff" }}
+        className="px-6 sm:px-10 h-20 flex items-center justify-between sticky top-0 z-10"
+        style={{ backgroundColor: NAVY }}
       >
         <Link
           href="/"
           className="text-sm font-medium transition-opacity hover:opacity-100"
-          style={{ color: NAVY, opacity: 0.45 }}
+          style={{ color: "#fff", opacity: 0.6 }}
         >
           ← Toutes les professions
         </Link>
         <Image
-          src="/assets/logo/logoFondationMnh.png"
+          src="/assets/logo/logofondblanc.png"
           alt="Fondation MNH"
           width={140}
           height={40}
-          className="h-8 w-auto"
+          className="h-12 w-auto"
           priority
         />
       </header>
@@ -125,17 +125,17 @@ export default function AideSoignantPage() {
 
       {/* Footer */}
       <footer
-        className="px-6 sm:px-10 py-5 flex items-center justify-between"
-        style={{ borderTop: `1px solid ${MIST}` }}
+        className="px-6 sm:px-10 py-7 flex items-center justify-between"
+        style={{ backgroundColor: NAVY }}
       >
         <Image
-          src="/assets/logo/logoFondationMnh.png"
+          src="/assets/logo/logofondblanc.png"
           alt="Fondation MNH"
           width={110}
           height={32}
-          className="h-7 w-auto"
+          className="h-10 w-auto"
         />
-        <p className="text-xs" style={{ color: NAVY, opacity: 0.35 }}>
+        <p className="text-xs" style={{ color: "#fff", opacity: 0.45 }}>
           Mutuelle Nationale des Hospitaliers
         </p>
       </footer>
