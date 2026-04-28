@@ -105,7 +105,7 @@ export default function HomePage() {
               <Link
                 key={p.slug}
                 href={`/professions/${p.slug}`}
-                className="group flex flex-col gap-4 p-6 transition-colors hover:bg-[#eef3f3]"
+                className="group flex flex-col gap-4 p-6 transition-colors hover:bg-[#eef3f3] min-h-[220px]"
                 style={{ backgroundColor: "#fff", color: NAVY }}
               >
                 <div>
@@ -132,7 +132,7 @@ export default function HomePage() {
             ) : (
               <div
                 key={p.slug}
-                className="flex flex-col gap-4 p-6 cursor-not-allowed"
+                className="flex flex-col gap-4 p-6 cursor-not-allowed min-h-[220px]"
                 style={{ backgroundColor: "#fff", opacity: 0.38 }}
               >
                 <div>
