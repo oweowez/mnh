@@ -1,10 +1,15 @@
 import Link from "next/link";
+import Image from "next/image";
+
+const NAVY = "#22357a";
+const TEAL = "#88aead";
+const GOLD = "#ffc200";
+const MIST = "#cbd3d3";
 
 const professions = [
   {
     slug: "aide-soignant",
     label: "Aide-soignant·e",
-    icon: "🏥",
     description: "Soins, hygiène et confort des patients",
     available: true,
     themes: 9,
@@ -12,134 +17,139 @@ const professions = [
   {
     slug: "infirmier",
     label: "Infirmier·ère",
-    icon: "💉",
     description: "Soins infirmiers, coordination médicale",
     available: false,
-    themes: null,
   },
   {
     slug: "medecin",
     label: "Médecin",
-    icon: "🩻",
     description: "Diagnostic, traitement, suivi des patients",
     available: false,
-    themes: null,
   },
   {
     slug: "pharmacien",
     label: "Pharmacien·ne",
-    icon: "💊",
     description: "Dispensation et conseil pharmaceutique",
     available: false,
-    themes: null,
   },
   {
     slug: "kinesitherapeute",
     label: "Kinésithérapeute",
-    icon: "🦾",
     description: "Rééducation fonctionnelle et motrice",
     available: false,
-    themes: null,
   },
   {
     slug: "sage-femme",
     label: "Sage-femme",
-    icon: "👶",
     description: "Suivi de grossesse et accouchement",
     available: false,
-    themes: null,
   },
 ];
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50">
+    <div className="min-h-screen flex flex-col" style={{ color: NAVY, backgroundColor: "#fff" }}>
+
       {/* Header */}
-      <header className="border-b border-white/80 bg-white/70 backdrop-blur-sm sticky top-0 z-10">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-          <span className="font-black text-blue-600 text-lg tracking-tight">
-            MNH
-          </span>
-          <span className="text-xs text-gray-400">
-            Santé des professionnels de santé
-          </span>
-        </div>
+      <header
+        className="px-6 sm:px-10 h-14 flex items-center justify-between"
+        style={{ borderBottom: `1px solid ${MIST}` }}
+      >
+        <Image
+          src="/assets/logo/logoFondationMnh.png"
+          alt="Fondation MNH"
+          width={140}
+          height={40}
+          className="h-8 w-auto"
+          priority
+        />
+        <span className="text-xs font-semibold" style={{ color: TEAL }}>
+          Santé des professionnels de santé
+        </span>
       </header>
 
       {/* Hero */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 pt-16 pb-12 text-center">
-        <div className="inline-flex items-center gap-2 bg-blue-50 border border-blue-100 text-blue-600 text-xs font-semibold px-4 py-1.5 rounded-full mb-6">
-          <span className="w-1.5 h-1.5 bg-blue-500 rounded-full" />
+      <section className="max-w-4xl mx-auto w-full px-6 sm:px-10 pt-20 pb-14">
+        <p
+          className="text-xs font-bold uppercase tracking-[0.2em] mb-5"
+          style={{ color: TEAL }}
+        >
           Outil de santé au travail
-        </div>
-        <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight mb-5">
-          Votre santé au travail,{" "}
-          <span className="text-blue-600">par profession</span>
+        </p>
+        <h1
+          className="text-4xl sm:text-5xl font-extrabold leading-tight mb-5"
+          style={{ color: NAVY }}
+        >
+          Votre santé au travail,
+          <br />
+          par profession.
         </h1>
-        <p className="text-lg text-gray-500 max-w-2xl mx-auto leading-relaxed">
-          Sélectionnez votre métier pour accéder aux risques de santé
-          identifiés, aux données épidémiologiques et aux actions concrètes
-          adaptées à votre profession.
+        <p className="text-base leading-relaxed max-w-xl" style={{ color: NAVY, opacity: 0.55 }}>
+          Sélectionnez votre métier pour accéder aux risques identifiés,
+          données épidémiologiques et actions adaptées à votre pratique
+          professionnelle.
         </p>
       </section>
 
-      {/* Grille des professions */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 pb-20">
-        <h2 className="text-sm font-semibold text-gray-400 uppercase tracking-widest mb-6 text-center">
-          Choisissez votre profession
-        </h2>
+      {/* Grille professions */}
+      <section className="max-w-4xl mx-auto w-full px-6 sm:px-10 pb-24 flex-1">
+        <div className="mb-8" style={{ borderTop: `1px solid ${MIST}` }} />
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {/* Grille à joints */}
+        <div
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px"
+          style={{ backgroundColor: MIST }}
+        >
           {professions.map((p) =>
             p.available ? (
               <Link
                 key={p.slug}
                 href={`/professions/${p.slug}`}
-                className="group bg-white rounded-2xl border-2 border-blue-100 hover:border-blue-400 p-6 flex flex-col gap-3 transition-all duration-200 hover:shadow-lg hover:shadow-blue-100 hover:-translate-y-0.5"
+                className="group flex flex-col gap-4 p-6 transition-colors hover:bg-[#eef3f3]"
+                style={{ backgroundColor: "#fff", color: NAVY }}
               >
-                <div className="flex items-start justify-between">
-                  <span className="text-3xl">{p.icon}</span>
-                  <span className="text-xs bg-blue-600 text-white font-semibold px-2.5 py-0.5 rounded-full">
+                <div>
+                  <span
+                    className="text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded"
+                    style={{ backgroundColor: GOLD, color: NAVY }}
+                  >
                     {p.themes} thématiques
                   </span>
                 </div>
-                <div>
-                  <h3 className="font-bold text-gray-900 text-lg group-hover:text-blue-600 transition-colors">
+                <div className="flex-1">
+                  <h3 className="text-lg font-bold mb-1" style={{ color: NAVY }}>
                     {p.label}
                   </h3>
-                  <p className="text-sm text-gray-500 mt-0.5">{p.description}</p>
+                  <p className="text-sm" style={{ color: NAVY, opacity: 0.5 }}>
+                    {p.description}
+                  </p>
                 </div>
-                <div className="flex items-center gap-1.5 text-blue-500 text-sm font-medium mt-auto pt-2">
+                <div className="flex items-center gap-2 text-sm font-semibold" style={{ color: TEAL }}>
                   Voir le profil santé
-                  <svg
-                    width="14"
-                    height="14"
-                    viewBox="0 0 14 14"
-                    fill="currentColor"
-                    className="group-hover:translate-x-0.5 transition-transform"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M3 7a.75.75 0 01.75-.75h5.44L7.47 4.53a.75.75 0 011.06-1.06l3 3a.75.75 0 010 1.06l-3 3a.75.75 0 01-1.06-1.06l1.72-1.72H3.75A.75.75 0 013 7z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
+                  <span className="group-hover:translate-x-1 transition-transform inline-block">→</span>
                 </div>
               </Link>
             ) : (
               <div
                 key={p.slug}
-                className="bg-white/50 rounded-2xl border-2 border-gray-100 p-6 flex flex-col gap-3 opacity-60 cursor-not-allowed"
+                className="flex flex-col gap-4 p-6 cursor-not-allowed"
+                style={{ backgroundColor: "#fff", opacity: 0.38 }}
               >
-                <div className="flex items-start justify-between">
-                  <span className="text-3xl grayscale">{p.icon}</span>
-                  <span className="text-xs bg-gray-100 text-gray-400 font-semibold px-2.5 py-0.5 rounded-full">
+                <div>
+                  <span
+                    className="text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded"
+                    style={{ backgroundColor: MIST, color: NAVY }}
+                  >
                     Bientôt disponible
                   </span>
                 </div>
-                <div>
-                  <h3 className="font-bold text-gray-400 text-lg">{p.label}</h3>
-                  <p className="text-sm text-gray-400 mt-0.5">{p.description}</p>
+                <div className="flex-1">
+                  <h3 className="text-lg font-bold mb-1" style={{ color: NAVY }}>
+                    {p.label}
+                  </h3>
+                  <p className="text-sm" style={{ color: NAVY, opacity: 0.5 }}>
+                    {p.description}
+                  </p>
                 </div>
               </div>
             )
@@ -148,14 +158,20 @@ export default function HomePage() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-gray-100 bg-white">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 flex flex-col sm:flex-row items-center justify-between gap-2">
-          <span className="font-black text-blue-600">MNH</span>
-          <p className="text-xs text-gray-400 text-center">
-            Mutuelle Nationale des Hospitaliers — Données issues de projets
-            Inserm, EHESP, IRDES et CNAM.
-          </p>
-        </div>
+      <footer
+        className="px-6 sm:px-10 py-5 flex items-center justify-between"
+        style={{ borderTop: `1px solid ${MIST}` }}
+      >
+        <Image
+          src="/assets/logo/logoFondationMnh.png"
+          alt="Fondation MNH"
+          width={110}
+          height={32}
+          className="h-7 w-auto"
+        />
+        <p className="text-xs" style={{ color: NAVY, opacity: 0.35 }}>
+          Mutuelle Nationale des Hospitaliers — Données Inserm, EHESP, IRDES, CNAM
+        </p>
       </footer>
     </div>
   );
