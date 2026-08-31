@@ -5,11 +5,20 @@ import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import fs from "fs";
 import path from "path";
-import { getDb } from "@/lib/db";
 import { signSession, requireAdmin, requireSuperAdmin, SESSION_COOKIE } from "@/lib/auth";
 import { supabaseAdmin, supabasePublic, getUserById as getSupaUser, setUserRole } from "@/lib/supabase";
 import { analyzePublication, generateProposals, type Analysis } from "@/lib/ai";
 import { getContent, getPublication, getProposal, listContents, listProfessions, listThemes } from "@/lib/repo";
+
+/** Client Postgres (service_role). */
+function db() {
+  return supabaseAdmin();
+}
+
+function must<T>({ data, error }: { data: T | null; error: { message: string } | null }): T {
+  if (error) throw new Error(`Supabase : ${error.message}`);
+  return data as T;
+}
 
 // ---------- Authentification ----------
 export async function register(formData: FormData) {
@@ -100,19 +109,21 @@ function refreshPublic() {
   revalidatePath("/recherches/[slug]", "page");
 }
 
-function snapshotContent(contentId: number, reason: string, changedBy: string, publicationId?: number | null) {
-  const db = getDb();
-  const current = db.prepare("SELECT * FROM contents WHERE id = ?").get(contentId);
+async function snapshotContent(contentId: number, reason: string, changedBy: string, publicationId?: number | null) {
+  const current = must(await db().from("contents").select("*").eq("id", contentId))[0];
   if (!current) return;
-  db.prepare(
-    "INSERT INTO content_versions (content_id, snapshot, reason, changed_by, publication_id) VALUES (?, ?, ?, ?, ?)"
-  ).run(contentId, JSON.stringify(current), reason, changedBy, publicationId ?? null);
+  must(await db().from("content_versions").insert({
+    content_id: contentId,
+    snapshot: JSON.stringify(current),
+    reason,
+    changed_by: changedBy,
+    publication_id: publicationId ?? null,
+  }).select("id"));
 }
 
 // ---------- Professions ----------
 export async function saveProfession(formData: FormData) {
   await requireAdmin();
-  const db = getDb();
   const id = formData.get("id") ? Number(formData.get("id")) : null;
   const data = {
     slug: String(formData.get("slug") ?? "").trim(),
@@ -123,15 +134,8 @@ export async function saveProfession(formData: FormData) {
     archived: formData.get("archived") ? 1 : 0,
   };
   if (!data.slug || !data.name) redirect("/admin/professions?error=champs");
-  if (id) {
-    db.prepare(
-      "UPDATE professions SET slug=@slug, name=@name, short_desc=@short_desc, ordre=@ordre, visible=@visible, archived=@archived WHERE id=@id"
-    ).run({ ...data, id });
-  } else {
-    db.prepare(
-      "INSERT INTO professions (slug, name, short_desc, ordre, visible, archived) VALUES (@slug, @name, @short_desc, @ordre, @visible, @archived)"
-    ).run(data);
-  }
+  if (id) must(await db().from("professions").update(data).eq("id", id).select("id"));
+  else must(await db().from("professions").insert(data).select("id"));
   refreshPublic();
   revalidatePath("/admin/professions");
   redirect("/admin/professions");
@@ -140,7 +144,6 @@ export async function saveProfession(formData: FormData) {
 // ---------- Thématiques ----------
 export async function saveTheme(formData: FormData) {
   await requireAdmin();
-  const db = getDb();
   const id = formData.get("id") ? Number(formData.get("id")) : null;
   const data = {
     slug: String(formData.get("slug") ?? "").trim(),
@@ -150,15 +153,8 @@ export async function saveTheme(formData: FormData) {
     visible: formData.get("visible") ? 1 : 0,
   };
   if (!data.slug || !data.name) redirect("/admin/thematiques?error=champs");
-  if (id) {
-    db.prepare(
-      "UPDATE themes SET slug=@slug, name=@name, description=@description, ordre=@ordre, visible=@visible WHERE id=@id"
-    ).run({ ...data, id });
-  } else {
-    db.prepare(
-      "INSERT INTO themes (slug, name, description, ordre, visible) VALUES (@slug, @name, @description, @ordre, @visible)"
-    ).run(data);
-  }
+  if (id) must(await db().from("themes").update(data).eq("id", id).select("id"));
+  else must(await db().from("themes").insert(data).select("id"));
   refreshPublic();
   revalidatePath("/admin/thematiques");
   redirect("/admin/thematiques");
@@ -167,15 +163,9 @@ export async function saveTheme(formData: FormData) {
 // ---------- Contenus ----------
 export async function saveContent(formData: FormData) {
   const user = await requireAdmin();
-  const db = getDb();
   const id = Number(formData.get("id"));
-  snapshotContent(id, "Modification manuelle", user.email);
-  db.prepare(
-    `UPDATE contents SET theme_id=@theme_id, ordre=@ordre, display_theme_label=@display_theme_label, titre=@titre,
-       message_cle=@message_cle, dev_court=@dev_court, corps_web=@corps_web, nuance=@nuance, decideur=@decideur,
-       priorite=@priorite, statut=@statut, updated_at=datetime('now') WHERE id=@id`
-  ).run({
-    id,
+  await snapshotContent(id, "Modification manuelle", user.email);
+  must(await db().from("contents").update({
     theme_id: Number(formData.get("theme_id")),
     ordre: Number(formData.get("ordre") ?? 0),
     display_theme_label: String(formData.get("display_theme_label") ?? ""),
@@ -187,7 +177,8 @@ export async function saveContent(formData: FormData) {
     decideur: String(formData.get("decideur") ?? ""),
     priorite: String(formData.get("priorite") ?? ""),
     statut: String(formData.get("statut") ?? "publie"),
-  });
+    updated_at: new Date().toISOString(),
+  }).eq("id", id).select("id"));
   refreshPublic();
   revalidatePath(`/admin/contenus/${id}`);
   redirect(`/admin/contenus/${id}?saved=1`);
@@ -196,7 +187,6 @@ export async function saveContent(formData: FormData) {
 // ---------- Études ----------
 export async function saveStudy(formData: FormData) {
   await requireAdmin();
-  const db = getDb();
   const id = formData.get("id") ? Number(formData.get("id")) : null;
   const data = {
     slug: String(formData.get("slug") ?? "").trim(),
@@ -211,17 +201,8 @@ export async function saveStudy(formData: FormData) {
     statut: String(formData.get("statut") ?? "publie"),
   };
   if (!data.slug || !data.name) redirect("/admin/etudes?error=champs");
-  if (id) {
-    db.prepare(
-      `UPDATE studies SET slug=@slug, ref_num=@ref_num, name=@name, full_title=@full_title, team=@team, type=@type,
-       date_label=@date_label, resume=@resume, url=@url, statut=@statut WHERE id=@id`
-    ).run({ ...data, id });
-  } else {
-    db.prepare(
-      `INSERT INTO studies (slug, ref_num, name, full_title, team, type, date_label, resume, url, statut)
-       VALUES (@slug, @ref_num, @name, @full_title, @team, @type, @date_label, @resume, @url, @statut)`
-    ).run(data);
-  }
+  if (id) must(await db().from("studies").update(data).eq("id", id).select("id"));
+  else must(await db().from("studies").insert(data).select("id"));
   refreshPublic();
   revalidatePath("/admin/etudes");
   redirect("/admin/etudes");
@@ -230,13 +211,11 @@ export async function saveStudy(formData: FormData) {
 // ---------- Pages générales ----------
 export async function savePage(formData: FormData) {
   await requireAdmin();
-  const db = getDb();
   const id = Number(formData.get("id"));
-  db.prepare("UPDATE pages SET title=@title, body=@body WHERE id=@id").run({
-    id,
+  must(await db().from("pages").update({
     title: String(formData.get("title") ?? ""),
     body: String(formData.get("body") ?? ""),
-  });
+  }).eq("id", id).select("id"));
   refreshPublic();
   revalidatePath("/admin/pages");
   redirect(`/admin/pages/${id}?saved=1`);
@@ -245,7 +224,6 @@ export async function savePage(formData: FormData) {
 // ---------- Publications ----------
 export async function createPublication(formData: FormData) {
   await requireAdmin();
-  const db = getDb();
   const title = String(formData.get("title") ?? "").trim();
   const source_type = String(formData.get("source_type") ?? "manuel");
   const source_ref = String(formData.get("source_ref") ?? "").trim();
@@ -262,11 +240,12 @@ export async function createPublication(formData: FormData) {
     file_path = path.join("data", "uploads", safeName);
   }
 
-  const result = db.prepare(
-    "INSERT INTO publications (title, source_type, source_ref, raw_text, file_path) VALUES (?, ?, ?, ?, ?)"
-  ).run(title || source_ref || "Publication sans titre", source_type, source_ref, raw_text, file_path);
+  const inserted = must(await db().from("publications").insert({
+    title: title || source_ref || "Publication sans titre",
+    source_type, source_ref, raw_text, file_path,
+  }).select("id").single()) as { id: number };
   revalidatePath("/admin/publications");
-  redirect(`/admin/publications/${result.lastInsertRowid}`);
+  redirect(`/admin/publications/${inserted.id}`);
 }
 
 async function fetchUrlText(url: string): Promise<string> {
@@ -284,7 +263,7 @@ async function fetchUrlText(url: string): Promise<string> {
 export async function runAnalysis(formData: FormData) {
   await requireAdmin();
   const id = Number(formData.get("id"));
-  const pub = getPublication(id);
+  const pub = await getPublication(id);
   if (!pub) redirect("/admin/publications");
 
   const input: { rawText?: string; pdfBase64?: string; sourceRef?: string } = {};
@@ -305,8 +284,8 @@ export async function runAnalysis(formData: FormData) {
     redirect(`/admin/publications/${id}?error=${encodeURIComponent("Aucun contenu à analyser : collez le texte ou importez un PDF.")}`);
   }
 
-  const professions = listProfessions(true);
-  const themes = listThemes(true);
+  const professions = await listProfessions(true);
+  const themes = await listThemes(true);
   const structure = {
     professions: professions.map((p) => ({ slug: p.slug, name: p.name })),
     themes: themes.map((t) => ({ slug: t.slug, name: t.name, description: t.description })),
@@ -320,13 +299,14 @@ export async function runAnalysis(formData: FormData) {
     return;
   }
 
-  const db = getDb();
-  db.prepare("UPDATE publications SET analysis = ?, title = ?, statut = 'analysee' WHERE id = ?").run(
-    JSON.stringify(analysis), analysis.titre || pub.title, id
-  );
+  must(await db().from("publications").update({
+    analysis: JSON.stringify(analysis),
+    title: analysis.titre || pub.title,
+    statut: "analysee",
+  }).eq("id", id).select("id"));
 
   // Comparaison avec les fiches existantes des professions × thématiques concernées
-  const allContents = listContents();
+  const allContents = await listContents();
   const concerned = allContents.filter(
     (c) => analysis.professions_concernees.includes(c.profession_slug) || analysis.themes_concernes.includes(c.theme_slug)
   );
@@ -341,26 +321,26 @@ export async function runAnalysis(formData: FormData) {
     const profBySlug = new Map(professions.map((p) => [p.slug, p.id]));
     const themeBySlug = new Map(themes.map((t) => [t.slug, t.id]));
     // Une relance d'analyse remplace les propositions encore en attente
-    db.prepare("DELETE FROM proposals WHERE publication_id = ? AND statut = 'en_attente'").run(id);
-    const insert = db.prepare(
-      `INSERT INTO proposals (publication_id, content_id, profession_id, theme_id, kind, titre, current_text, proposed_text, rationale, source_excerpt)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
-    );
+    must(await db().from("proposals").delete().eq("publication_id", id).eq("statut", "en_attente").select("id"));
+    const rows = [];
     for (const p of proposals) {
       let contentId = p.content_id;
       let current = "";
       if (contentId) {
-        const c = getContent(contentId);
+        const c = await getContent(contentId);
         if (c) current = c.corps_web;
         else contentId = null;
       }
-      insert.run(
-        id, contentId,
-        p.profession_slug ? profBySlug.get(p.profession_slug) ?? null : null,
-        p.theme_slug ? themeBySlug.get(p.theme_slug) ?? null : null,
-        p.kind, p.titre, current, p.proposed_text, p.rationale, p.source_excerpt
-      );
+      rows.push({
+        publication_id: id,
+        content_id: contentId,
+        profession_id: p.profession_slug ? profBySlug.get(p.profession_slug) ?? null : null,
+        theme_id: p.theme_slug ? themeBySlug.get(p.theme_slug) ?? null : null,
+        kind: p.kind, titre: p.titre, current_text: current, proposed_text: p.proposed_text,
+        rationale: p.rationale, source_excerpt: p.source_excerpt,
+      });
     }
+    if (rows.length > 0) must(await db().from("proposals").insert(rows).select("id"));
   } catch (e) {
     redirect(`/admin/publications/${id}?error=${encodeURIComponent(e instanceof Error ? e.message : "Erreur lors de la génération des propositions")}`);
   }
@@ -372,40 +352,47 @@ export async function runAnalysis(formData: FormData) {
 /** Validation humaine (brief §13, §16) : accepter / modifier / refuser une proposition IA. */
 export async function decideProposal(formData: FormData) {
   const user = await requireAdmin();
-  const db = getDb();
   const proposalId = Number(formData.get("proposal_id"));
   const decision = String(formData.get("decision"));
   const editedText = String(formData.get("edited_text") ?? "").trim();
-  const proposal = getProposal(proposalId);
+  const proposal = await getProposal(proposalId);
   if (!proposal) {
     redirect("/admin/publications");
     return;
   }
   const pubId = proposal.publication_id;
+  const now = new Date().toISOString();
 
   if (decision === "refuser") {
-    db.prepare("UPDATE proposals SET statut='refuse', decided_by=?, decided_at=datetime('now') WHERE id=?").run(user.email, proposalId);
+    must(await db().from("proposals").update({ statut: "refuse", decided_by: user.email, decided_at: now }).eq("id", proposalId).select("id"));
   } else if (decision === "accepter") {
     const finalText = editedText || proposal.proposed_text;
     const statut = editedText && editedText !== proposal.proposed_text ? "modifie" : "accepte";
     if (proposal.kind === "enrichissement" && proposal.content_id) {
-      snapshotContent(proposal.content_id, `Enrichissement via publication #${pubId}`, user.email, pubId);
-      db.prepare("UPDATE contents SET corps_web = ?, updated_at = datetime('now') WHERE id = ?").run(finalText, proposal.content_id);
+      await snapshotContent(proposal.content_id, `Enrichissement via publication #${pubId}`, user.email, pubId);
+      must(await db().from("contents").update({ corps_web: finalText, updated_at: now }).eq("id", proposal.content_id).select("id"));
     } else if (proposal.kind === "nouvelle_information" && proposal.profession_id && proposal.theme_id) {
-      const maxOrdre = (db.prepare("SELECT COALESCE(MAX(ordre), 0) AS m FROM contents WHERE profession_id = ?").get(proposal.profession_id) as { m: number }).m;
-      const theme = db.prepare("SELECT name FROM themes WHERE id = ?").get(proposal.theme_id) as { name: string } | undefined;
-      const result = db.prepare(
-        `INSERT INTO contents (profession_id, theme_id, ordre, display_theme_label, titre, corps_web, statut)
-         VALUES (?, ?, ?, ?, ?, ?, 'publie')`
-      ).run(proposal.profession_id, proposal.theme_id, maxOrdre + 1, theme?.name ?? "", proposal.titre, finalText);
-      snapshotContent(Number(result.lastInsertRowid), `Création via publication #${pubId}`, user.email, pubId);
+      const existing = must(await db().from("contents").select("ordre").eq("profession_id", proposal.profession_id)) as Array<{ ordre: number }>;
+      const maxOrdre = existing.reduce((m, r) => Math.max(m, r.ordre), 0);
+      const theme = must(await db().from("themes").select("name").eq("id", proposal.theme_id))[0] as { name: string } | undefined;
+      const inserted = must(await db().from("contents").insert({
+        profession_id: proposal.profession_id,
+        theme_id: proposal.theme_id,
+        ordre: maxOrdre + 1,
+        display_theme_label: theme?.name ?? "",
+        titre: proposal.titre,
+        corps_web: finalText,
+        statut: "publie",
+      }).select("id").single()) as { id: number };
+      await snapshotContent(inserted.id, `Création via publication #${pubId}`, user.email, pubId);
     }
-    db.prepare("UPDATE proposals SET statut=?, proposed_text=?, decided_by=?, decided_at=datetime('now') WHERE id=?").run(statut, finalText, user.email, proposalId);
+    must(await db().from("proposals").update({ statut, proposed_text: finalText, decided_by: user.email, decided_at: now }).eq("id", proposalId).select("id"));
   }
 
   // Si plus aucune proposition en attente, la publication passe en statut « intégrée »
-  const pending = (db.prepare("SELECT COUNT(*) AS n FROM proposals WHERE publication_id = ? AND statut = 'en_attente'").get(pubId) as { n: number }).n;
-  if (pending === 0) db.prepare("UPDATE publications SET statut = 'integree' WHERE id = ?").run(pubId);
+  const { count } = await db().from("proposals").select("*", { count: "exact", head: true })
+    .eq("publication_id", pubId).eq("statut", "en_attente");
+  if ((count ?? 0) === 0) must(await db().from("publications").update({ statut: "integree" }).eq("id", pubId).select("id"));
 
   refreshPublic();
   revalidatePath(`/admin/publications/${pubId}`);

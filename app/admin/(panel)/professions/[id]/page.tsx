@@ -8,9 +8,9 @@ export const dynamic = "force-dynamic";
 
 export default async function EditProfession({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const profession = getProfessionById(Number(id));
+  const profession = await getProfessionById(Number(id));
   if (!profession) notFound();
-  const contents = contentsForProfession(profession.id, false);
+  const contents = await contentsForProfession(profession.id, false);
   return (
     <>
       <AdminHead

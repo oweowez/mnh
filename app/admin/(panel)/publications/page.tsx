@@ -1,6 +1,6 @@
 import Link from "next/link";
 import AdminHead from "@/components/AdminHead";
-import { listPublications, proposalsForPublication } from "@/lib/repo";
+import { listPublications, listProposals } from "@/lib/repo";
 
 export const dynamic = "force-dynamic";
 
@@ -10,8 +10,9 @@ const STATUT: Record<string, { label: string; cls: string }> = {
   integree: { label: "Intégrée", cls: "badge-ok" },
 };
 
-export default function AdminPublications() {
-  const publications = listPublications();
+export default async function AdminPublications() {
+  const publications = await listPublications();
+  const allProposals = await listProposals();
   return (
     <>
       <AdminHead
@@ -31,7 +32,7 @@ export default function AdminPublications() {
           <thead><tr><th>Titre</th><th>Source</th><th>Statut</th><th>Propositions</th><th className="cell-muted">Ajoutée le</th></tr></thead>
           <tbody>
             {publications.map((p) => {
-              const props = proposalsForPublication(p.id);
+              const props = allProposals.filter((x) => x.publication_id === p.id);
               const pending = props.filter((x) => x.statut === "en_attente").length;
               const st = STATUT[p.statut] ?? { label: p.statut, cls: "badge-info" };
               return (
@@ -40,7 +41,7 @@ export default function AdminPublications() {
                   <td className="cell-muted">{p.source_type}{p.file_path ? " · PDF" : ""}</td>
                   <td><span className={`badge ${st.cls}`}>{st.label}</span></td>
                   <td>{props.length > 0 ? <>{props.length}{pending > 0 && <span className="badge badge-attente" style={{ marginLeft: 8 }}>{pending} en attente</span>}</> : "—"}</td>
-                  <td className="cell-muted">{p.created_at.slice(0, 16)}</td>
+                  <td className="cell-muted">{p.created_at.slice(0, 16).replace("T", " ")}</td>
                 </tr>
               );
             })}

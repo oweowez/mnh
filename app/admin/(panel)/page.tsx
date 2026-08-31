@@ -4,12 +4,12 @@ import { dashboardStats, coverageGaps, weaklySourcedContents, listPublications, 
 
 export const dynamic = "force-dynamic";
 
-export default function AdminDashboard() {
-  const stats = dashboardStats();
-  const gaps = coverageGaps();
-  const weak = weaklySourcedContents();
-  const toAnalyze = listPublications().filter((p) => p.statut === "nouvelle");
-  const versions = recentVersions(6);
+export default async function AdminDashboard() {
+  const stats = await dashboardStats();
+  const gaps = await coverageGaps();
+  const weak = await weaklySourcedContents();
+  const toAnalyze = (await listPublications()).filter((p) => p.statut === "nouvelle");
+  const versions = await recentVersions(6);
   return (
     <>
       <AdminHead title="Tableau de bord" sub="Vue d'ensemble de la base de connaissances.">
@@ -75,7 +75,7 @@ export default function AdminDashboard() {
                       <div className="cell-muted">{v.reason}</div>
                     </td>
                     <td className="cell-muted" style={{ whiteSpace: "nowrap", textAlign: "right" }}>
-                      {v.changed_by}<br />{v.created_at.slice(0, 16)}
+                      {v.changed_by}<br />{v.created_at.slice(0, 16).replace("T", " ")}
                     </td>
                   </tr>
                 ))}

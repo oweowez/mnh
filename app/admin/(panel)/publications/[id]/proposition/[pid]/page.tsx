@@ -10,11 +10,11 @@ export const dynamic = "force-dynamic";
 
 export default async function ProposalPage({ params }: { params: Promise<{ id: string; pid: string }> }) {
   const { id, pid } = await params;
-  const pub = getPublication(Number(id));
-  const proposal = getProposal(Number(pid));
+  const pub = await getPublication(Number(id));
+  const proposal = await getProposal(Number(pid));
   if (!pub || !proposal || proposal.publication_id !== pub.id) notFound();
   const kind = KIND_LABELS[proposal.kind] ?? { label: proposal.kind, icon: "•" };
-  const content = proposal.content_id ? getContent(proposal.content_id) : null;
+  const content = proposal.content_id ? await getContent(proposal.content_id) : null;
   const decided = proposal.statut !== "en_attente";
 
   return (

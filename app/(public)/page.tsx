@@ -4,10 +4,10 @@ import { listProfessions, listStudies, getPage } from "@/lib/repo";
 
 export const dynamic = "force-dynamic";
 
-export default function HomePage() {
-  const professions = listProfessions();
-  const studies = listStudies();
-  const intro = getPage("accueil");
+export default async function HomePage() {
+  const professions = await listProfessions();
+  const studies = await listStudies();
+  const intro = await getPage("accueil");
   return (
     <>
       <section className="hero">

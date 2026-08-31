@@ -13,9 +13,13 @@ export default async function PublicationDetail({
 }: { params: Promise<{ id: string }>; searchParams: Promise<{ error?: string }> }) {
   const { id } = await params;
   const { error } = await searchParams;
-  const pub = getPublication(Number(id));
+  const pub = await getPublication(Number(id));
   if (!pub) notFound();
-  const proposals = proposalsForPublication(pub.id);
+  const proposals = await proposalsForPublication(pub.id);
+  const contentIds = [...new Set(proposals.map((p) => p.content_id).filter((x): x is number => x !== null))];
+  const contentsById = new Map(
+    (await Promise.all(contentIds.map((cid) => getContent(cid)))).filter(Boolean).map((c) => [c!.id, c!])
+  );
   const pending = proposals.filter((p) => p.statut === "en_attente").length;
   const analysis: Analysis | null = pub.analysis ? JSON.parse(pub.analysis) : null;
 
@@ -97,7 +101,7 @@ export default async function PublicationDetail({
               <tbody>
                 {proposals.map((p) => {
                   const kind = KIND_LABELS[p.kind] ?? { label: p.kind, icon: "•" };
-                  const content = p.content_id ? getContent(p.content_id) : null;
+                  const content = p.content_id ? contentsById.get(p.content_id) ?? null : null;
                   return (
                     <tr key={p.id}>
                       <td style={{ width: 200 }}>{kind.icon} <strong>{kind.label}</strong></td>

@@ -8,10 +8,10 @@ export const dynamic = "force-dynamic";
 
 export default async function EditStudy({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const study = getStudyById(Number(id));
+  const study = await getStudyById(Number(id));
   if (!study) notFound();
-  const professions = professionsForStudy(study.id);
-  const themes = themesForStudy(study.id);
+  const professions = await professionsForStudy(study.id);
+  const themes = await themesForStudy(study.id);
   return (
     <>
       <AdminHead

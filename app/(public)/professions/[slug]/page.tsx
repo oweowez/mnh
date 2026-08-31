@@ -2,16 +2,17 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import ContentBlock from "@/components/ContentBlock";
 import RefBadges from "@/components/RefBadges";
-import { getProfession, contentsForProfession, refsForContent, studiesForProfession } from "@/lib/repo";
+import { getProfession, contentsForProfession, refsMapForContents, studiesForProfession } from "@/lib/repo";
 
 export const dynamic = "force-dynamic";
 
 export default async function ProfessionPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const profession = getProfession(slug);
+  const profession = await getProfession(slug);
   if (!profession || !profession.visible || profession.archived) notFound();
-  const contents = contentsForProfession(profession.id);
-  const studies = studiesForProfession(profession.id);
+  const contents = await contentsForProfession(profession.id);
+  const refsMap = await refsMapForContents(contents.map((c) => c.id));
+  const studies = await studiesForProfession(profession.id);
   return (
     <>
       <div className="page-head">
@@ -29,7 +30,7 @@ export default async function ProfessionPage({ params }: { params: Promise<{ slu
           la nuance scientifique et les points de vigilance pour l&apos;établissement.
         </p>
         {contents.map((c, i) => (
-          <ContentBlock key={c.id} content={c} refs={refsForContent(c.id)} open={i === 0} />
+          <ContentBlock key={c.id} content={c} refs={refsMap[c.id] ?? []} open={i === 0} />
         ))}
         <div style={{ marginTop: 36 }}>
           <RefBadges studies={studies} label="Travaux mobilisés pour cette profession" />

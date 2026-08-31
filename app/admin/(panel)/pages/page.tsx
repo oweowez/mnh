@@ -14,8 +14,8 @@ const WHERE: Record<string, string> = {
   prudence: "Comprendre — encart « Prudence »",
 };
 
-export default function AdminPages() {
-  const pages = listPages();
+export default async function AdminPages() {
+  const pages = await listPages();
   return (
     <>
       <AdminHead title="Pages générales" sub="Les contenus transversaux affichés sur l'accueil et la page « Comprendre les enjeux »." />

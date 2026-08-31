@@ -4,8 +4,8 @@ import { listStudies } from "@/lib/repo";
 
 export const dynamic = "force-dynamic";
 
-export default function AdminStudies() {
-  const studies = listStudies(false);
+export default async function AdminStudies() {
+  const studies = await listStudies(false);
   return (
     <>
       <AdminHead title="Études & projets" sub="La bibliothèque des travaux : chaque étude est un objet indépendant, relié aux professions et thématiques via les contenus.">

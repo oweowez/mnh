@@ -4,9 +4,9 @@ import { listThemes, contentCountByTheme } from "@/lib/repo";
 
 export const dynamic = "force-dynamic";
 
-export default function AdminThemes() {
-  const themes = listThemes(true);
-  const counts = contentCountByTheme();
+export default async function AdminThemes() {
+  const themes = await listThemes(true);
+  const counts = await contentCountByTheme();
   return (
     <>
       <AdminHead

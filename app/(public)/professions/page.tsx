@@ -4,8 +4,8 @@ import { listProfessions } from "@/lib/repo";
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Explorer par profession — Fondation MNH" };
 
-export default function ProfessionsPage() {
-  const professions = listProfessions();
+export default async function ProfessionsPage() {
+  const professions = await listProfessions();
   return (
     <>
       <div className="page-head">

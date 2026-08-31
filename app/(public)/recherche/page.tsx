@@ -6,7 +6,7 @@ export const metadata = { title: "Rechercher — Fondation MNH" };
 
 export default async function SearchPage({ searchParams }: { searchParams: Promise<{ q?: string }> }) {
   const { q } = await searchParams;
-  const results = q && q.trim().length >= 2 ? search(q.trim()) : null;
+  const results = q && q.trim().length >= 2 ? await search(q.trim()) : null;
   return (
     <>
       <div className="page-head">

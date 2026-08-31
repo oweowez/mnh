@@ -8,9 +8,9 @@ export const dynamic = "force-dynamic";
 
 export default async function EditTheme({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const theme = getThemeById(Number(id));
+  const theme = await getThemeById(Number(id));
   if (!theme) notFound();
-  const contents = contentsForTheme(theme.id);
+  const contents = await contentsForTheme(theme.id);
   return (
     <>
       <AdminHead

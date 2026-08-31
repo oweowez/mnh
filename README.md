@@ -12,10 +12,14 @@ cp .env.example .env      # renseigner ANTHROPIC_API_KEY et AUTH_SECRET
 npm run dev               # http://localhost:3100
 ```
 
-Au premier démarrage, la base SQLite (`data/mnh.db`) est créée et **seedée automatiquement**
-depuis `data/seed.json` (généré par `scripts/build-seed.py` à partir de l'Excel
-« Base éditoriale 8 groupes » et du document général : 8 professions, 10 thématiques
-canoniques, 56 contenus, 14 études, pages transversales).
+Les données éditoriales vivent dans **Supabase Postgres** (tables verrouillées par RLS,
+accès serveur uniquement via la clé `service_role`). Pour initialiser un projet Supabase neuf :
+
+1. exécuter `supabase/schema.sql` (SQL Editor ou psql) ;
+2. lancer `node scripts/migrate-to-supabase.mjs` — source : `data/mnh.db` si présent,
+   sinon `data/seed.json` (généré par `scripts/build-seed.py` depuis l'Excel
+   « Base éditoriale 8 groupes » : 8 professions, 10 thématiques canoniques,
+   56 contenus, 14 études, pages transversales).
 
 ## Espaces
 
@@ -58,11 +62,13 @@ Garde-fous scientifiques (brief §18) codés dans les prompts (`lib/ai.ts`) :
 résultat transversal jamais attribué à une profession, association ≠ causalité,
 « non précisé » plutôt qu'inventer.
 
-## Modèle de données (SQLite, `lib/db.ts`)
+## Modèle de données (Supabase Postgres — `supabase/schema.sql`, accès via `lib/repo.ts`)
 
 `professions`, `themes` (taxonomie canonique + libellé d'affichage par fiche),
 `contents` (profession × thématique), `studies`, `content_refs`, `study_professions`,
-`study_themes`, `pages`, `publications`, `proposals`, `content_versions`.
+`study_themes`, `pages`, `publications`, `proposals`, `content_versions`
++ vues `v_contents_full` et `v_recent_versions`. RLS activé sans policy :
+seule la clé serveur accède aux données ; l'app rend les pages côté serveur.
 
 Rien n'est codé en dur : professions et thématiques s'ajoutent depuis l'admin (brief §6).
 

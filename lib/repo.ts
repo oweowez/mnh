@@ -1,4 +1,14 @@
-import { getDb } from "./db";
+import { supabaseAdmin } from "./supabase";
+
+/** Client Postgres serveur (service_role — les tables sont verrouillées par RLS). */
+function db() {
+  return supabaseAdmin();
+}
+
+function must<T>({ data, error }: { data: T | null; error: { message: string } | null }): T {
+  if (error) throw new Error(`Supabase : ${error.message}`);
+  return data as T;
+}
 
 export interface Profession {
   id: number; slug: string; name: string; short_desc: string;
@@ -17,7 +27,9 @@ export interface Content {
   corps_web: string; nuance: string; decideur: string; priorite: string; statut: string; updated_at: string;
 }
 export interface ContentFull extends Content {
-  profession_slug: string; profession_name: string; theme_slug: string; theme_name: string;
+  profession_slug: string; profession_name: string; profession_ordre: number;
+  profession_visible: number; profession_archived: number;
+  theme_slug: string; theme_name: string;
 }
 export interface Publication {
   id: number; title: string; source_type: string; source_ref: string; raw_text: string;
@@ -29,211 +41,252 @@ export interface Proposal {
   rationale: string; source_excerpt: string; statut: string; decided_by: string; decided_at: string; created_at: string;
 }
 export interface Page { id: number; slug: string; title: string; body: string; }
-
-// ---------- Public ----------
-export function listProfessions(includeHidden = false): Profession[] {
-  const where = includeHidden ? "archived = 0" : "visible = 1 AND archived = 0";
-  return getDb().prepare(`SELECT * FROM professions WHERE ${where} ORDER BY ordre`).all() as Profession[];
-}
-export function getProfession(slug: string): Profession | undefined {
-  return getDb().prepare("SELECT * FROM professions WHERE slug = ?").get(slug) as Profession | undefined;
-}
-export function listThemes(includeHidden = false): Theme[] {
-  const where = includeHidden ? "1=1" : "visible = 1";
-  return getDb().prepare(`SELECT * FROM themes WHERE ${where} ORDER BY ordre`).all() as Theme[];
-}
-export function getTheme(slug: string): Theme | undefined {
-  return getDb().prepare("SELECT * FROM themes WHERE slug = ?").get(slug) as Theme | undefined;
-}
-export function contentsForProfession(professionId: number, publishedOnly = true): ContentFull[] {
-  return getDb().prepare(
-    `SELECT c.*, p.slug AS profession_slug, p.name AS profession_name, t.slug AS theme_slug, t.name AS theme_name
-     FROM contents c JOIN professions p ON p.id = c.profession_id JOIN themes t ON t.id = c.theme_id
-     WHERE c.profession_id = ? ${publishedOnly ? "AND c.statut = 'publie'" : ""} ORDER BY c.ordre`
-  ).all(professionId) as ContentFull[];
-}
-export function contentsForTheme(themeId: number): ContentFull[] {
-  return getDb().prepare(
-    `SELECT c.*, p.slug AS profession_slug, p.name AS profession_name, t.slug AS theme_slug, t.name AS theme_name
-     FROM contents c JOIN professions p ON p.id = c.profession_id JOIN themes t ON t.id = c.theme_id
-     WHERE c.theme_id = ? AND c.statut = 'publie' AND p.visible = 1 AND p.archived = 0 ORDER BY p.ordre`
-  ).all(themeId) as ContentFull[];
-}
-export function getContent(id: number): ContentFull | undefined {
-  return getDb().prepare(
-    `SELECT c.*, p.slug AS profession_slug, p.name AS profession_name, t.slug AS theme_slug, t.name AS theme_name
-     FROM contents c JOIN professions p ON p.id = c.profession_id JOIN themes t ON t.id = c.theme_id WHERE c.id = ?`
-  ).get(id) as ContentFull | undefined;
-}
-export function listContents(): ContentFull[] {
-  return getDb().prepare(
-    `SELECT c.*, p.slug AS profession_slug, p.name AS profession_name, t.slug AS theme_slug, t.name AS theme_name
-     FROM contents c JOIN professions p ON p.id = c.profession_id JOIN themes t ON t.id = c.theme_id
-     ORDER BY p.ordre, c.ordre`
-  ).all() as ContentFull[];
-}
-export function refsForContent(contentId: number): Study[] {
-  return getDb().prepare(
-    `SELECT s.* FROM studies s JOIN content_refs r ON r.study_id = s.id WHERE r.content_id = ? ORDER BY s.ref_num`
-  ).all(contentId) as Study[];
-}
-export function listStudies(publishedOnly = true): Study[] {
-  return getDb().prepare(
-    `SELECT * FROM studies ${publishedOnly ? "WHERE statut != 'archive'" : ""} ORDER BY ref_num, name`
-  ).all() as Study[];
-}
-export function getStudy(slug: string): Study | undefined {
-  return getDb().prepare("SELECT * FROM studies WHERE slug = ?").get(slug) as Study | undefined;
-}
-export function getStudyById(id: number): Study | undefined {
-  return getDb().prepare("SELECT * FROM studies WHERE id = ?").get(id) as Study | undefined;
-}
-export function professionsForStudy(studyId: number): Profession[] {
-  return getDb().prepare(
-    `SELECT p.* FROM professions p JOIN study_professions sp ON sp.profession_id = p.id
-     WHERE sp.study_id = ? AND p.visible = 1 ORDER BY p.ordre`
-  ).all(studyId) as Profession[];
-}
-export function themesForStudy(studyId: number): Theme[] {
-  return getDb().prepare(
-    `SELECT t.* FROM themes t JOIN study_themes st ON st.theme_id = t.id
-     WHERE st.study_id = ? ORDER BY t.ordre`
-  ).all(studyId) as Theme[];
-}
-export function studiesForProfession(professionId: number): Study[] {
-  return getDb().prepare(
-    `SELECT s.* FROM studies s JOIN study_professions sp ON sp.study_id = s.id
-     WHERE sp.profession_id = ? ORDER BY s.ref_num`
-  ).all(professionId) as Study[];
-}
-export function studiesForTheme(themeId: number): Study[] {
-  return getDb().prepare(
-    `SELECT s.* FROM studies s JOIN study_themes st ON st.study_id = s.id
-     WHERE st.theme_id = ? ORDER BY s.ref_num`
-  ).all(themeId) as Study[];
-}
-export function getPage(slug: string): Page | undefined {
-  return getDb().prepare("SELECT * FROM pages WHERE slug = ?").get(slug) as Page | undefined;
-}
-export function listPages(): Page[] {
-  return getDb().prepare("SELECT * FROM pages ORDER BY id").all() as Page[];
+export interface ContentVersion {
+  id: number; content_id: number; snapshot: string; reason: string;
+  changed_by: string; publication_id: number | null; created_at: string;
 }
 
+// ---------- Professions & thématiques ----------
+export async function listProfessions(includeHidden = false): Promise<Profession[]> {
+  let q = db().from("professions").select("*").eq("archived", 0).order("ordre");
+  if (!includeHidden) q = q.eq("visible", 1);
+  return must<Profession[]>(await q);
+}
+export async function getProfession(slug: string): Promise<Profession | undefined> {
+  return must<Profession[]>(await db().from("professions").select("*").eq("slug", slug))[0];
+}
+export async function getProfessionById(id: number): Promise<Profession | undefined> {
+  return must<Profession[]>(await db().from("professions").select("*").eq("id", id))[0];
+}
+export async function listThemes(includeHidden = false): Promise<Theme[]> {
+  let q = db().from("themes").select("*").order("ordre");
+  if (!includeHidden) q = q.eq("visible", 1);
+  return must<Theme[]>(await q);
+}
+export async function getTheme(slug: string): Promise<Theme | undefined> {
+  return must<Theme[]>(await db().from("themes").select("*").eq("slug", slug))[0];
+}
+export async function getThemeById(id: number): Promise<Theme | undefined> {
+  return must<Theme[]>(await db().from("themes").select("*").eq("id", id))[0];
+}
+
+// ---------- Contenus ----------
+export async function contentsForProfession(professionId: number, publishedOnly = true): Promise<ContentFull[]> {
+  let q = db().from("v_contents_full").select("*").eq("profession_id", professionId).order("ordre");
+  if (publishedOnly) q = q.eq("statut", "publie");
+  return must<ContentFull[]>(await q);
+}
+export async function contentsForTheme(themeId: number): Promise<ContentFull[]> {
+  return must<ContentFull[]>(
+    await db().from("v_contents_full").select("*")
+      .eq("theme_id", themeId).eq("statut", "publie")
+      .eq("profession_visible", 1).eq("profession_archived", 0)
+      .order("profession_ordre")
+  );
+}
+export async function getContent(id: number): Promise<ContentFull | undefined> {
+  return must<ContentFull[]>(await db().from("v_contents_full").select("*").eq("id", id))[0];
+}
+export async function listContents(): Promise<ContentFull[]> {
+  return must<ContentFull[]>(
+    await db().from("v_contents_full").select("*").order("profession_ordre").order("ordre")
+  );
+}
+
+// ---------- Références contenu ↔ étude ----------
+interface RefRow { content_id: number; study: Study }
+export async function refsForContent(contentId: number): Promise<Study[]> {
+  const rows = must<RefRow[]>(
+    await db().from("content_refs").select("content_id, study:studies(*)").eq("content_id", contentId) as never
+  );
+  return rows.map((r) => r.study).sort((a, b) => (a.ref_num ?? 99) - (b.ref_num ?? 99));
+}
+/** Toutes les références d'un lot de contenus en une requête (pages profession / thématique). */
+export async function refsMapForContents(contentIds: number[]): Promise<Record<number, Study[]>> {
+  if (contentIds.length === 0) return {};
+  const rows = must<RefRow[]>(
+    await db().from("content_refs").select("content_id, study:studies(*)").in("content_id", contentIds) as never
+  );
+  const map: Record<number, Study[]> = {};
+  for (const r of rows) (map[r.content_id] ??= []).push(r.study);
+  for (const list of Object.values(map)) list.sort((a, b) => (a.ref_num ?? 99) - (b.ref_num ?? 99));
+  return map;
+}
+
+// ---------- Études ----------
+export async function listStudies(publishedOnly = true): Promise<Study[]> {
+  let q = db().from("studies").select("*").order("ref_num", { nullsFirst: false }).order("name");
+  if (publishedOnly) q = q.neq("statut", "archive");
+  return must<Study[]>(await q);
+}
+export async function getStudy(slug: string): Promise<Study | undefined> {
+  return must<Study[]>(await db().from("studies").select("*").eq("slug", slug))[0];
+}
+export async function getStudyById(id: number): Promise<Study | undefined> {
+  return must<Study[]>(await db().from("studies").select("*").eq("id", id))[0];
+}
+export async function professionsForStudy(studyId: number): Promise<Profession[]> {
+  const rows = must<Array<{ profession: Profession }>>(
+    await db().from("study_professions").select("profession:professions(*)").eq("study_id", studyId) as never
+  );
+  return rows.map((r) => r.profession).filter((p) => p.visible === 1).sort((a, b) => a.ordre - b.ordre);
+}
+export async function themesForStudy(studyId: number): Promise<Theme[]> {
+  const rows = must<Array<{ theme: Theme }>>(
+    await db().from("study_themes").select("theme:themes(*)").eq("study_id", studyId) as never
+  );
+  return rows.map((r) => r.theme).sort((a, b) => a.ordre - b.ordre);
+}
+export async function studiesForProfession(professionId: number): Promise<Study[]> {
+  const rows = must<Array<{ study: Study }>>(
+    await db().from("study_professions").select("study:studies(*)").eq("profession_id", professionId) as never
+  );
+  return rows.map((r) => r.study).sort((a, b) => (a.ref_num ?? 99) - (b.ref_num ?? 99));
+}
+export async function studiesForTheme(themeId: number): Promise<Study[]> {
+  const rows = must<Array<{ study: Study }>>(
+    await db().from("study_themes").select("study:studies(*)").eq("theme_id", themeId) as never
+  );
+  return rows.map((r) => r.study).sort((a, b) => (a.ref_num ?? 99) - (b.ref_num ?? 99));
+}
+
+// ---------- Pages générales ----------
+export async function getPage(slug: string): Promise<Page | undefined> {
+  return must<Page[]>(await db().from("pages").select("*").eq("slug", slug))[0];
+}
+export async function listPages(): Promise<Page[]> {
+  return must<Page[]>(await db().from("pages").select("*").order("id"));
+}
+export async function getPageById(id: number): Promise<Page | undefined> {
+  return must<Page[]>(await db().from("pages").select("*").eq("id", id))[0];
+}
+
+// ---------- Recherche ----------
 export interface SearchResults {
   contents: ContentFull[];
   studies: Study[];
   professions: Profession[];
   themes: Theme[];
 }
-export function search(q: string): SearchResults {
-  const like = `%${q}%`;
-  const db = getDb();
+export async function search(q: string): Promise<SearchResults> {
+  const safe = q.replace(/[,%()]/g, " ").trim();
+  const like = `%${safe}%`;
+  const [contents, studies, professions, themes] = await Promise.all([
+    db().from("v_contents_full").select("*").eq("statut", "publie")
+      .or(`titre.ilike.${like},corps_web.ilike.${like},message_cle.ilike.${like},decideur.ilike.${like}`)
+      .order("profession_ordre").order("ordre").limit(30),
+    db().from("studies").select("*")
+      .or(`name.ilike.${like},full_title.ilike.${like},resume.ilike.${like},team.ilike.${like}`).limit(20),
+    db().from("professions").select("*").eq("visible", 1).ilike("name", like).limit(10),
+    db().from("themes").select("*").or(`name.ilike.${like},description.ilike.${like}`).limit(10),
+  ]);
   return {
-    contents: db.prepare(
-      `SELECT c.*, p.slug AS profession_slug, p.name AS profession_name, t.slug AS theme_slug, t.name AS theme_name
-       FROM contents c JOIN professions p ON p.id = c.profession_id JOIN themes t ON t.id = c.theme_id
-       WHERE c.statut = 'publie' AND (c.titre LIKE ? OR c.corps_web LIKE ? OR c.message_cle LIKE ? OR c.decideur LIKE ?)
-       ORDER BY p.ordre, c.ordre LIMIT 30`
-    ).all(like, like, like, like) as ContentFull[],
-    studies: db.prepare(
-      `SELECT * FROM studies WHERE name LIKE ? OR full_title LIKE ? OR resume LIKE ? OR team LIKE ? LIMIT 20`
-    ).all(like, like, like, like) as Study[],
-    professions: db.prepare(`SELECT * FROM professions WHERE name LIKE ? AND visible = 1 LIMIT 10`).all(like) as Profession[],
-    themes: db.prepare(`SELECT * FROM themes WHERE name LIKE ? OR description LIKE ? LIMIT 10`).all(like, like) as Theme[],
+    contents: must<ContentFull[]>(contents),
+    studies: must<Study[]>(studies),
+    professions: must<Profession[]>(professions),
+    themes: must<Theme[]>(themes),
   };
 }
 
-// ---------- Admin : publications & propositions ----------
-export function listPublications(): Publication[] {
-  return getDb().prepare("SELECT * FROM publications ORDER BY id DESC").all() as Publication[];
+// ---------- Publications & propositions ----------
+export async function listPublications(): Promise<Publication[]> {
+  return must<Publication[]>(await db().from("publications").select("*").order("id", { ascending: false }));
 }
-export function getPublication(id: number): Publication | undefined {
-  return getDb().prepare("SELECT * FROM publications WHERE id = ?").get(id) as Publication | undefined;
+export async function getPublication(id: number): Promise<Publication | undefined> {
+  return must<Publication[]>(await db().from("publications").select("*").eq("id", id))[0];
 }
-export function proposalsForPublication(pubId: number): Proposal[] {
-  return getDb().prepare("SELECT * FROM proposals WHERE publication_id = ? ORDER BY id").all(pubId) as Proposal[];
+export async function listProposals(): Promise<Proposal[]> {
+  return must<Proposal[]>(await db().from("proposals").select("*").order("id"));
 }
-export function getProposal(id: number): Proposal | undefined {
-  return getDb().prepare("SELECT * FROM proposals WHERE id = ?").get(id) as Proposal | undefined;
+export async function proposalsForPublication(pubId: number): Promise<Proposal[]> {
+  return must<Proposal[]>(await db().from("proposals").select("*").eq("publication_id", pubId).order("id"));
 }
-export function pendingProposalsCount(): number {
-  return (getDb().prepare("SELECT COUNT(*) AS n FROM proposals WHERE statut = 'en_attente'").get() as { n: number }).n;
+export async function getProposal(id: number): Promise<Proposal | undefined> {
+  return must<Proposal[]>(await db().from("proposals").select("*").eq("id", id))[0];
 }
-export function listVersions(contentId: number) {
-  return getDb().prepare(
-    "SELECT * FROM content_versions WHERE content_id = ? ORDER BY id DESC"
-  ).all(contentId) as Array<{ id: number; content_id: number; snapshot: string; reason: string; changed_by: string; publication_id: number | null; created_at: string }>;
+export async function pendingProposalsCount(): Promise<number> {
+  const { count, error } = await db().from("proposals").select("*", { count: "exact", head: true }).eq("statut", "en_attente");
+  if (error) throw new Error(error.message);
+  return count ?? 0;
+}
+export async function listVersions(contentId: number): Promise<ContentVersion[]> {
+  return must<ContentVersion[]>(
+    await db().from("content_versions").select("*").eq("content_id", contentId).order("id", { ascending: false })
+  );
 }
 
-// ---------- Dashboard : statistiques & suggestions ----------
-export function dashboardStats() {
-  const db = getDb();
-  const n = (sql: string) => (db.prepare(sql).get() as { n: number }).n;
-  return {
-    professions: n("SELECT COUNT(*) AS n FROM professions WHERE archived = 0"),
-    themes: n("SELECT COUNT(*) AS n FROM themes"),
-    contents: n("SELECT COUNT(*) AS n FROM contents"),
-    studies: n("SELECT COUNT(*) AS n FROM studies"),
-    publications: n("SELECT COUNT(*) AS n FROM publications"),
-    pendingProposals: n("SELECT COUNT(*) AS n FROM proposals WHERE statut = 'en_attente'"),
-    unanalyzedPublications: n("SELECT COUNT(*) AS n FROM publications WHERE statut = 'nouvelle'"),
+// ---------- Tableau de bord ----------
+export async function dashboardStats() {
+  const count = async (table: string, filter?: [string, string]) => {
+    let q = db().from(table).select("*", { count: "exact", head: true });
+    if (filter) q = q.eq(filter[0], filter[1]);
+    const { count: n, error } = await q;
+    if (error) throw new Error(error.message);
+    return n ?? 0;
   };
+  const [professions, themes, contents, studies, publications, pendingProposals, unanalyzedPublications] =
+    await Promise.all([
+      db().from("professions").select("*", { count: "exact", head: true }).eq("archived", 0).then(({ count: n }) => n ?? 0),
+      count("themes"),
+      count("contents"),
+      count("studies"),
+      count("publications"),
+      count("proposals", ["statut", "en_attente"]),
+      count("publications", ["statut", "nouvelle"]),
+    ]);
+  return { professions, themes, contents, studies, publications, pendingProposals, unanalyzedPublications };
 }
 
-/** Détection des « trous » éditoriaux : couples profession × thématique sans contenu. */
-export function coverageGaps(): Array<{ profession: string; theme: string; covered: number }> {
-  const db = getDb();
-  const rows = db.prepare(
-    `SELECT p.name AS profession, t.name AS theme,
-       (SELECT COUNT(*) FROM contents c WHERE c.profession_id = p.id AND c.theme_id = t.id) AS covered,
-       (SELECT COUNT(DISTINCT c2.profession_id) FROM contents c2 WHERE c2.theme_id = t.id) AS spread
-     FROM professions p CROSS JOIN themes t
-     WHERE p.archived = 0 AND p.visible = 1 AND t.visible = 1`
-  ).all() as Array<{ profession: string; theme: string; covered: number; spread: number }>;
-  return rows.filter((r) => r.covered === 0 && r.spread >= 4).map(({ profession, theme, covered }) => ({ profession, theme, covered }));
+/** Détection des « trous » : couples profession × thématique sans contenu (thématique répandue ailleurs). */
+export async function coverageGaps(): Promise<Array<{ profession: string; theme: string }>> {
+  const [professions, themes, contents] = await Promise.all([
+    listProfessions(), listThemes(),
+    must<Array<{ profession_id: number; theme_id: number }>>(await db().from("contents").select("profession_id, theme_id")),
+  ]);
+  const covered = new Set(contents.map((c) => `${c.profession_id}|${c.theme_id}`));
+  const spread: Record<number, Set<number>> = {};
+  for (const c of contents) (spread[c.theme_id] ??= new Set()).add(c.profession_id);
+  const gaps: Array<{ profession: string; theme: string }> = [];
+  for (const p of professions) {
+    for (const t of themes) {
+      if (!covered.has(`${p.id}|${t.id}`) && (spread[t.id]?.size ?? 0) >= 4) {
+        gaps.push({ profession: p.name, theme: t.name });
+      }
+    }
+  }
+  return gaps;
 }
 
 /** Contenus faiblement sourcés (0 ou 1 référence). */
-export function weaklySourcedContents(): ContentFull[] {
-  return getDb().prepare(
-    `SELECT c.*, p.slug AS profession_slug, p.name AS profession_name, t.slug AS theme_slug, t.name AS theme_name
-     FROM contents c JOIN professions p ON p.id = c.profession_id JOIN themes t ON t.id = c.theme_id
-     WHERE (SELECT COUNT(*) FROM content_refs r WHERE r.content_id = c.id) <= 1
-     ORDER BY p.ordre, c.ordre`
-  ).all() as ContentFull[];
+export async function weaklySourcedContents(): Promise<ContentFull[]> {
+  const [contents, refs] = await Promise.all([
+    listContents(),
+    must<Array<{ content_id: number }>>(await db().from("content_refs").select("content_id")),
+  ]);
+  const counts: Record<number, number> = {};
+  for (const r of refs) counts[r.content_id] = (counts[r.content_id] ?? 0) + 1;
+  return contents.filter((c) => (counts[c.id] ?? 0) <= 1);
 }
 
+export async function contentCountByProfession(): Promise<Record<number, number>> {
+  const rows = must<Array<{ profession_id: number }>>(await db().from("contents").select("profession_id"));
+  const out: Record<number, number> = {};
+  for (const r of rows) out[r.profession_id] = (out[r.profession_id] ?? 0) + 1;
+  return out;
+}
+export async function contentCountByTheme(): Promise<Record<number, number>> {
+  const rows = must<Array<{ theme_id: number }>>(await db().from("contents").select("theme_id"));
+  const out: Record<number, number> = {};
+  for (const r of rows) out[r.theme_id] = (out[r.theme_id] ?? 0) + 1;
+  return out;
+}
 
-// ---------- Requêtes back-office ----------
-export function getPageById(id: number): Page | undefined {
-  return getDb().prepare("SELECT * FROM pages WHERE id = ?").get(id) as Page | undefined;
-}
-export function getProfessionById(id: number): Profession | undefined {
-  return getDb().prepare("SELECT * FROM professions WHERE id = ?").get(id) as Profession | undefined;
-}
-export function getThemeById(id: number): Theme | undefined {
-  return getDb().prepare("SELECT * FROM themes WHERE id = ?").get(id) as Theme | undefined;
-}
-export function contentCountByProfession(): Record<number, number> {
-  const rows = getDb().prepare("SELECT profession_id AS id, COUNT(*) AS n FROM contents GROUP BY profession_id").all() as Array<{ id: number; n: number }>;
-  return Object.fromEntries(rows.map((r) => [r.id, r.n]));
-}
-export function contentCountByTheme(): Record<number, number> {
-  const rows = getDb().prepare("SELECT theme_id AS id, COUNT(*) AS n FROM contents GROUP BY theme_id").all() as Array<{ id: number; n: number }>;
-  return Object.fromEntries(rows.map((r) => [r.id, r.n]));
-}
 export interface RecentVersion {
   id: number; created_at: string; reason: string; changed_by: string; publication_id: number | null;
   content_id: number; titre: string; profession_name: string; theme_label: string;
 }
-export function recentVersions(limit = 8): RecentVersion[] {
-  return getDb().prepare(
-    `SELECT v.id, v.created_at, v.reason, v.changed_by, v.publication_id, c.id AS content_id, c.titre,
-            p.name AS profession_name, COALESCE(NULLIF(c.display_theme_label, ''), t.name) AS theme_label
-     FROM content_versions v
-     JOIN contents c ON c.id = v.content_id
-     JOIN professions p ON p.id = c.profession_id
-     JOIN themes t ON t.id = c.theme_id
-     ORDER BY v.id DESC LIMIT ?`
-  ).all(limit) as RecentVersion[];
+export async function recentVersions(limit = 8): Promise<RecentVersion[]> {
+  return must<RecentVersion[]>(
+    await db().from("v_recent_versions").select("*").order("id", { ascending: false }).limit(limit)
+  );
 }

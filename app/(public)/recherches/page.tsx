@@ -4,8 +4,8 @@ import { listStudies } from "@/lib/repo";
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Recherches & projets — Fondation MNH" };
 
-export default function RecherchesPage() {
-  const studies = listStudies();
+export default async function RecherchesPage() {
+  const studies = await listStudies();
   return (
     <>
       <div className="page-head">

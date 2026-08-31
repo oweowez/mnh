@@ -10,7 +10,7 @@ export default async function EditPage({
 }: { params: Promise<{ id: string }>; searchParams: Promise<{ saved?: string }> }) {
   const { id } = await params;
   const { saved } = await searchParams;
-  const page = getPageById(Number(id));
+  const page = await getPageById(Number(id));
   if (!page) notFound();
   return (
     <>

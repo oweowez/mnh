@@ -2,16 +2,17 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import ContentBlock from "@/components/ContentBlock";
 import RefBadges from "@/components/RefBadges";
-import { getTheme, contentsForTheme, refsForContent, studiesForTheme } from "@/lib/repo";
+import { getTheme, contentsForTheme, refsMapForContents, studiesForTheme } from "@/lib/repo";
 
 export const dynamic = "force-dynamic";
 
 export default async function ThemePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const theme = getTheme(slug);
+  const theme = await getTheme(slug);
   if (!theme || !theme.visible) notFound();
-  const contents = contentsForTheme(theme.id);
-  const studies = studiesForTheme(theme.id);
+  const contents = await contentsForTheme(theme.id);
+  const refsMap = await refsMapForContents(contents.map((c) => c.id));
+  const studies = await studiesForTheme(theme.id);
   return (
     <>
       <div className="page-head">
@@ -30,7 +31,7 @@ export default async function ThemePage({ params }: { params: Promise<{ slug: st
             <div className="eyebrow" style={{ marginTop: 20 }}>
               <Link href={`/professions/${c.profession_slug}`}>{c.profession_name}</Link>
             </div>
-            <ContentBlock content={c} refs={refsForContent(c.id)} />
+            <ContentBlock content={c} refs={refsMap[c.id] ?? []} />
           </div>
         ))}
         <div style={{ marginTop: 36 }}>

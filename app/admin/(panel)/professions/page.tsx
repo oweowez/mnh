@@ -4,9 +4,9 @@ import { listProfessions, contentCountByProfession } from "@/lib/repo";
 
 export const dynamic = "force-dynamic";
 
-export default function AdminProfessions() {
-  const professions = listProfessions(true);
-  const counts = contentCountByProfession();
+export default async function AdminProfessions() {
+  const professions = await listProfessions(true);
+  const counts = await contentCountByProfession();
   return (
     <>
       <AdminHead title="Professions" sub="Les groupes professionnels du site public. L'ordre détermine leur position d'affichage.">

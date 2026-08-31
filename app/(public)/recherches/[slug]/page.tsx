@@ -6,10 +6,10 @@ export const dynamic = "force-dynamic";
 
 export default async function StudyPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const study = getStudy(slug);
+  const study = await getStudy(slug);
   if (!study) notFound();
-  const professions = professionsForStudy(study.id);
-  const themes = themesForStudy(study.id);
+  const professions = await professionsForStudy(study.id);
+  const themes = await themesForStudy(study.id);
   return (
     <>
       <div className="page-head">

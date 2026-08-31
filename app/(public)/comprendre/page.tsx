@@ -17,12 +17,12 @@ function splitDimensions(body: string): { intro: string[]; dimensions: Array<{ t
   return { intro, dimensions };
 }
 
-export default function ComprendrePage() {
-  const intro = getPage("comprendre-intro");
-  const enjeux = [getPage("enjeu-humain"), getPage("enjeu-organisationnel"), getPage("enjeu-systeme")].filter(Boolean);
-  const expositions = getPage("expositions-multiples");
-  const prudence = getPage("prudence");
-  const themes = listThemes();
+export default async function ComprendrePage() {
+  const intro = await getPage("comprendre-intro");
+  const enjeux = (await Promise.all([getPage("enjeu-humain"), getPage("enjeu-organisationnel"), getPage("enjeu-systeme")])).filter(Boolean);
+  const expositions = await getPage("expositions-multiples");
+  const prudence = await getPage("prudence");
+  const themes = await listThemes();
   const dims = expositions ? splitDimensions(expositions.body) : null;
   return (
     <>

@@ -6,8 +6,8 @@ export const dynamic = "force-dynamic";
 
 export default async function AdminContents({ searchParams }: { searchParams: Promise<{ profession?: string }> }) {
   const { profession } = await searchParams;
-  const professions = listProfessions(true);
-  const all = listContents();
+  const professions = await listProfessions(true);
+  const all = await listContents();
   const contents = profession ? all.filter((c) => c.profession_slug === profession) : all;
   return (
     <>

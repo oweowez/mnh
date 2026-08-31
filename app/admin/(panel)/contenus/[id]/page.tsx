@@ -11,11 +11,11 @@ export default async function AdminContentEdit({
 }: { params: Promise<{ id: string }>; searchParams: Promise<{ saved?: string }> }) {
   const { id } = await params;
   const { saved } = await searchParams;
-  const content = getContent(Number(id));
+  const content = await getContent(Number(id));
   if (!content) notFound();
-  const themes = listThemes(true);
-  const versions = listVersions(content.id);
-  const refs = refsForContent(content.id);
+  const themes = await listThemes(true);
+  const versions = await listVersions(content.id);
+  const refs = await refsForContent(content.id);
   return (
     <>
       <AdminHead
@@ -86,7 +86,7 @@ export default async function AdminContentEdit({
             <tbody>
               {versions.map((v) => (
                 <tr key={v.id}>
-                  <td className="cell-muted">{v.created_at}</td>
+                  <td className="cell-muted">{v.created_at.slice(0, 16).replace("T", " ")}</td>
                   <td>{v.reason}</td>
                   <td>{v.changed_by}</td>
                   <td>{v.publication_id ? <Link href={`/admin/publications/${v.publication_id}`}>#{v.publication_id}</Link> : "—"}</td>
