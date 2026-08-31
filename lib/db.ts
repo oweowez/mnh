@@ -101,16 +101,6 @@ CREATE TABLE IF NOT EXISTS proposals (
   decided_at TEXT DEFAULT '',
   created_at TEXT DEFAULT (datetime('now'))
 );
-CREATE TABLE IF NOT EXISTS users (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  email TEXT UNIQUE NOT NULL,
-  name TEXT DEFAULT '',
-  password_hash TEXT NOT NULL,
-  role TEXT DEFAULT 'pending',
-  created_at TEXT DEFAULT (datetime('now')),
-  validated_by INTEGER,
-  validated_at TEXT
-);
 CREATE TABLE IF NOT EXISTS content_versions (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   content_id INTEGER NOT NULL REFERENCES contents(id) ON DELETE CASCADE,

@@ -36,11 +36,13 @@ canoniques, 56 contenus, 14 études, pages transversales).
   node scripts/promote.mjs               # liste les comptes
   node scripts/promote.mjs vous@mail.fr  # passe ce compte super-admin
   ```
-- Sessions : cookie signé HMAC (`AUTH_SECRET` en production), mots de passe hashés scrypt.
+- Sessions : cookie signé HMAC (`AUTH_SECRET` en production).
 - Chaque action (validation de proposition IA, modification de contenu) est tracée
   au nom de l'utilisateur connecté.
-- Migration **Supabase** prévue : la couche d'authentification est isolée dans
-  `lib/auth.ts` + table `users` ; fournir les clés dans `.env` le moment venu.
+- Les comptes vivent dans **Supabase Auth** (`lib/supabase.ts`) : le rôle est stocké
+  dans `app_metadata` (modifiable uniquement avec la clé secrète serveur).
+  Renseigner `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY` et
+  `SUPABASE_SERVICE_ROLE_KEY` dans `.env`.
 
 ## Workflow IA (back-office uniquement)
 

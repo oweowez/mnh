@@ -6,7 +6,8 @@ import { cookies } from "next/headers";
 import fs from "fs";
 import path from "path";
 import { getDb } from "@/lib/db";
-import { hashPassword, verifyPassword, signSession, requireAdmin, requireSuperAdmin, SESSION_COOKIE } from "@/lib/auth";
+import { signSession, requireAdmin, requireSuperAdmin, SESSION_COOKIE } from "@/lib/auth";
+import { supabaseAdmin, supabasePublic, getUserById as getSupaUser, setUserRole } from "@/lib/supabase";
 import { analyzePublication, generateProposals, type Analysis } from "@/lib/ai";
 import { getContent, getPublication, getProposal, listContents, listProfessions, listThemes } from "@/lib/repo";
 
@@ -17,21 +18,29 @@ export async function register(formData: FormData) {
   const password = String(formData.get("password") ?? "");
   if (!name || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) redirect("/admin/inscription?error=champs");
   if (password.length < 8) redirect("/admin/inscription?error=motdepasse");
-  const db = getDb();
-  if (db.prepare("SELECT id FROM users WHERE email = ?").get(email)) redirect("/admin/inscription?error=existe");
-  db.prepare("INSERT INTO users (email, name, password_hash) VALUES (?, ?, ?)").run(email, name, hashPassword(password));
+  const { error } = await supabaseAdmin().auth.admin.createUser({
+    email,
+    password,
+    email_confirm: true,
+    user_metadata: { name },
+    app_metadata: { role: "pending" },
+  });
+  if (error) {
+    if (error.code === "email_exists" || /already|exists/i.test(error.message)) redirect("/admin/inscription?error=existe");
+    redirect("/admin/inscription?error=serveur");
+  }
   redirect("/admin/login?registered=1");
 }
 
 export async function login(formData: FormData) {
   const email = String(formData.get("email") ?? "").trim().toLowerCase();
   const password = String(formData.get("password") ?? "");
-  const user = getDb().prepare("SELECT id, password_hash, role FROM users WHERE email = ?").get(email) as
-    { id: number; password_hash: string; role: string } | undefined;
-  if (!user || !verifyPassword(password, user.password_hash)) redirect("/admin/login?error=identifiants");
-  if (user.role === "pending") redirect("/admin/login?error=attente");
-  if (user.role !== "admin" && user.role !== "superadmin") redirect("/admin/login?error=refuse");
-  const session = signSession(user.id);
+  const { data, error } = await supabasePublic().auth.signInWithPassword({ email, password });
+  if (error || !data.user) redirect("/admin/login?error=identifiants");
+  const role = (data.user.app_metadata?.role as string) ?? "pending";
+  if (role === "pending") redirect("/admin/login?error=attente");
+  if (role !== "admin" && role !== "superadmin") redirect("/admin/login?error=refuse");
+  const session = signSession(data.user.id);
   const jar = await cookies();
   jar.set(SESSION_COOKIE, session.value, { httpOnly: true, sameSite: "lax", path: "/", maxAge: session.maxAge });
   redirect("/admin");
@@ -44,51 +53,41 @@ export async function logout() {
 }
 
 // ---------- Gestion des inscriptions & des rôles (super-admins) ----------
-function targetUserId(formData: FormData): number {
-  return Number(formData.get("user_id"));
+function targetUserId(formData: FormData): string {
+  return String(formData.get("user_id") ?? "");
 }
 
-export async function validateUser(formData: FormData) {
-  const su = await requireSuperAdmin();
-  getDb().prepare(
-    "UPDATE users SET role='admin', validated_by=?, validated_at=datetime('now') WHERE id=? AND role='pending'"
-  ).run(su.id, targetUserId(formData));
-  revalidatePath("/admin/utilisateurs");
-  redirect("/admin/utilisateurs");
-}
-
-export async function refuseUser(formData: FormData) {
-  const su = await requireSuperAdmin();
-  getDb().prepare(
-    "UPDATE users SET role='refuse', validated_by=?, validated_at=datetime('now') WHERE id=? AND role='pending'"
-  ).run(su.id, targetUserId(formData));
-  revalidatePath("/admin/utilisateurs");
-  redirect("/admin/utilisateurs");
-}
-
-export async function promoteUser(formData: FormData) {
-  const su = await requireSuperAdmin();
-  getDb().prepare(
-    "UPDATE users SET role='superadmin', validated_by=?, validated_at=datetime('now') WHERE id=? AND role='admin'"
-  ).run(su.id, targetUserId(formData));
-  revalidatePath("/admin/utilisateurs");
-  redirect("/admin/utilisateurs");
-}
-
-export async function demoteUser(formData: FormData) {
+async function changeRole(formData: FormData, from: string[], to: string) {
   const su = await requireSuperAdmin();
   const id = targetUserId(formData);
   if (id === su.id) redirect("/admin/utilisateurs?error=soimeme");
-  getDb().prepare("UPDATE users SET role='admin' WHERE id=? AND role='superadmin'").run(id);
+  const target = await getSupaUser(id);
+  if (target && from.includes(target.role)) await setUserRole(id, to, su.email);
   revalidatePath("/admin/utilisateurs");
   redirect("/admin/utilisateurs");
+}
+
+export async function validateUser(formData: FormData) {
+  await changeRole(formData, ["pending"], "admin");
+}
+
+export async function refuseUser(formData: FormData) {
+  await changeRole(formData, ["pending"], "refuse");
+}
+
+export async function promoteUser(formData: FormData) {
+  await changeRole(formData, ["admin"], "superadmin");
+}
+
+export async function demoteUser(formData: FormData) {
+  await changeRole(formData, ["superadmin"], "admin");
 }
 
 export async function deleteUser(formData: FormData) {
   const su = await requireSuperAdmin();
   const id = targetUserId(formData);
   if (id === su.id) redirect("/admin/utilisateurs?error=soimeme");
-  getDb().prepare("DELETE FROM users WHERE id=?").run(id);
+  await supabaseAdmin().auth.admin.deleteUser(id);
   revalidatePath("/admin/utilisateurs");
   redirect("/admin/utilisateurs");
 }

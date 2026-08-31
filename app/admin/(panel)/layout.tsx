@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getSessionUser } from "@/lib/auth";
-import { pendingUsersCount } from "@/lib/repo";
+import { pendingUsersCount } from "@/lib/supabase";
 import { logout } from "../actions";
 
 export const metadata = { title: "Administration — Fondation MNH" };
@@ -9,7 +9,7 @@ export const metadata = { title: "Administration — Fondation MNH" };
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
   const user = await getSessionUser();
   if (!user) redirect("/admin/login");
-  const pending = user.role === "superadmin" ? pendingUsersCount() : 0;
+  const pending = user.role === "superadmin" ? await pendingUsersCount() : 0;
   return (
     <div className="admin-shell">
       <aside className="admin-side">

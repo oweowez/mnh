@@ -9,7 +9,7 @@ async function isValidSession(token: string | undefined): Promise<boolean> {
   const parts = token.split(".");
   if (parts.length !== 3) return false;
   const [id, exp, sig] = parts;
-  if (!/^\d+$/.test(id) || !/^\d+$/.test(exp) || Number(exp) < Date.now()) return false;
+  if (!/^[0-9a-fA-F-]{8,64}$/.test(id) || !/^\d+$/.test(exp) || Number(exp) < Date.now()) return false;
   const enc = new TextEncoder();
   const key = await crypto.subtle.importKey("raw", enc.encode(SECRET), { name: "HMAC", hash: "SHA-256" }, false, ["sign"]);
   const mac = await crypto.subtle.sign("HMAC", key, enc.encode(`${id}.${exp}`));

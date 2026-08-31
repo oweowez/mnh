@@ -1,5 +1,5 @@
 import { requireSuperAdmin } from "@/lib/auth";
-import { listUsers } from "@/lib/repo";
+import { listUsers } from "@/lib/supabase";
 import { validateUser, refuseUser, promoteUser, demoteUser, deleteUser } from "../../actions";
 
 export const dynamic = "force-dynamic";
@@ -14,12 +14,12 @@ const ROLE_BADGE: Record<string, { label: string; cls: string }> = {
 export default async function UtilisateursPage({ searchParams }: { searchParams: Promise<{ error?: string }> }) {
   const me = await requireSuperAdmin();
   const { error } = await searchParams;
-  const users = listUsers();
+  const users = await listUsers();
   const pending = users.filter((u) => u.role === "pending");
   const actifs = users.filter((u) => u.role === "admin" || u.role === "superadmin");
   const refuses = users.filter((u) => u.role === "refuse");
 
-  const UserBtn = ({ action, userId, label, cls }: { action: (fd: FormData) => Promise<void>; userId: number; label: string; cls: string }) => (
+  const UserBtn = ({ action, userId, label, cls }: { action: (fd: FormData) => Promise<void>; userId: string; label: string; cls: string }) => (
     <form action={action} style={{ display: "inline" }}>
       <input type="hidden" name="user_id" value={userId} />
       <button type="submit" className={`btn ${cls}`} style={{ padding: "7px 14px", fontSize: 11.5 }}>{label}</button>
@@ -47,7 +47,7 @@ export default async function UtilisateursPage({ searchParams }: { searchParams:
               <tr key={u.id}>
                 <td>{u.name}</td>
                 <td>{u.email}</td>
-                <td>{u.created_at}</td>
+                <td>{u.created_at.slice(0, 16).replace("T", " ")}</td>
                 <td style={{ display: "flex", gap: 8 }}>
                   <UserBtn action={validateUser} userId={u.id} label="Valider" cls="btn-success" />
                   <UserBtn action={refuseUser} userId={u.id} label="Refuser" cls="btn-danger" />
@@ -70,7 +70,7 @@ export default async function UtilisateursPage({ searchParams }: { searchParams:
                 <td>{u.name}{isMe && <span style={{ color: "var(--gris)", fontSize: 12 }}> (vous)</span>}</td>
                 <td>{u.email}</td>
                 <td><span className={`badge ${badge.cls}`}>{badge.label}</span></td>
-                <td style={{ color: "var(--gris)", fontSize: 13 }}>{u.validated_by_email ?? "—"}</td>
+                <td style={{ color: "var(--gris)", fontSize: 13 }}>{u.validated_by ?? "—"}</td>
                 <td style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
                   {!isMe && u.role === "admin" && <UserBtn action={promoteUser} userId={u.id} label="Passer super-admin" cls="btn-primary" />}
                   {!isMe && u.role === "superadmin" && <UserBtn action={demoteUser} userId={u.id} label="Rétrograder" cls="btn-light" />}
@@ -92,7 +92,7 @@ export default async function UtilisateursPage({ searchParams }: { searchParams:
                 <tr key={u.id}>
                   <td>{u.name}</td>
                   <td>{u.email}</td>
-                  <td style={{ color: "var(--gris)", fontSize: 13 }}>{u.validated_by_email ?? "—"}</td>
+                  <td style={{ color: "var(--gris)", fontSize: 13 }}>{u.validated_by ?? "—"}</td>
                   <td><UserBtn action={deleteUser} userId={u.id} label="Supprimer" cls="btn-light" /></td>
                 </tr>
               ))}
