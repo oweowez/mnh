@@ -1,27 +1,39 @@
+import Link from "next/link";
+import AdminHead from "@/components/AdminHead";
 import { listPages } from "@/lib/repo";
-import { savePage } from "../../actions";
 
 export const dynamic = "force-dynamic";
 
-export default async function AdminPages({ searchParams }: { searchParams: Promise<{ saved?: string }> }) {
-  const { saved } = await searchParams;
+const WHERE: Record<string, string> = {
+  accueil: "Accueil — bloc « La démarche »",
+  "comprendre-intro": "Comprendre — introduction",
+  "enjeu-humain": "Comprendre — carte « Enjeu humain »",
+  "enjeu-organisationnel": "Comprendre — carte « Enjeu organisationnel »",
+  "enjeu-systeme": "Comprendre — carte « Enjeu système de soins »",
+  "expositions-multiples": "Comprendre — dimensions de l'exposome",
+  prudence: "Comprendre — encart « Prudence »",
+};
+
+export default function AdminPages() {
   const pages = listPages();
   return (
     <>
-      <h1>Pages générales</h1>
-      {saved && <p className="badge badge-ok">Enregistré</p>}
-      <p style={{ color: "var(--gris)" }}>Contenus transversaux affichés sur l&apos;accueil et la page « Comprendre les enjeux ».</p>
-      {pages.map((p) => (
-        <details key={p.id} className="proposal">
-          <summary style={{ cursor: "pointer", fontWeight: 700 }}>{p.title || p.slug} <span className="pill">{p.slug}</span></summary>
-          <form action={savePage} className="form" style={{ marginTop: 14 }}>
-            <input type="hidden" name="id" value={p.id} />
-            <div><label>Titre</label><input type="text" name="title" defaultValue={p.title} /></div>
-            <div><label>Contenu</label><textarea name="body" defaultValue={p.body} style={{ minHeight: 200 }} /></div>
-            <button type="submit" className="btn btn-primary">Enregistrer</button>
-          </form>
-        </details>
-      ))}
+      <AdminHead title="Pages générales" sub="Les contenus transversaux affichés sur l'accueil et la page « Comprendre les enjeux »." />
+      <table className="data">
+        <thead><tr><th>Titre</th><th>Emplacement</th><th style={{ width: 100 }}></th></tr></thead>
+        <tbody>
+          {pages.map((p) => (
+            <tr key={p.id}>
+              <td>
+                <Link href={`/admin/pages/${p.id}`}>{p.title || p.slug}</Link>
+                <div className="cell-muted">{p.body.slice(0, 100)}…</div>
+              </td>
+              <td className="cell-muted">{WHERE[p.slug] ?? p.slug}</td>
+              <td><Link href={`/admin/pages/${p.id}`}>Modifier</Link></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </>
   );
 }

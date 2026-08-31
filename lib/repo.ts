@@ -203,3 +203,37 @@ export function weaklySourcedContents(): ContentFull[] {
   ).all() as ContentFull[];
 }
 
+
+// ---------- Requêtes back-office ----------
+export function getPageById(id: number): Page | undefined {
+  return getDb().prepare("SELECT * FROM pages WHERE id = ?").get(id) as Page | undefined;
+}
+export function getProfessionById(id: number): Profession | undefined {
+  return getDb().prepare("SELECT * FROM professions WHERE id = ?").get(id) as Profession | undefined;
+}
+export function getThemeById(id: number): Theme | undefined {
+  return getDb().prepare("SELECT * FROM themes WHERE id = ?").get(id) as Theme | undefined;
+}
+export function contentCountByProfession(): Record<number, number> {
+  const rows = getDb().prepare("SELECT profession_id AS id, COUNT(*) AS n FROM contents GROUP BY profession_id").all() as Array<{ id: number; n: number }>;
+  return Object.fromEntries(rows.map((r) => [r.id, r.n]));
+}
+export function contentCountByTheme(): Record<number, number> {
+  const rows = getDb().prepare("SELECT theme_id AS id, COUNT(*) AS n FROM contents GROUP BY theme_id").all() as Array<{ id: number; n: number }>;
+  return Object.fromEntries(rows.map((r) => [r.id, r.n]));
+}
+export interface RecentVersion {
+  id: number; created_at: string; reason: string; changed_by: string; publication_id: number | null;
+  content_id: number; titre: string; profession_name: string; theme_label: string;
+}
+export function recentVersions(limit = 8): RecentVersion[] {
+  return getDb().prepare(
+    `SELECT v.id, v.created_at, v.reason, v.changed_by, v.publication_id, c.id AS content_id, c.titre,
+            p.name AS profession_name, COALESCE(NULLIF(c.display_theme_label, ''), t.name) AS theme_label
+     FROM content_versions v
+     JOIN contents c ON c.id = v.content_id
+     JOIN professions p ON p.id = c.profession_id
+     JOIN themes t ON t.id = c.theme_id
+     ORDER BY v.id DESC LIMIT ?`
+  ).all(limit) as RecentVersion[];
+}

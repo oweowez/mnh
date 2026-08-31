@@ -1,48 +1,39 @@
-import { listThemes } from "@/lib/repo";
-import { saveTheme } from "../../actions";
+import Link from "next/link";
+import AdminHead from "@/components/AdminHead";
+import { listThemes, contentCountByTheme } from "@/lib/repo";
 
 export const dynamic = "force-dynamic";
 
 export default function AdminThemes() {
   const themes = listThemes(true);
+  const counts = contentCountByTheme();
   return (
     <>
-      <h1>Thématiques</h1>
-      <p style={{ color: "var(--gris)", maxWidth: 700 }}>
-        Les thématiques sont transversales : chaque contenu associe une profession à une thématique,
-        avec un libellé d&apos;affichage propre à la fiche si besoin.
-      </p>
+      <AdminHead
+        title="Thématiques"
+        sub="Taxonomie transversale : chaque contenu associe une profession à une thématique, avec un libellé d'affichage propre à la fiche si besoin."
+      >
+        <Link href="/admin/thematiques/new" className="btn btn-primary">+ Nouvelle thématique</Link>
+      </AdminHead>
       <table className="data">
         <thead>
-          <tr><th>Ordre</th><th>Nom</th><th>Slug</th><th>Visible</th><th style={{ width: 340 }}>Description</th><th></th></tr>
+          <tr><th style={{ width: 60 }}>Ordre</th><th>Nom</th><th>Contenus</th><th>Statut</th><th style={{ width: 100 }}></th></tr>
         </thead>
         <tbody>
           {themes.map((t) => (
             <tr key={t.id}>
-              <td colSpan={6} style={{ padding: 0 }}>
-                <form action={saveTheme} style={{ display: "flex", gap: 8, padding: "8px 12px", alignItems: "center", flexWrap: "wrap" }}>
-                  <input type="hidden" name="id" value={t.id} />
-                  <input type="number" name="ordre" defaultValue={t.ordre} style={{ width: 56, padding: 6 }} />
-                  <input type="text" name="name" defaultValue={t.name} style={{ width: 230, padding: 6 }} />
-                  <input type="text" name="slug" defaultValue={t.slug} style={{ width: 190, padding: 6 }} />
-                  <label style={{ fontSize: 13 }}><input type="checkbox" name="visible" defaultChecked={t.visible === 1} /> visible</label>
-                  <input type="text" name="description" defaultValue={t.description} style={{ flex: 1, minWidth: 220, padding: 6 }} />
-                  <button type="submit" className="btn btn-light">Enregistrer</button>
-                </form>
+              <td>{t.ordre}</td>
+              <td>
+                <Link href={`/admin/thematiques/${t.id}`}>{t.name}</Link>
+                <div className="cell-muted">{t.description}</div>
               </td>
+              <td>{counts[t.id] ?? 0}</td>
+              <td>{t.visible ? <span className="badge badge-ok">Visible</span> : <span className="badge badge-attente">Masquée</span>}</td>
+              <td><Link href={`/admin/thematiques/${t.id}`}>Modifier</Link></td>
             </tr>
           ))}
         </tbody>
       </table>
-      <h2 style={{ fontSize: 17, marginTop: 30 }}>Ajouter une thématique</h2>
-      <form action={saveTheme} className="form">
-        <div><label>Nom</label><input type="text" name="name" required /></div>
-        <div><label>Slug (URL)</label><input type="text" name="slug" required /></div>
-        <div><label>Description</label><input type="text" name="description" /></div>
-        <div><label>Ordre</label><input type="number" name="ordre" defaultValue={99} /></div>
-        <label><input type="checkbox" name="visible" defaultChecked /> Visible</label>
-        <button type="submit" className="btn btn-primary">Créer</button>
-      </form>
     </>
   );
 }

@@ -239,7 +239,7 @@ export async function savePage(formData: FormData) {
   });
   refreshPublic();
   revalidatePath("/admin/pages");
-  redirect("/admin/pages?saved=1");
+  redirect(`/admin/pages/${id}?saved=1`);
 }
 
 // ---------- Publications ----------

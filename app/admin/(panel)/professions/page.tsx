@@ -1,45 +1,40 @@
-import { listProfessions } from "@/lib/repo";
-import { saveProfession } from "../../actions";
+import Link from "next/link";
+import AdminHead from "@/components/AdminHead";
+import { listProfessions, contentCountByProfession } from "@/lib/repo";
 
 export const dynamic = "force-dynamic";
 
 export default function AdminProfessions() {
   const professions = listProfessions(true);
+  const counts = contentCountByProfession();
   return (
     <>
-      <h1>Professions</h1>
+      <AdminHead title="Professions" sub="Les groupes professionnels du site public. L'ordre détermine leur position d'affichage.">
+        <Link href="/admin/professions/new" className="btn btn-primary">+ Nouvelle profession</Link>
+      </AdminHead>
       <table className="data">
         <thead>
-          <tr><th>Ordre</th><th>Nom</th><th>Slug</th><th>Visible</th><th style={{ width: 340 }}>Description courte</th><th></th></tr>
+          <tr><th style={{ width: 60 }}>Ordre</th><th>Nom</th><th>Contenus</th><th>Statut</th><th style={{ width: 100 }}></th></tr>
         </thead>
         <tbody>
           {professions.map((p) => (
             <tr key={p.id}>
-              <td colSpan={6} style={{ padding: 0 }}>
-                <form action={saveProfession} style={{ display: "flex", gap: 8, padding: "8px 12px", alignItems: "center", flexWrap: "wrap" }}>
-                  <input type="hidden" name="id" value={p.id} />
-                  <input type="number" name="ordre" defaultValue={p.ordre} style={{ width: 56, padding: 6 }} />
-                  <input type="text" name="name" defaultValue={p.name} style={{ width: 200, padding: 6 }} />
-                  <input type="text" name="slug" defaultValue={p.slug} style={{ width: 150, padding: 6 }} />
-                  <label style={{ fontSize: 13 }}><input type="checkbox" name="visible" defaultChecked={p.visible === 1} /> visible</label>
-                  <label style={{ fontSize: 13 }}><input type="checkbox" name="archived" defaultChecked={p.archived === 1} /> archivée</label>
-                  <input type="text" name="short_desc" defaultValue={p.short_desc} style={{ flex: 1, minWidth: 220, padding: 6 }} />
-                  <button type="submit" className="btn btn-light">Enregistrer</button>
-                </form>
+              <td>{p.ordre}</td>
+              <td>
+                <Link href={`/admin/professions/${p.id}`}>{p.name}</Link>
+                <div className="cell-muted">/{p.slug}</div>
               </td>
+              <td>{counts[p.id] ?? 0}</td>
+              <td>
+                {p.archived ? <span className="badge badge-refus">Archivée</span>
+                  : p.visible ? <span className="badge badge-ok">Visible</span>
+                  : <span className="badge badge-attente">Masquée</span>}
+              </td>
+              <td><Link href={`/admin/professions/${p.id}`}>Modifier</Link></td>
             </tr>
           ))}
         </tbody>
       </table>
-      <h2 style={{ fontSize: 17, marginTop: 30 }}>Ajouter une profession</h2>
-      <form action={saveProfession} className="form">
-        <div><label>Nom</label><input type="text" name="name" required /></div>
-        <div><label>Slug (URL)</label><input type="text" name="slug" required placeholder="ex : cadres-de-sante" /></div>
-        <div><label>Description courte</label><input type="text" name="short_desc" /></div>
-        <div><label>Ordre</label><input type="number" name="ordre" defaultValue={99} /></div>
-        <label><input type="checkbox" name="visible" defaultChecked /> Visible sur le site public</label>
-        <button type="submit" className="btn btn-primary">Créer</button>
-      </form>
     </>
   );
 }
