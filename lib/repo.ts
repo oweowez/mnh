@@ -202,3 +202,20 @@ export function weaklySourcedContents(): ContentFull[] {
      ORDER BY p.ordre, c.ordre`
   ).all() as ContentFull[];
 }
+
+// ---------- Utilisateurs ----------
+export interface User {
+  id: number; email: string; name: string; role: string;
+  created_at: string; validated_by: number | null; validated_at: string | null;
+}
+export function listUsers(): Array<User & { validated_by_email: string | null }> {
+  return getDb().prepare(
+    `SELECT u.id, u.email, u.name, u.role, u.created_at, u.validated_by, u.validated_at,
+            v.email AS validated_by_email
+     FROM users u LEFT JOIN users v ON v.id = u.validated_by
+     ORDER BY CASE u.role WHEN 'pending' THEN 0 WHEN 'superadmin' THEN 1 WHEN 'admin' THEN 2 ELSE 3 END, u.created_at DESC`
+  ).all() as Array<User & { validated_by_email: string | null }>;
+}
+export function pendingUsersCount(): number {
+  return (getDb().prepare("SELECT COUNT(*) AS n FROM users WHERE role = 'pending'").get() as { n: number }).n;
+}

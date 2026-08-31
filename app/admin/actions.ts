@@ -6,25 +6,91 @@ import { cookies } from "next/headers";
 import fs from "fs";
 import path from "path";
 import { getDb } from "@/lib/db";
-import { adminPassword, adminToken } from "@/lib/auth";
+import { hashPassword, verifyPassword, signSession, requireAdmin, requireSuperAdmin, SESSION_COOKIE } from "@/lib/auth";
 import { analyzePublication, generateProposals, type Analysis } from "@/lib/ai";
 import { getContent, getPublication, getProposal, listContents, listProfessions, listThemes } from "@/lib/repo";
 
-const ADMIN_USER = "admin";
-
 // ---------- Authentification ----------
-export async function login(formData: FormData) {
+export async function register(formData: FormData) {
+  const name = String(formData.get("name") ?? "").trim();
+  const email = String(formData.get("email") ?? "").trim().toLowerCase();
   const password = String(formData.get("password") ?? "");
-  if (password !== adminPassword()) redirect("/admin/login?error=1");
+  if (!name || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) redirect("/admin/inscription?error=champs");
+  if (password.length < 8) redirect("/admin/inscription?error=motdepasse");
+  const db = getDb();
+  if (db.prepare("SELECT id FROM users WHERE email = ?").get(email)) redirect("/admin/inscription?error=existe");
+  db.prepare("INSERT INTO users (email, name, password_hash) VALUES (?, ?, ?)").run(email, name, hashPassword(password));
+  redirect("/admin/login?registered=1");
+}
+
+export async function login(formData: FormData) {
+  const email = String(formData.get("email") ?? "").trim().toLowerCase();
+  const password = String(formData.get("password") ?? "");
+  const user = getDb().prepare("SELECT id, password_hash, role FROM users WHERE email = ?").get(email) as
+    { id: number; password_hash: string; role: string } | undefined;
+  if (!user || !verifyPassword(password, user.password_hash)) redirect("/admin/login?error=identifiants");
+  if (user.role === "pending") redirect("/admin/login?error=attente");
+  if (user.role !== "admin" && user.role !== "superadmin") redirect("/admin/login?error=refuse");
+  const session = signSession(user.id);
   const jar = await cookies();
-  jar.set("mnh_admin", adminToken(), { httpOnly: true, sameSite: "lax", path: "/", maxAge: 60 * 60 * 24 * 7 });
+  jar.set(SESSION_COOKIE, session.value, { httpOnly: true, sameSite: "lax", path: "/", maxAge: session.maxAge });
   redirect("/admin");
 }
 
 export async function logout() {
   const jar = await cookies();
-  jar.delete("mnh_admin");
+  jar.delete(SESSION_COOKIE);
   redirect("/");
+}
+
+// ---------- Gestion des inscriptions & des rôles (super-admins) ----------
+function targetUserId(formData: FormData): number {
+  return Number(formData.get("user_id"));
+}
+
+export async function validateUser(formData: FormData) {
+  const su = await requireSuperAdmin();
+  getDb().prepare(
+    "UPDATE users SET role='admin', validated_by=?, validated_at=datetime('now') WHERE id=? AND role='pending'"
+  ).run(su.id, targetUserId(formData));
+  revalidatePath("/admin/utilisateurs");
+  redirect("/admin/utilisateurs");
+}
+
+export async function refuseUser(formData: FormData) {
+  const su = await requireSuperAdmin();
+  getDb().prepare(
+    "UPDATE users SET role='refuse', validated_by=?, validated_at=datetime('now') WHERE id=? AND role='pending'"
+  ).run(su.id, targetUserId(formData));
+  revalidatePath("/admin/utilisateurs");
+  redirect("/admin/utilisateurs");
+}
+
+export async function promoteUser(formData: FormData) {
+  const su = await requireSuperAdmin();
+  getDb().prepare(
+    "UPDATE users SET role='superadmin', validated_by=?, validated_at=datetime('now') WHERE id=? AND role='admin'"
+  ).run(su.id, targetUserId(formData));
+  revalidatePath("/admin/utilisateurs");
+  redirect("/admin/utilisateurs");
+}
+
+export async function demoteUser(formData: FormData) {
+  const su = await requireSuperAdmin();
+  const id = targetUserId(formData);
+  if (id === su.id) redirect("/admin/utilisateurs?error=soimeme");
+  getDb().prepare("UPDATE users SET role='admin' WHERE id=? AND role='superadmin'").run(id);
+  revalidatePath("/admin/utilisateurs");
+  redirect("/admin/utilisateurs");
+}
+
+export async function deleteUser(formData: FormData) {
+  const su = await requireSuperAdmin();
+  const id = targetUserId(formData);
+  if (id === su.id) redirect("/admin/utilisateurs?error=soimeme");
+  getDb().prepare("DELETE FROM users WHERE id=?").run(id);
+  revalidatePath("/admin/utilisateurs");
+  redirect("/admin/utilisateurs");
 }
 
 // ---------- Helpers ----------
@@ -35,17 +101,18 @@ function refreshPublic() {
   revalidatePath("/recherches/[slug]", "page");
 }
 
-function snapshotContent(contentId: number, reason: string, publicationId?: number | null) {
+function snapshotContent(contentId: number, reason: string, changedBy: string, publicationId?: number | null) {
   const db = getDb();
   const current = db.prepare("SELECT * FROM contents WHERE id = ?").get(contentId);
   if (!current) return;
   db.prepare(
     "INSERT INTO content_versions (content_id, snapshot, reason, changed_by, publication_id) VALUES (?, ?, ?, ?, ?)"
-  ).run(contentId, JSON.stringify(current), reason, ADMIN_USER, publicationId ?? null);
+  ).run(contentId, JSON.stringify(current), reason, changedBy, publicationId ?? null);
 }
 
 // ---------- Professions ----------
 export async function saveProfession(formData: FormData) {
+  await requireAdmin();
   const db = getDb();
   const id = formData.get("id") ? Number(formData.get("id")) : null;
   const data = {
@@ -73,6 +140,7 @@ export async function saveProfession(formData: FormData) {
 
 // ---------- Thématiques ----------
 export async function saveTheme(formData: FormData) {
+  await requireAdmin();
   const db = getDb();
   const id = formData.get("id") ? Number(formData.get("id")) : null;
   const data = {
@@ -99,9 +167,10 @@ export async function saveTheme(formData: FormData) {
 
 // ---------- Contenus ----------
 export async function saveContent(formData: FormData) {
+  const user = await requireAdmin();
   const db = getDb();
   const id = Number(formData.get("id"));
-  snapshotContent(id, "Modification manuelle");
+  snapshotContent(id, "Modification manuelle", user.email);
   db.prepare(
     `UPDATE contents SET theme_id=@theme_id, ordre=@ordre, display_theme_label=@display_theme_label, titre=@titre,
        message_cle=@message_cle, dev_court=@dev_court, corps_web=@corps_web, nuance=@nuance, decideur=@decideur,
@@ -127,6 +196,7 @@ export async function saveContent(formData: FormData) {
 
 // ---------- Études ----------
 export async function saveStudy(formData: FormData) {
+  await requireAdmin();
   const db = getDb();
   const id = formData.get("id") ? Number(formData.get("id")) : null;
   const data = {
@@ -160,6 +230,7 @@ export async function saveStudy(formData: FormData) {
 
 // ---------- Pages générales ----------
 export async function savePage(formData: FormData) {
+  await requireAdmin();
   const db = getDb();
   const id = Number(formData.get("id"));
   db.prepare("UPDATE pages SET title=@title, body=@body WHERE id=@id").run({
@@ -174,6 +245,7 @@ export async function savePage(formData: FormData) {
 
 // ---------- Publications ----------
 export async function createPublication(formData: FormData) {
+  await requireAdmin();
   const db = getDb();
   const title = String(formData.get("title") ?? "").trim();
   const source_type = String(formData.get("source_type") ?? "manuel");
@@ -211,6 +283,7 @@ async function fetchUrlText(url: string): Promise<string> {
 
 /** Workflow IA (brief §11–15) : analyse → extraction → comparaison → propositions. */
 export async function runAnalysis(formData: FormData) {
+  await requireAdmin();
   const id = Number(formData.get("id"));
   const pub = getPublication(id);
   if (!pub) redirect("/admin/publications");
@@ -299,6 +372,7 @@ export async function runAnalysis(formData: FormData) {
 
 /** Validation humaine (brief §13, §16) : accepter / modifier / refuser une proposition IA. */
 export async function decideProposal(formData: FormData) {
+  const user = await requireAdmin();
   const db = getDb();
   const proposalId = Number(formData.get("proposal_id"));
   const decision = String(formData.get("decision"));
@@ -311,12 +385,12 @@ export async function decideProposal(formData: FormData) {
   const pubId = proposal.publication_id;
 
   if (decision === "refuser") {
-    db.prepare("UPDATE proposals SET statut='refuse', decided_by=?, decided_at=datetime('now') WHERE id=?").run(ADMIN_USER, proposalId);
+    db.prepare("UPDATE proposals SET statut='refuse', decided_by=?, decided_at=datetime('now') WHERE id=?").run(user.email, proposalId);
   } else if (decision === "accepter") {
     const finalText = editedText || proposal.proposed_text;
     const statut = editedText && editedText !== proposal.proposed_text ? "modifie" : "accepte";
     if (proposal.kind === "enrichissement" && proposal.content_id) {
-      snapshotContent(proposal.content_id, `Enrichissement via publication #${pubId}`, pubId);
+      snapshotContent(proposal.content_id, `Enrichissement via publication #${pubId}`, user.email, pubId);
       db.prepare("UPDATE contents SET corps_web = ?, updated_at = datetime('now') WHERE id = ?").run(finalText, proposal.content_id);
     } else if (proposal.kind === "nouvelle_information" && proposal.profession_id && proposal.theme_id) {
       const maxOrdre = (db.prepare("SELECT COALESCE(MAX(ordre), 0) AS m FROM contents WHERE profession_id = ?").get(proposal.profession_id) as { m: number }).m;
@@ -325,9 +399,9 @@ export async function decideProposal(formData: FormData) {
         `INSERT INTO contents (profession_id, theme_id, ordre, display_theme_label, titre, corps_web, statut)
          VALUES (?, ?, ?, ?, ?, ?, 'publie')`
       ).run(proposal.profession_id, proposal.theme_id, maxOrdre + 1, theme?.name ?? "", proposal.titre, finalText);
-      snapshotContent(Number(result.lastInsertRowid), `Création via publication #${pubId}`, pubId);
+      snapshotContent(Number(result.lastInsertRowid), `Création via publication #${pubId}`, user.email, pubId);
     }
-    db.prepare("UPDATE proposals SET statut=?, proposed_text=?, decided_by=?, decided_at=datetime('now') WHERE id=?").run(statut, finalText, ADMIN_USER, proposalId);
+    db.prepare("UPDATE proposals SET statut=?, proposed_text=?, decided_by=?, decided_at=datetime('now') WHERE id=?").run(statut, finalText, user.email, proposalId);
   }
 
   // Si plus aucune proposition en attente, la publication passe en statut « intégrée »

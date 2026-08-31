@@ -1,23 +1,30 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-const SALT = "mnh-fondation-salt";
+const SECRET = process.env.AUTH_SECRET || "mnh-dev-secret-a-changer";
+const PUBLIC_ADMIN_PATHS = ["/admin/login", "/admin/inscription"];
 
-async function sha256Hex(input: string): Promise<string> {
-  const data = new TextEncoder().encode(input);
-  const hash = await crypto.subtle.digest("SHA-256", data);
-  return Array.from(new Uint8Array(hash)).map((b) => b.toString(16).padStart(2, "0")).join("");
+async function isValidSession(token: string | undefined): Promise<boolean> {
+  if (!token) return false;
+  const parts = token.split(".");
+  if (parts.length !== 3) return false;
+  const [id, exp, sig] = parts;
+  if (!/^\d+$/.test(id) || !/^\d+$/.test(exp) || Number(exp) < Date.now()) return false;
+  const enc = new TextEncoder();
+  const key = await crypto.subtle.importKey("raw", enc.encode(SECRET), { name: "HMAC", hash: "SHA-256" }, false, ["sign"]);
+  const mac = await crypto.subtle.sign("HMAC", key, enc.encode(`${id}.${exp}`));
+  const hex = Array.from(new Uint8Array(mac)).map((b) => b.toString(16).padStart(2, "0")).join("");
+  return hex === sig;
 }
 
 export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
-  if (pathname.startsWith("/admin/login")) return NextResponse.next();
-  const cookie = req.cookies.get("mnh_admin")?.value;
-  const expected = await sha256Hex(`${process.env.ADMIN_PASSWORD || "mnh2026"}:${SALT}`);
-  if (cookie !== expected) {
+  if (PUBLIC_ADMIN_PATHS.some((p) => pathname.startsWith(p))) return NextResponse.next();
+  const ok = await isValidSession(req.cookies.get("mnh_session")?.value);
+  if (!ok) {
     const url = req.nextUrl.clone();
     url.pathname = "/admin/login";
-    url.searchParams.set("from", pathname);
+    url.search = "";
     return NextResponse.redirect(url);
   }
   return NextResponse.next();

@@ -8,7 +8,7 @@ professions ↔ thématiques ↔ contenus ↔ études ↔ publications).
 
 ```bash
 npm install
-cp .env.example .env      # renseigner ANTHROPIC_API_KEY et ADMIN_PASSWORD
+cp .env.example .env      # renseigner ANTHROPIC_API_KEY et AUTH_SECRET
 npm run dev               # http://localhost:3100
 ```
 
@@ -22,9 +22,25 @@ canoniques, 56 contenus, 14 études, pages transversales).
 - **Site public** : accueil (3 entrées + chaîne d'effets), « Comprendre les enjeux »,
   pages professions (template dynamique), pages thématiques (lecture croisée),
   bibliothèque « Recherches & projets », recherche simple.
-- **Administration** (`/admin`, mot de passe `ADMIN_PASSWORD`, défaut dev `mnh2026`) :
+- **Administration** (`/admin`) :
   CRUD professions / thématiques / contenus / études / pages générales,
-  et le workflow **Publications & IA**.
+  le workflow **Publications & IA**, et la gestion des utilisateurs.
+
+## Comptes & rôles
+
+- **Inscription** : `/admin/inscription` — le compte est créé en statut « en attente ».
+- **Validation** : un **super-admin** valide (accès au dashboard) ou refuse chaque demande
+  depuis `/admin/utilisateurs`. Il peut aussi promouvoir un administrateur en super-admin.
+- **Premier super-admin** (bootstrap, directement en base) :
+  ```bash
+  node scripts/promote.mjs               # liste les comptes
+  node scripts/promote.mjs vous@mail.fr  # passe ce compte super-admin
+  ```
+- Sessions : cookie signé HMAC (`AUTH_SECRET` en production), mots de passe hashés scrypt.
+- Chaque action (validation de proposition IA, modification de contenu) est tracée
+  au nom de l'utilisateur connecté.
+- Migration **Supabase** prévue : la couche d'authentification est isolée dans
+  `lib/auth.ts` + table `users` ; fournir les clés dans `.env` le moment venu.
 
 ## Workflow IA (back-office uniquement)
 
