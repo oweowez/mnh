@@ -261,7 +261,8 @@ article.doc .body { white-space: pre-line; }
 .admin-side nav a:hover { background: rgba(255,255,255,.07); color: #fff; text-decoration: none; }
 .admin-side nav a.active { background: rgba(255,255,255,.1); color: #fff; border-left-color: var(--jaune); font-weight: 600; }
 .admin-foot { margin-top: auto; border-top: 1px solid rgba(255,255,255,.14); padding-top: 12px; }
-.admin-main { padding: 34px 44px 60px; max-width: 1120px; background: #fafbfd; min-height: 100vh; }
+.admin-main { padding: 34px 44px 60px; background: #fafbfd; min-height: 100vh; }
+.admin-inner { max-width: 1320px; }
 .admin-main h1 { font-size: 24px; margin: 0; }
 
 /* En-tête de page admin */
