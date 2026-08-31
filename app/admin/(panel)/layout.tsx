@@ -8,7 +8,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     <div className="admin-shell">
       <aside className="admin-side">
         <div className="brand">
-          Fondation MNH
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/assets/logo/logo-mnh.svg" alt="Fondation MNH" style={{ height: 40, width: "auto", display: "block", marginBottom: 6 }} />
           <small style={{ display: "block", fontWeight: 400, fontSize: 11, color: "#9fb4d0" }}>Administration</small>
         </div>
         <nav>

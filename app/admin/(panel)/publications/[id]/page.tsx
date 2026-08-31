@@ -124,7 +124,7 @@ export default async function PublicationDetail({
                   <form action={decideProposal}>
                     <input type="hidden" name="proposal_id" value={p.id} />
                     <details style={{ marginTop: 14 }}>
-                      <summary style={{ cursor: "pointer", fontSize: 14, color: "var(--bleu)" }}>Modifier le texte avant acceptation</summary>
+                      <summary style={{ cursor: "pointer", fontSize: 14, color: "var(--turquoise-fonce)" }}>Modifier le texte avant acceptation</summary>
                       <textarea name="edited_text" defaultValue={p.proposed_text} style={{ width: "100%", minHeight: 160, marginTop: 10, padding: 10, border: "1px solid var(--bord)", borderRadius: 8, fontFamily: "inherit", fontSize: 14 }} />
                     </details>
                     <div className="actions-row">

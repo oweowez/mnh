@@ -5,7 +5,7 @@ export const metadata = { title: "Connexion — Administration MNH" };
 export default async function LoginPage({ searchParams }: { searchParams: Promise<{ error?: string }> }) {
   const { error } = await searchParams;
   return (
-    <div style={{ minHeight: "100vh", display: "grid", placeItems: "center", background: "var(--bleu-fonce)" }}>
+    <div style={{ minHeight: "100vh", display: "grid", placeItems: "center", background: "var(--marine)" }}>
       <form action={login} className="form" style={{ background: "#fff", borderRadius: 14, padding: "36px 40px", width: 380 }}>
         <div>
           <h1 style={{ margin: 0, fontSize: 22 }}>Administration</h1>
