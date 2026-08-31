@@ -23,7 +23,6 @@ export default function AdminNav({ role, pending }: { role: string; pending: num
       {item("/admin/professions", "Professions")}
       {item("/admin/thematiques", "Thématiques")}
       {item("/admin/etudes", "Études & projets")}
-      {item("/admin/pages", "Pages générales")}
       {role === "superadmin" && (
         <>
           <span className="side-label">Administration</span>

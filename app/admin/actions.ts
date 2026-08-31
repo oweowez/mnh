@@ -229,19 +229,6 @@ export async function saveStudy(formData: FormData) {
   redirect("/admin/etudes");
 }
 
-// ---------- Pages générales ----------
-export async function savePage(formData: FormData) {
-  await requireAdmin();
-  const id = Number(formData.get("id"));
-  must(await db().from("pages").update({
-    title: String(formData.get("title") ?? ""),
-    body: String(formData.get("body") ?? ""),
-  }).eq("id", id).select("id"));
-  refreshPublic();
-  revalidatePath("/admin/pages");
-  redirect(`/admin/pages/${id}?saved=1`);
-}
-
 // ---------- Publications ----------
 export async function createPublication(formData: FormData) {
   await requireAdmin();
