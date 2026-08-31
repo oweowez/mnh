@@ -43,7 +43,7 @@
   --blanc: #ffffff;
   --vert: #15803d;
   --rouge: #b91c1c;
-  --radius: 8px;
+  --radius: 0;
   --font: "Avant Garde", "Century Gothic", Futura, Helvetica, Arial, sans-serif;
 }
 * { box-sizing: border-box; }
@@ -130,15 +130,16 @@ h1, h2, h3, h4 { line-height: 1.35; color: var(--marine); font-weight: 700; }
 .grid-2 { grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); }
 .card {
   background: var(--blanc); border: 1px solid var(--bord); border-radius: var(--radius);
-  padding: 26px 26px 24px; transition: box-shadow .18s ease, transform .18s ease, border-color .18s ease;
+  padding: 26px 26px 24px; transition: border-color .15s ease;
   display: block; color: inherit;
 }
-a.card:hover { text-decoration: none; box-shadow: 0 12px 28px rgba(8, 50, 100, .12); transform: translateY(-3px); border-color: var(--turquoise); }
+a.card:hover { text-decoration: none; border-color: var(--marine); }
 .card h3 { margin: 0 0 8px; font-size: 17px; }
 .card p { margin: 0; color: var(--texte); font-size: 14px; }
-.entry-card { border-top: 4px solid var(--turquoise); }
-.entry-card:nth-child(2) { border-top-color: var(--jaune); }
-.entry-card:nth-child(3) { border-top-color: var(--marine); }
+.entry-card { border: 0; background: var(--turquoise-pale); }
+.entry-card:nth-child(2) { background: var(--jaune-pale); }
+.entry-card:nth-child(3) { background: var(--bleu-pale); }
+a.entry-card:hover { border: 0; }
 .entry-card .arrow {
   color: var(--marine); font-weight: 700; margin-top: 16px; display: inline-block;
   font-size: 12.5px; text-transform: uppercase; letter-spacing: .08em;
@@ -148,21 +149,20 @@ a.card:hover { text-decoration: none; box-shadow: 0 12px 28px rgba(8, 50, 100, .
 /* ---------- Chaîne d'effets ---------- */
 .chain { display: flex; flex-direction: column; align-items: stretch; gap: 0; max-width: 580px; margin: 0 auto; }
 .chain-step {
-  background: var(--blanc); border: 1px solid var(--bord); border-left: 5px solid var(--turquoise);
-  border-radius: var(--radius); padding: 16px 22px; text-align: center;
-  box-shadow: 0 2px 8px rgba(8, 50, 100, .05);
+  background: var(--blanc); border: 1px solid var(--bord);
+  padding: 16px 22px; text-align: center;
 }
 .chain-step strong { color: var(--marine); display: block; font-size: 15.5px; }
 .chain-step span { font-size: 12.5px; color: var(--gris); }
 .chain-arrow { text-align: center; color: var(--turquoise-fonce); font-size: 22px; line-height: 1.5; font-weight: 700; }
-.chain > div:last-child .chain-step { border-left-color: var(--jaune); background: var(--jaune-pale); }
+.chain > div:last-child .chain-step { background: var(--jaune-pale); border-color: var(--jaune-pale); }
 
 /* ---------- Fiches contenu ---------- */
 .content-block {
   background: var(--blanc); border: 1px solid var(--bord); border-radius: var(--radius);
   margin-bottom: 18px; overflow: hidden; transition: border-color .15s ease;
 }
-.content-block[open] { border-color: var(--turquoise); box-shadow: 0 8px 24px rgba(8, 50, 100, .08); }
+.content-block[open] { border-color: var(--marine); }
 .content-block summary { cursor: pointer; padding: 20px 26px; list-style: none; position: relative; }
 .content-block summary::-webkit-details-marker { display: none; }
 .content-block summary::after {
@@ -180,8 +180,8 @@ a.card:hover { text-decoration: none; box-shadow: 0 12px 28px rgba(8, 50, 100, .
   font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: .1em;
   margin-bottom: 6px; color: var(--marine); display: flex; align-items: center; gap: 8px;
 }
-.notice-nuance { background: var(--jaune-pale); border-left: 5px solid var(--jaune); }
-.notice-decideur { background: var(--turquoise-pale); border-left: 5px solid var(--turquoise); }
+.notice-nuance { background: var(--jaune-pale); }
+.notice-decideur { background: var(--turquoise-pale); }
 
 /* ---------- Pastilles ---------- */
 .pill {
@@ -193,7 +193,7 @@ a.card:hover { text-decoration: none; box-shadow: 0 12px 28px rgba(8, 50, 100, .
 .refs { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
 .refs .label { font-size: 12px; font-weight: 700; color: var(--gris); text-transform: uppercase; letter-spacing: .08em; }
 .ref-badge {
-  background: var(--bleu-pale); border-radius: 4px; padding: 4px 12px; font-size: 13px; font-weight: 600;
+  background: var(--bleu-pale); border-radius: 0; padding: 4px 12px; font-size: 13px; font-weight: 600;
   color: var(--marine); transition: background .15s ease;
 }
 .ref-badge:hover { background: var(--turquoise-pale); text-decoration: none; }
@@ -224,7 +224,7 @@ article.doc {
 }
 article.doc h2 { margin-top: 0; font-size: 20px; }
 article.doc .body { white-space: pre-line; }
-.band article.doc { border-color: transparent; box-shadow: 0 4px 16px rgba(8, 50, 100, .06); }
+.band article.doc { border-color: var(--bord); }
 
 /* ---------- Recherche ---------- */
 .searchbox { display: flex; gap: 10px; }
