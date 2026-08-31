@@ -1,0 +1,1259 @@
+{
+ "professions": [
+  {
+   "slug": "aides-soignants",
+   "name": "Aides-soignants",
+   "ordre": 1,
+   "short_desc": "Fortement exposés aux contraintes physiques, à la charge de travail et aux violences, au contact direct des patients."
+  },
+  {
+   "slug": "infirmiers",
+   "name": "Infirmiers",
+   "ordre": 2,
+   "short_desc": "Parmi les professions les plus exposées au job strain ; manutention, violences et horaires pèsent sur la santé."
+  },
+  {
+   "slug": "medecins",
+   "name": "Médecins",
+   "ordre": 3,
+   "short_desc": "Charge, gardes et astreintes, charge administrative et difficulté à demander de l'aide marquent la profession."
+  },
+  {
+   "slug": "ash-employes",
+   "name": "ASH & personnels employés",
+   "ordre": 4,
+   "short_desc": "Une population très exposée qui cumule contraintes physiques, psychosociales et sociales, encore peu documentée."
+  },
+  {
+   "slug": "sages-femmes",
+   "name": "Sages-femmes",
+   "ordre": 5,
+   "short_desc": "Profil de job strain et d'iso-strain particulièrement défavorable ; enjeux forts de santé reproductive."
+  },
+  {
+   "slug": "reeducation",
+   "name": "Métiers de la rééducation",
+   "ordre": 6,
+   "short_desc": "Kinésithérapeutes, ergothérapeutes… : des enjeux plausibles mais des données métier encore rares."
+  },
+  {
+   "slug": "medico-techniques",
+   "name": "Professions médico-techniques",
+   "ordre": 7,
+   "short_desc": "Manipulateurs radio, techniciens de laboratoire… : des expositions spécifiques très dépendantes du poste."
+  },
+  {
+   "slug": "pharmaciens",
+   "name": "Pharmaciens",
+   "ordre": 8,
+   "short_desc": "L'accès facilité aux médicaments est une spécificité ; la santé mentale reste peu documentée spécifiquement."
+  }
+ ],
+ "themes": [
+  {
+   "slug": "sante-mentale-rps",
+   "name": "Santé mentale & RPS",
+   "ordre": 1,
+   "description": "Risques psychosociaux : intensité du travail, autonomie, soutien, reconnaissance et leurs effets sur la santé mentale."
+  },
+  {
+   "slug": "tms-sante-physique",
+   "name": "TMS & santé physique",
+   "ordre": 2,
+   "description": "Troubles musculosquelettiques et contraintes physiques : manutention, gestes répétitifs, postures."
+  },
+  {
+   "slug": "violences-securite",
+   "name": "Violences & sécurité",
+   "ordre": 3,
+   "description": "Violences verbales, physiques et organisationnelles au travail, signalement et réponse institutionnelle."
+  },
+  {
+   "slug": "sommeil-recuperation",
+   "name": "Sommeil & récupération",
+   "ordre": 4,
+   "description": "Horaires atypiques, travail de nuit, gardes, fatigue et capacité à récupérer et à prendre soin de soi."
+  },
+  {
+   "slug": "addictions",
+   "name": "Addictions & accès aux soins",
+   "ordre": 5,
+   "description": "Conduites addictives, accès facilité aux substances, tabou et difficultés à demander de l'aide."
+  },
+  {
+   "slug": "grossesse-sante-reproductive",
+   "name": "Grossesse & santé reproductive",
+   "ordre": 6,
+   "description": "Grossesse, santé reproductive et santé des femmes professionnelles de santé."
+  },
+  {
+   "slug": "cancer-expositions",
+   "name": "Cancer & expositions",
+   "ordre": 7,
+   "description": "Incidence des cancers, pratiques de dépistage et expositions professionnelles associées."
+  },
+  {
+   "slug": "vieillissement-maintien-emploi",
+   "name": "Vieillissement & maintien en emploi",
+   "ordre": 8,
+   "description": "Effets cumulatifs des expositions au fil de la carrière, capacité de travail et maintien en emploi."
+  },
+  {
+   "slug": "presenteisme-organisation",
+   "name": "Présentéisme & organisation",
+   "ordre": 9,
+   "description": "Absentéisme, présentéisme, coûts organisationnels et leviers d'organisation du travail."
+  },
+  {
+   "slug": "exposome",
+   "name": "Expositions professionnelles & exposome",
+   "ordre": 10,
+   "description": "Cumul des expositions physiques, chimiques, biologiques, organisationnelles et psychosociales."
+  }
+ ],
+ "studies": [
+  {
+   "ref_num": 1,
+   "slug": "soignances",
+   "name": "SOIGNANCES",
+   "full_title": "La cohorte des SOIGNants dans constANCES",
+   "team": "Descatha A., Singier A., Zins M., Temime L. et consortium SOIGNANCES — CHU Angers / Inserm / CNAM",
+   "type": "cohorte",
+   "date_label": "en cours",
+   "resume": "Projet fondé sur la cohorte épidémiologique CONSTANCES visant à étudier la santé des professionnels de santé et ses liens avec leur exposome professionnel : pénibilité physique, horaires, facteurs psychosociaux, habitudes de vie, santé mentale, addictions, cancers et santé reproductive."
+  },
+  {
+   "ref_num": 2,
+   "slug": "sansas",
+   "name": "SANSAS",
+   "full_title": "Étude qualitative sur la santé des soignants — attitudes et pratiques des soignants vis-à-vis de leur santé",
+   "team": "EHESP",
+   "type": "étude qualitative",
+   "date_label": "en cours",
+   "resume": "Étude qualitative auprès de médecins, infirmiers et aides-soignants portant sur les habitudes de vie, les obstacles professionnels, la santé physique et mentale, la charge de travail, le présentéisme, les violences et les conditions d'adhésion aux programmes de promotion de la santé."
+  },
+  {
+   "ref_num": 3,
+   "slug": "sops",
+   "name": "SOPS",
+   "full_title": "Santé Orale des Professionnels de Santé — les soignants hospitaliers face à la santé bucco-dentaire",
+   "team": "Tenenbaum A., Bas A.-C., Manganelli M. et al. — Université Paris Cité / GH Pitié-Salpêtrière",
+   "type": "étude qualitative",
+   "date_label": "en cours",
+   "resume": "Étude qualitative sur les trajectoires de soins bucco-dentaires, le recours à la prévention, les arbitrages de santé et les contraintes d'accès aux soins chez les aides-soignantes et infirmières."
+  },
+  {
+   "ref_num": 4,
+   "slug": "trailss",
+   "name": "TRAILSS",
+   "full_title": "Trajectoires des infirmières entre le libéral et le salariat, santé mentale et addiction — le fardeau des facteurs de risques psychosociaux",
+   "team": "Augé E., Mousquès J. — IRDES / EHESP",
+   "type": "projet de recherche",
+   "date_label": "en cours",
+   "resume": "Travail consacré aux effets des risques psychosociaux sur la santé des professionnels hospitaliers et au rôle protecteur potentiel de l'autonomie, du soutien social et de la reconnaissance."
+  },
+  {
+   "ref_num": 5,
+   "slug": "tms-evrest",
+   "name": "Projet TMS (EVREST)",
+   "full_title": "Troubles musculosquelettiques chez les soignants — travaux à partir de l'observatoire EVREST, données 2020–2024",
+   "team": "CHU de Rouen / Université de Lille",
+   "type": "étude observationnelle",
+   "date_label": "2020–2024",
+   "resume": "Étude de la prévalence et des déterminants des TMS chez les professionnels de santé, portant sur plus de 26 000 salariés dont environ 1 800 soignants : douleurs dorso-lombaires, atteintes des membres supérieurs, contraintes biomécaniques et psychosociales et leur évolution selon l'âge et le métier."
+  },
+  {
+   "ref_num": 6,
+   "slug": "wocapreg",
+   "name": "WOCAPREG",
+   "full_title": "WOmen CAregivers and PREGnancy — impact des professions et des conditions de travail sur la santé des femmes enceintes professionnelles de santé",
+   "team": "CHU de Toulouse / Inserm UMR 1295",
+   "type": "étude observationnelle",
+   "date_label": "en cours",
+   "resume": "Étude portant sur la consommation médicamenteuse, la santé maternelle, les complications et les issues de grossesse selon les groupes professionnels et leurs conditions de travail."
+  },
+  {
+   "ref_num": 7,
+   "slug": "capessa",
+   "name": "CAPESSA",
+   "full_title": "Incidence et mortalité par cancer chez le personnel du secteur de la santé, pratiques de dépistage",
+   "team": "Viprey M., Havet A., Lamouroux C., Charbotel B. et al. — CRPPE Lyon / UMRESTTE / Hospices Civils de Lyon",
+   "type": "étude observationnelle",
+   "date_label": "en cours",
+   "resume": "Étude consacrée à l'incidence et à la mortalité par cancer ainsi qu'aux pratiques de dépistage chez les personnels du secteur de la santé, avec des analyses par groupes professionnels."
+  },
+  {
+   "ref_num": 8,
+   "slug": "soignants-oublies",
+   "name": "« Soignants oubliés »",
+   "full_title": "Les personnels employés du soin du secteur sanitaire et médico-social — revue de la littérature 2000–2025 des déterminants de santé",
+   "team": "Sanchez M.-A., Lelouvier M., Jaouen A., Sanchez S., Botton C., Vercambre-Jacquot M.-N., de Normandie P., Boscardin H. — Coalition Fondations & Santé",
+   "type": "revue de littérature",
+   "date_label": "2025",
+   "resume": "Revue systématique consacrée notamment aux aides-soignants, ASH et autres personnels employés du sanitaire et médico-social : TMS, risques psychosociaux, violence, conditions de travail et autres déterminants de santé."
+  },
+  {
+   "ref_num": 9,
+   "slug": "vieillissement",
+   "name": "Vieillissement en santé",
+   "full_title": "Le vieillissement en santé des professionnels de santé — scoping review",
+   "team": "Gérontopôle Centre-Val de Loire",
+   "type": "scoping review",
+   "date_label": "juillet 2026",
+   "resume": "Scoping review de 156 études publiées entre 2016 et 2026 portant sur les professionnels de santé de 45 ans et plus : santé globale, inégalités, trajectoires professionnelles, conditions d'exercice, maintien en emploi et facteurs de risque et de protection associés au vieillissement professionnel."
+  },
+  {
+   "ref_num": 10,
+   "slug": "valoris",
+   "name": "VALORIS",
+   "full_title": "Coût de la mauvaise santé des professionnels de santé",
+   "team": "Chen E., Sirven N. — EHESP",
+   "type": "étude médico-économique",
+   "date_label": "en cours",
+   "resume": "Travail médico-économique visant à mesurer le coût complet de l'absentéisme et du présentéisme en intégrant les conséquences sur l'activité, l'organisation des équipes et la qualité des soins. Enquête auprès d'environ 1 400 cadres et décideurs hospitaliers et données PMSI."
+  },
+  {
+   "ref_num": 11,
+   "slug": "sante-femmes",
+   "name": "Santé des femmes professionnelles de santé",
+   "full_title": "Santé des femmes professionnelles de santé : panorama exploratoire de la littérature",
+   "team": "Veyrier C.-A., Pere-ere Ajuwa M.-E., Cousin Cabrolier L., Duracinsky M. — URC-ECO AP-HP / PROQOL, Université Paris Cité, Inserm",
+   "type": "revue exploratoire",
+   "date_label": "octobre 2022",
+   "resume": "Revue exploratoire consacrée aux différences de sexe et de genre dans la santé des professionnelles de santé : risques physiques, psychosociaux, biologiques et chimiques, santé mentale, santé physique, santé sexuelle et reproductive et qualité de vie."
+  },
+  {
+   "ref_num": 12,
+   "slug": "colloque-mnh",
+   "name": "3e colloque Fondation MNH",
+   "full_title": "Synthèse du 3e colloque « Recherches et innovations sur la santé des professionnels de santé »",
+   "team": "Fondation MNH",
+   "type": "synthèse",
+   "date_label": "8 avril 2026",
+   "resume": "Document transversal synthétisant les avancées des principaux projets de recherche, les enjeux d'investissement dans la santé des professionnels et plusieurs initiatives de terrain."
+  },
+  {
+   "ref_num": 13,
+   "slug": "diu-soigner-les-soignants",
+   "name": "DIU Soigner les Soignants",
+   "full_title": "Synthèse « littérature grise » des mémoires du DIU Soigner les Soignants",
+   "team": "Jullian B. et groupe d'experts",
+   "type": "littérature grise",
+   "date_label": "2026",
+   "resume": "Analyse de 104 mémoires du DIU portant sur la santé des soignants : santé mentale et addictions, actions de prévention, dispositifs d'accompagnement, conditions de travail et reconnaissance professionnelle."
+  },
+  {
+   "ref_num": 14,
+   "slug": "addictions-ps",
+   "name": "Addictions chez les professionnels de santé",
+   "full_title": "Revue de littérature sur les addictions des professionnels de santé",
+   "team": "Felix H., Amirouche A., Marbois C., Serreau R. — UR PSYCOMADD, AP-HP / Université Paris-Saclay",
+   "type": "revue de littérature",
+   "date_label": "2026",
+   "resume": "Revue de la littérature consacrée aux conduites addictives chez les médecins et les autres professionnels de santé, à leurs liens avec l'épuisement professionnel, le stress et les conditions de travail, ainsi qu'aux difficultés de dépistage, d'accès aux soins et de maintien dans l'emploi."
+  }
+ ],
+ "contents": [
+  {
+   "profession": "aides-soignants",
+   "theme": "tms-sante-physique",
+   "display_theme_label": "TMS / santé physique",
+   "ordre": 1,
+   "titre": "Les TMS sont un enjeu majeur, avec une attention particulière aux membres supérieurs avec l’âge",
+   "message_cle": "Les aides-soignants sont fortement exposés aux TMS. Avec l’âge, les atteintes des membres supérieurs deviennent particulièrement importantes. Réf. [5] [8].",
+   "dev_court": "La manutention, les transferts de patients, les gestes répétitifs et les postures pénibles sollicitent fortement le corps. Le rachis reste très concerné, mais les troubles des épaules, bras, poignets et mains augmentent particulièrement au cours de la carrière. Réf. [2] [5] [8].",
+   "corps_web": "Les aides-soignants sont fortement exposés aux contraintes biomécaniques liées à la manutention, aux transferts de patients, aux gestes répétitifs et aux postures pénibles. Les douleurs du rachis restent fréquentes : une étude citée dans la littérature rapporte qu’environ 65 % des TMS déclarés concernaient le rachis. Mais l’évolution avec l’âge fait apparaître un autre signal important : les atteintes des membres supérieurs augmentent particulièrement chez les aides-soignants. Parallèlement, leur exposition aux contraintes semble moins diminuer au cours de la carrière que chez les infirmiers, ce qui suggère des possibilités plus limitées de mise à l’abri ou d’adaptation des postes. Références : [2] [5] [8].",
+   "nuance": "Le chiffre de 65 % provient d’une étude spécifique citée dans une revue et ne constitue pas une prévalence nationale. Les résultats EVREST décrivent une évolution des expositions et des TMS ; ils ne démontrent pas à eux seuls l’efficacité d’un aménagement particulier.",
+   "decideur": "Manutention et transferts, aides techniques réellement disponibles et utilisées, répétitivité, douleurs des membres supérieurs, ancienneté dans le poste et possibilités d’adaptation ou de mobilité.",
+   "priorite": "Très haute",
+   "refs": [
+    2,
+    5,
+    8
+   ]
+  },
+  {
+   "profession": "aides-soignants",
+   "theme": "sante-mentale-rps",
+   "display_theme_label": "Santé mentale / RPS",
+   "ordre": 2,
+   "titre": "La santé mentale est étroitement liée à l’organisation du travail",
+   "message_cle": "Sous-effectif, surcharge, faible autonomie, manque de soutien et manque de reconnaissance sont des déterminants récurrents de l’usure mentale. Réf. [2] [4] [8] [13].",
+   "dev_court": "Les aides-soignants décrivent davantage d’anxiété, d’épuisement et de difficulté à déconnecter lorsque la charge augmente ou que le soutien manque. À l’inverse, autonomie, soutien des collègues et de la hiérarchie et reconnaissance constituent des ressources importantes. Réf. [2] [4] [8] [13].",
+   "corps_web": "Les résultats convergent vers un rôle central de l’organisation du travail dans la santé mentale des aides-soignants. Le sous-effectif, la surcharge, les changements de service, le manque de soutien et le sentiment de ne pas être suffisamment écouté ou reconnu sont associés à une usure mentale, à de l’anxiété et à une difficulté à déconnecter. Les analyses disponibles montrent aussi que certaines ressources du travail peuvent protéger : l’autonomie et le soutien social atténuent une partie des effets de l’intensité du travail, et la reconnaissance ressort de façon récurrente comme un besoin important. Références : [2] [4] [8] [13].",
+   "nuance": "Une partie des données est qualitative. Les effets protecteurs de l’autonomie, du soutien ou de la reconnaissance varient selon l’indicateur de santé étudié et ne compensent pas nécessairement toutes les contraintes.",
+   "decideur": "Charge réelle, sous-effectif chronique, changements de service, marge de manœuvre, soutien de proximité, disponibilité du cadre et reconnaissance du travail réalisé.",
+   "priorite": "Très haute",
+   "refs": [
+    2,
+    4,
+    8,
+    13
+   ]
+  },
+  {
+   "profession": "aides-soignants",
+   "theme": "violences-securite",
+   "display_theme_label": "Violences / sécurité",
+   "ordre": 3,
+   "titre": "Les violences s’ajoutent aux autres contraintes du métier",
+   "message_cle": "Les aides-soignants sont exposés à des violences verbales et physiques, auxquelles peuvent s’ajouter des formes de violence organisationnelle. Réf. [2] [8].",
+   "dev_court": "Selon les contextes étudiés, 20 à 40 % des aides-soignants et ASH rapportent des agressions verbales ou physiques ; une étude citée rapporte près de 46 % de violences verbales du public chez les aides-soignants du secteur public. Réf. [8].",
+   "corps_web": "Le contact direct avec les patients et les proches expose les aides-soignants à des agressions verbales et parfois physiques. Selon les études réunies dans la littérature, 20 à 40 % des aides-soignants et ASH déclarent ce type d’agressions selon les contextes ; une source citée rapporte près de 46 % de violences verbales du public chez les aides-soignants du secteur public. Les entretiens montrent également que le manque de soutien, certaines interactions difficiles et des dysfonctionnements institutionnels peuvent être vécus comme une forme de violence organisationnelle. Références : [2] [8].",
+   "nuance": "Les pourcentages proviennent de sources et de contextes différents : ils ne doivent pas être additionnés ni considérés comme une estimation unique de la fréquence des violences.",
+   "decideur": "Services les plus exposés, répétition des agressions, signalement, soutien après événement, réponse institutionnelle et situations où les professionnels se sentent laissés seuls.",
+   "priorite": "Très haute",
+   "refs": [
+    2,
+    8
+   ]
+  },
+  {
+   "profession": "aides-soignants",
+   "theme": "sommeil-recuperation",
+   "display_theme_label": "Sommeil / récupération / accès aux soins",
+   "ordre": 4,
+   "titre": "Récupérer et prendre soin de soi peut devenir difficile",
+   "message_cle": "Les horaires, la charge de travail et le sous-effectif peuvent réduire la récupération et retarder le recours à ses propres soins. Réf. [1] [2] [3].",
+   "dev_court": "Fatigue, sommeil insuffisant et difficulté à déconnecter sont décrits chez les soignants. Chez les aides-soignantes interrogées sur leur santé bucco-dentaire, les consultations sont plus souvent tardives et déclenchées par la douleur ou l’urgence. Réf. [1] [2] [3].",
+   "corps_web": "Les contraintes de travail ne s’arrêtent pas à la fin du poste : horaires atypiques, charge élevée et difficulté à déconnecter peuvent limiter la récupération. Les données globales chez les professionnels de santé retrouvent fatigue et troubles du sommeil, tandis que les entretiens décrivent des difficultés concrètes à récupérer. Le même mécanisme apparaît dans le recours aux soins : chez les aides-soignantes interrogées sur leur santé bucco-dentaire, les trajectoires sont plus souvent discontinues, avec des consultations déclenchées par la douleur ou l’urgence, des reports, des renoncements et parfois des auto-soins. Le temps disponible, les horaires, le coût et l’accessibilité des soins participent à ces arbitrages. Références : [1] [2] [3].",
+   "nuance": "Les chiffres de fatigue et de sommeil sont transversaux aux professionnels de santé et non spécifiques aux aides-soignants. L’étude bucco-dentaire est qualitative et porte sur un petit nombre d’aides-soignantes hospitalières.",
+   "decideur": "Horaires atypiques, temps de repos, enchaînement des postes, déconnexion, reports de rendez-vous, difficultés d’accès aux soins et impossibilité de s’absenter sans désorganiser l’équipe.",
+   "priorite": "Haute",
+   "refs": [
+    1,
+    2,
+    3
+   ]
+  },
+  {
+   "profession": "aides-soignants",
+   "theme": "presenteisme-organisation",
+   "display_theme_label": "Présentéisme / absentéisme",
+   "ordre": 5,
+   "titre": "Le présentéisme est un signal important",
+   "message_cle": "La solidarité envers l’équipe et les patients peut conduire à travailler malgré une santé dégradée. Réf. [2] [10].",
+   "dev_court": "Le sous-effectif peut pousser certains aides-soignants à venir travailler malgré une douleur ou une fatigue importante. Cette présence dégradée a aussi un impact sur l’activité et l’organisation du service. Réf. [2] [10].",
+   "corps_web": "Chez les aides-soignants, le présentéisme peut être favorisé par la solidarité envers les collègues et les patients : lorsque les effectifs sont faibles, s’arrêter peut être vécu comme le fait de mettre l’équipe en difficulté. Des témoignages décrivent ainsi le maintien au travail malgré une douleur. Or la présence au travail avec une santé dégradée n’est pas neutre pour l’établissement : dans le contexte de chirurgie hors cardiaque étudié, une journée de présentéisme d’un aide-soignant est associée à 7,9 séjours perdus, contre 8,5 pour une journée d’absence. Ces résultats montrent que l’impact de la mauvaise santé dépasse la seule question de l’arrêt de travail. Références : [2] [10].",
+   "nuance": "Le mécanisme de présentéisme est documenté qualitativement ; aucun taux global n’est estimé. Les chiffres d’impact organisationnel proviennent d’une spécialité précise et ne doivent pas être généralisés à tous les services.",
+   "decideur": "Professionnels travaillant malgré douleur ou fatigue, difficulté à se faire remplacer, sous-effectif chronique, conséquences sur l’activité, surcharge des présents et qualité des soins.",
+   "priorite": "Très haute",
+   "refs": [
+    2,
+    10
+   ]
+  },
+  {
+   "profession": "aides-soignants",
+   "theme": "vieillissement-maintien-emploi",
+   "display_theme_label": "Vieillissement / maintien en emploi",
+   "ordre": 6,
+   "titre": "Les risques évoluent et s’accumulent au cours de la carrière",
+   "message_cle": "Chez les aides-soignants, l’accumulation des expositions et les possibilités limitées d’adaptation peuvent fragiliser le maintien dans l’emploi avec l’âge. Réf. [5] [9].",
+   "dev_court": "Charge physique, horaires contraints, violences et faible autonomie peuvent produire une usure cumulative. Les difficultés ne doivent donc pas être regardées uniquement au moment où apparaissent les limitations. Réf. [5] [9].",
+   "corps_web": "La santé des aides-soignants doit être envisagée dans la durée. Les travaux sur le vieillissement les identifient parmi les professions cumulant de fortes expositions et des protections organisationnelles plus faibles, avec des trajectoires de maintien en emploi plus défavorables. Les contraintes physiques, les horaires, les violences et la faible autonomie peuvent s’additionner au fil des années. Les données sur les TMS vont dans le même sens : les atteintes des membres supérieurs augmentent avec l’âge et l’exposition semble moins diminuer que chez certaines autres professions, ce qui rend particulièrement importante la question de l’adaptation des tâches et des parcours professionnels. Références : [5] [9].",
+   "nuance": "La revue sur le vieillissement rassemble des études internationales et hétérogènes. L’âge chronologique ne suffit pas à résumer la capacité de travail ; les expositions cumulées et les capacités fonctionnelles sont centrales.",
+   "decideur": "Ancienneté, évolution des douleurs, restrictions fonctionnelles, maintien prolongé sur les postes les plus exposés, rotations possibles, adaptation des tâches et perspectives de mobilité.",
+   "priorite": "Très haute",
+   "refs": [
+    5,
+    9
+   ]
+  },
+  {
+   "profession": "aides-soignants",
+   "theme": "grossesse-sante-reproductive",
+   "display_theme_label": "Grossesse / cancer / étapes de vie",
+   "ordre": 7,
+   "titre": "Grossesse et cancer : des signaux à connaître sans surinterpréter",
+   "message_cle": "Des différences sont observées autour de la grossesse et pour certains cancers, mais elles ne permettent pas d’attribuer directement un risque au métier d’aide-soignant. Réf. [6] [7] [11].",
+   "dev_court": "Les études montrent des écarts entre groupes professionnels pour la grossesse et décrivent plusieurs cancers dans un groupe incluant les aides-soignants. Ces résultats sont surtout des signaux à approfondir, pas des preuves de causalité professionnelle. Réf. [6] [7] [11].",
+   "corps_web": "Certaines étapes de vie nécessitent une lecture spécifique. Autour de la grossesse, le groupe incluant les aides-soignantes présente davantage de consommation médicamenteuse avant la grossesse et certaines différences d’issues par rapport à d’autres groupes professionnels. Ces écarts suivent un gradient socioprofessionnel, mais les travaux disponibles ne démontrent pas que les contraintes du travail en sont la cause. Pour le cancer, les données décrivent plusieurs localisations dans une catégorie professionnelle agrégée comprenant les aides-soignants, sans permettre d’isoler précisément leur risque ni d’établir un lien causal avec le métier. Ces résultats doivent donc être utilisés comme des signaux de surveillance et de recherche plutôt que comme des risques professionnels démontrés. Références : [6] [7] [11].",
+   "nuance": "Les groupes étudiés sont agrégés et peuvent différer par âge, niveau socio-économique, dépistage et facteurs individuels. Une association observée ne signifie pas que le métier ou une exposition professionnelle en est la cause.",
+   "decideur": "Situations de grossesse, adaptation des contraintes du poste, accès au dépistage et interprétation prudente des différences observées entre groupes professionnels.",
+   "priorite": "Moyenne",
+   "refs": [
+    6,
+    7,
+    11
+   ]
+  },
+  {
+   "profession": "infirmiers",
+   "theme": "sante-mentale-rps",
+   "display_theme_label": "Santé mentale / RPS",
+   "ordre": 1,
+   "titre": "Forte demande, faible autonomie et faible soutien : un profil de risque particulièrement marqué",
+   "message_cle": "Chez les infirmiers, l’intensité du travail devient particulièrement délétère lorsqu’elle s’accompagne de peu d’autonomie et de peu de soutien. Réf. [4].",
+   "dev_court": "Les infirmiers en soins généraux figurent, avec les sages-femmes, parmi les professions les plus exposées au job strain et à l’iso-strain. Le soutien social, l’autonomie et la reconnaissance constituent des ressources importantes. Réf. [4].",
+   "corps_web": "La santé mentale des infirmiers est étroitement liée à l’équilibre entre les exigences du travail et les ressources disponibles. Les infirmiers en soins généraux apparaissent particulièrement exposés lorsque la forte intensité se combine à une faible autonomie et à un faible soutien social. Les analyses montrent aussi que l’autonomie, le soutien des collègues et de la hiérarchie et la reconnaissance peuvent atténuer une partie des effets des fortes exigences. Ces résultats invitent à regarder la santé mentale comme un enjeu d’organisation du travail, et pas seulement comme une fragilité individuelle. Références : [4].",
+   "nuance": "Les chiffres globaux de job strain et d’iso-strain concernent l’échantillon hospitalier ; ils ne constituent pas des prévalences propres à tous les infirmiers. Les associations avec la santé mentale restent issues d’analyses observationnelles.",
+   "decideur": "Intensité réelle du travail, autonomie, soutien de proximité, effectifs, reconnaissance, capacité à demander de l’aide et situations où les professionnels disent ne plus pouvoir faire un travail de qualité.",
+   "priorite": "Très haute",
+   "refs": [
+    4
+   ]
+  },
+  {
+   "profession": "infirmiers",
+   "theme": "tms-sante-physique",
+   "display_theme_label": "TMS / santé physique",
+   "ordre": 2,
+   "titre": "La manutention et les gestes répétés exposent fortement les infirmiers aux TMS",
+   "message_cle": "Transferts de patients, manutention, mouvements répétitifs et ergonomie insuffisante sont régulièrement associés aux douleurs du dos, du cou et des membres supérieurs. Réf. [2] [5].",
+   "dev_court": "Les TMS sont un problème concret du travail infirmier. Avec l’âge, les expositions semblent toutefois pouvoir diminuer davantage que chez les aides-soignants et ASH, ce qui suggère davantage de possibilités d’aménagement ou d’évolution vers des postes moins exposés. Réf. [2] [5].",
+   "corps_web": "Les infirmiers décrivent des douleurs du dos, des cervicales, des bras et des mains en lien avec les transferts, la manutention, les mouvements répétitifs et des conditions parfois peu ergonomiques. Les données disponibles suggèrent aussi que les trajectoires d’exposition ne sont pas figées : avec l’âge, les infirmiers semblent davantage pouvoir évoluer vers des postes moins exposés physiquement que les aides-soignants ou les ASH. Cette possibilité de « mise à l’abri » ne supprime pas le risque de TMS, mais elle constitue une différence importante dans la manière dont l’usure physique peut évoluer au cours de la carrière. Références : [2] [5].",
+   "nuance": "Les données EVREST disponibles sont issues d’une synthèse et non du rapport complet. Elles décrivent des tendances d’exposition et ne permettent pas d’attribuer l’évolution à un mécanisme unique.",
+   "decideur": "Manutention, transferts, ergonomie, douleurs des membres supérieurs et du rachis, ancienneté, changements de poste et possibilités concrètes d’évolution vers des tâches moins exposantes.",
+   "priorite": "Très haute",
+   "refs": [
+    2,
+    5
+   ]
+  },
+  {
+   "profession": "infirmiers",
+   "theme": "violences-securite",
+   "display_theme_label": "Violences / sécurité",
+   "ordre": 3,
+   "titre": "Les infirmiers sont particulièrement exposés aux violences, surtout verbales",
+   "message_cle": "Les infirmiers sont le groupe le plus étudié dans le panorama sur la santé des femmes professionnelles de santé et apparaissent particulièrement concernés par les violences verbales et le harcèlement sexuel. Réf. [11].",
+   "dev_court": "Les violences peuvent venir des patients ou des proches, mais aussi prendre une forme relationnelle ou organisationnelle. Les contextes d’urgence et de psychiatrie ressortent comme particulièrement exposés. Réf. [11].",
+   "corps_web": "Les violences constituent un enjeu important pour les infirmiers. Dans la littérature consacrée aux femmes professionnelles de santé, les infirmières sont le groupe le plus étudié et apparaissent particulièrement exposées aux violences, notamment verbales ; le harcèlement sexuel est également documenté. Les situations varient fortement selon les services, avec des contextes comme les urgences ou la psychiatrie régulièrement identifiés comme plus à risque. Au-delà de l’événement lui-même, la répétition des agressions et la qualité du soutien institutionnel peuvent peser sur la santé mentale et le sentiment de sécurité au travail. Références : [11].",
+   "nuance": "Le panorama regroupe des études internationales et très hétérogènes. Les résultats concernent surtout les femmes infirmières et ne doivent pas être étendus automatiquement à tous les infirmiers.",
+   "decideur": "Services les plus exposés, répétition des agressions, harcèlement, signalement, soutien après événement, formation des équipes et perception de la réponse institutionnelle.",
+   "priorite": "Haute",
+   "refs": [
+    11
+   ]
+  },
+  {
+   "profession": "infirmiers",
+   "theme": "sommeil-recuperation",
+   "display_theme_label": "Sommeil / récupération / soin de soi",
+   "ordre": 4,
+   "titre": "Connaître le système de santé ne garantit pas de pouvoir prendre soin de soi",
+   "message_cle": "Horaires, fatigue et charge de travail peuvent réduire la récupération et retarder les soins, même chez des professionnels qui connaissent bien le système de santé. Réf. [1] [2] [3].",
+   "dev_court": "Les infirmiers décrivent des difficultés à protéger leur sommeil, leurs repas, leur activité physique et leurs rendez-vous de santé. En santé bucco-dentaire, leurs trajectoires sont en moyenne plus régulières que celles des aides-soignantes, mais le temps disponible reste un frein majeur. Réf. [2] [3].",
+   "corps_web": "Chez les infirmiers, la connaissance du système de santé ne suffit pas toujours à protéger le soin de soi. Les horaires, la fatigue et la charge de travail peuvent perturber le sommeil, les repas, l’activité physique et les rendez-vous médicaux. En santé bucco-dentaire, les infirmières interrogées ont des trajectoires globalement plus régulières et plus préventives que les aides-soignantes, mais les contraintes de temps, la fatigue et la charge familiale continuent à retarder certains soins. La crainte d’être jugé par un autre professionnel est également décrite comme un frein possible à la demande d’aide. Références : [1] [2] [3].",
+   "nuance": "Les données de sommeil de SOIGNANCES sont transversales aux professionnels de santé. SOPS et SANSAS sont des études qualitatives : elles décrivent des mécanismes et non des fréquences représentatives.",
+   "decideur": "Horaires atypiques, récupération, possibilité de prendre des rendez-vous, reports de soins, fatigue, charge familiale et facilité à demander de l’aide sans crainte de jugement.",
+   "priorite": "Haute",
+   "refs": [
+    1,
+    2,
+    3
+   ]
+  },
+  {
+   "profession": "infirmiers",
+   "theme": "addictions",
+   "display_theme_label": "Addictions / accès aux soins",
+   "ordre": 5,
+   "titre": "Les troubles addictifs existent chez les infirmiers, mais l’accès aux soins reste un point critique",
+   "message_cle": "Les estimations varient fortement selon les études, avec des troubles de l’usage de substances rapportés entre 6 et 20 %. Le retard à demander de l’aide est un enjeu majeur. Réf. [14].",
+   "dev_court": "Stress, épuisement, travail émotionnel, horaires et accès aux substances sont régulièrement cités parmi les facteurs associés. Les dispositifs non punitifs paraissent favoriser davantage l’entrée en soins que les approches disciplinaires. Réf. [14].",
+   "corps_web": "La littérature internationale montre que les troubles liés à l’usage de substances ne sont pas absents chez les infirmiers, mais leur fréquence varie fortement selon les contextes, les définitions et les spécialités. Les estimations rapportées vont de 6 à 20 % selon les études. Les facteurs évoqués incluent le stress, l’épuisement, le travail émotionnel, les horaires et parfois l’accès facilité à certaines substances. Un autre enjeu important est l’accès aux soins : certaines sources montrent qu’une faible proportion des infirmiers concernés reçoit un accompagnement adapté, tandis que des dispositifs non punitifs semblent faciliter l’entrée en soins. Références : [14].",
+   "nuance": "Les chiffres sont issus d’études internationales hétérogènes et ne constituent pas une prévalence française. Les résultats sur les dispositifs d’accompagnement dépendent fortement des systèmes de santé étudiés.",
+   "decideur": "Signaux de burnout, sommeil, consommation de substances, accès confidentiel aux soins, peur des conséquences professionnelles et existence d’un parcours d’aide non punitif.",
+   "priorite": "Haute",
+   "refs": [
+    14
+   ]
+  },
+  {
+   "profession": "infirmiers",
+   "theme": "vieillissement-maintien-emploi",
+   "display_theme_label": "Vieillissement / trajectoires / présentéisme",
+   "ordre": 6,
+   "titre": "Les conditions de travail influencent les trajectoires et le maintien dans le métier",
+   "message_cle": "Chez les infirmiers, l’usure peut conduire à une adaptation du poste, à une sortie de l’hôpital ou à du présentéisme lorsque s’arrêter paraît difficile. Réf. [2] [4] [5] [9].",
+   "dev_court": "Les trajectoires sont diverses : certaines sorties de l’hôpital suivent une dégradation progressive des conditions de travail, d’autres un événement déclencheur. Avec l’âge, la flexibilité, le soutien et l’adaptation du poste deviennent particulièrement importants. Réf. [4] [9].",
+   "corps_web": "La santé des infirmiers évolue avec leur trajectoire professionnelle. Les travaux décrivent des départs de l’hôpital après une dégradation progressive des conditions de travail, mais aussi après un événement déclencheur, notamment lorsque le sentiment de ne plus pouvoir réaliser un soin de qualité devient trop important. Avec l’âge, la charge physique, le travail de nuit et les contraintes du poste peuvent réduire la capacité de travail, tandis que la flexibilité, le soutien, le mentorat et l’adaptation des tâches apparaissent comme des ressources. À l’inverse, lorsque s’arrêter devient difficile, notamment en libéral, le présentéisme peut prolonger l’exposition malgré une santé dégradée. Références : [2] [4] [5] [9].",
+   "nuance": "Le volet de trajectoires de TRAILSS concerne les passages de l’hôpital vers le libéral et ne résume pas toutes les trajectoires infirmières. La revue sur le vieillissement rassemble des études internationales.",
+   "decideur": "Ancienneté, qualité empêchée, souhait de départ, travail de nuit, restrictions fonctionnelles, possibilités de mobilité, présentéisme et accompagnement des transitions professionnelles.",
+   "priorite": "Très haute",
+   "refs": [
+    2,
+    4,
+    5,
+    9
+   ]
+  },
+  {
+   "profession": "infirmiers",
+   "theme": "grossesse-sante-reproductive",
+   "display_theme_label": "Grossesse / cancer / étapes de vie",
+   "ordre": 7,
+   "titre": "Des différences existent selon les étapes de vie, sans prouver un effet causal du métier",
+   "message_cle": "Chez les infirmières et puéricultrices, le profil préconceptionnel apparaît plus favorable que dans certains groupes employés. Des différences de cancer sont aussi décrites, mais elles restent descriptives. Réf. [6] [7] [11].",
+   "dev_court": "Avant la grossesse, le groupe infirmières/puéricultrices reçoit en moyenne moins de médicaments que certains groupes employés. Pour le cancer, les femmes infirmières apparaissent notamment avec une fréquence élevée de cancers cutanés dans les comparaisons disponibles. Réf. [6] [7].",
+   "corps_web": "Certaines données mettent en évidence des différences entre groupes professionnels sans permettre de les attribuer directement au métier. Avant la grossesse, le groupe infirmières/puéricultrices présente un profil médicamenteux globalement plus favorable que plusieurs groupes employés, avec 8,6 médicaments différents en moyenne avant la grossesse et 7,2 pendant. Pour le cancer, les infirmiers constituent un groupe important dans CAPESSA et les femmes infirmières apparaissent notamment avec une fréquence élevée de cancers cutanés dans les comparaisons présentées, tandis que le cancer du sein reste une localisation majeure. Ces observations sont des signaux descriptifs qui doivent être interprétés avec l’âge, le dépistage et les facteurs individuels. Références : [6] [7] [11].",
+   "nuance": "Les groupes de grossesse sont agrégés. Les comparaisons de cancer sont descriptives : elles ne démontrent pas que le métier ou une exposition professionnelle cause les différences observées.",
+   "decideur": "Grossesse, prévention préconceptionnelle, expositions selon les postes, accès au dépistage et interprétation prudente des différences entre groupes.",
+   "priorite": "Moyenne",
+   "refs": [
+    6,
+    7,
+    11
+   ]
+  },
+  {
+   "profession": "medecins",
+   "theme": "sante-mentale-rps",
+   "display_theme_label": "Santé mentale / RPS",
+   "ordre": 1,
+   "titre": "La santé mentale dépend fortement de la charge, des ressources et de l’organisation",
+   "message_cle": "Forte demande, faible autonomie, faible soutien et faible reconnaissance sont associés à une dégradation de la santé mentale des professionnels hospitaliers. Réf. [1] [2] [4].",
+   "dev_court": "Les médecins décrivent anxiété, épuisement et difficulté à déconnecter lorsque la charge et les contraintes organisationnelles augmentent. Les RPS sont associés à davantage d’anxiété et de dépression dans l’échantillon hospitalier. Réf. [2] [4].",
+   "corps_web": "Chez les médecins, les difficultés de santé mentale s’inscrivent dans un environnement de travail où la charge, les exigences émotionnelles, l’autonomie, le soutien et la reconnaissance jouent un rôle important. Les entretiens décrivent de l’anxiété, de l’épuisement et une difficulté à déconnecter lorsque le travail déborde sur le temps personnel. Plus largement, les analyses hospitalières montrent qu’une augmentation du niveau de risques psychosociaux est associée à davantage de troubles anxieux et dépressifs. Ces résultats renforcent l’intérêt d’une lecture organisationnelle de la santé mentale, au-delà des seules capacités individuelles à « tenir ». Références : [1] [2] [4].",
+   "nuance": "Les estimations quantitatives de TRAILSS concernent l’ensemble de l’échantillon hospitalier et ne sont pas des prévalences propres aux médecins. Les entretiens SANSAS sont qualitatifs.",
+   "decideur": "Charge réelle, autonomie, soutien hiérarchique et entre pairs, exigences émotionnelles, reconnaissance, signes d’épuisement et débordement du travail sur la vie personnelle.",
+   "priorite": "Très haute",
+   "refs": [
+    1,
+    2,
+    4
+   ]
+  },
+  {
+   "profession": "medecins",
+   "theme": "sommeil-recuperation",
+   "display_theme_label": "Sommeil / récupération",
+   "ordre": 2,
+   "titre": "Gardes, astreintes et travail qui déborde fragilisent la récupération",
+   "message_cle": "Chez les médecins, gardes et astreintes sont particulièrement associées à un sommeil irrégulier et à une difficulté à récupérer. Réf. [2].",
+   "dev_court": "Les médecins hospitaliers décrivent aussi un travail qui peut se prolonger pendant les congés ou le temps personnel, notamment via les e-mails. Réf. [2].",
+   "corps_web": "La récupération est un enjeu concret du travail médical. Les médecins interrogés citent particulièrement les gardes et les astreintes comme facteurs de perturbation du sommeil et du rythme de récupération. Le travail peut aussi continuer au-delà du temps de présence, par exemple lorsque les e-mails ou les tâches administratives empiètent sur les congés et le temps personnel. Cette porosité entre travail et repos peut entretenir la fatigue et rendre plus difficile la déconnexion, même lorsque le professionnel n’est plus physiquement dans l’établissement. Références : [2].",
+   "nuance": "Ces résultats sont issus d’entretiens et décrivent des expériences vécues ; ils ne permettent pas d’estimer la fréquence des troubles du sommeil chez tous les médecins.",
+   "decideur": "Gardes, astreintes, enchaînement des horaires, travail sur le temps personnel, sollicitations hors service et possibilité réelle de récupérer après une période intense.",
+   "priorite": "Très haute",
+   "refs": [
+    2
+   ]
+  },
+  {
+   "profession": "medecins",
+   "theme": "addictions",
+   "display_theme_label": "Addictions / accès aux soins",
+   "ordre": 3,
+   "titre": "Demander de l’aide peut être difficile, y compris lorsque le problème est identifié",
+   "message_cle": "Stress, burnout, sommeil fragmenté et accès aux médicaments sont régulièrement associés aux conduites addictives chez les professionnels de santé. Chez les médecins, le tabou et la peur des conséquences professionnelles peuvent retarder l’accès aux soins. Réf. [14].",
+   "dev_court": "Les programmes spécialisés, confidentiels et non punitifs montrent dans certaines études de bons résultats de retour au travail et de maintien dans l’emploi. Réf. [14].",
+   "corps_web": "Les conduites addictives chez les médecins doivent être envisagées avec les facteurs qui les entourent : stress, épuisement, horaires, sommeil fragmenté, spécialité et parfois accès facilité aux médicaments. Un obstacle important est le retard à demander de l’aide, alimenté par le tabou, l’identité professionnelle et la crainte de conséquences sur la carrière. Les programmes spécialisés étudiés à l’étranger montrent qu’un accompagnement structuré, confidentiel et non punitif peut permettre un retour au travail durable pour une part importante des médecins suivis. Le message principal n’est donc pas seulement de repérer une consommation, mais aussi de rendre l’aide réellement accessible. Références : [14].",
+   "nuance": "Les chiffres de retour au travail et de rechute proviennent surtout de programmes spécialisés étrangers. Ils ne peuvent pas être transposés directement au système français.",
+   "decideur": "Burnout, sommeil, consommation de substances, automédication, peur de demander de l’aide, confidentialité des dispositifs et parcours de retour au travail.",
+   "priorite": "Très haute",
+   "refs": [
+    14
+   ]
+  },
+  {
+   "profession": "medecins",
+   "theme": "violences-securite",
+   "display_theme_label": "Violence organisationnelle / charge administrative",
+   "ordre": 4,
+   "titre": "La bureaucratie peut être vécue comme une forme de violence organisationnelle",
+   "message_cle": "Certains médecins décrivent la paperasserie, les contraintes administratives et les dysfonctionnements institutionnels comme une source importante de stress et d’épuisement. Réf. [2].",
+   "dev_court": "Les violences ne sont pas uniquement physiques ou verbales : elles peuvent aussi être liées à une organisation vécue comme empêchant le soin ou éloignant le professionnel de son cœur de métier. Réf. [2].",
+   "corps_web": "Chez les médecins, la notion de violence au travail dépasse les agressions directes. Les entretiens montrent que la bureaucratie, la multiplication des tâches administratives et certaines défaillances organisationnelles peuvent être vécues comme une forme de violence institutionnelle, en particulier lorsqu’elles empêchent de consacrer le temps souhaité au soin. Cette tension peut alimenter le stress, l’épuisement et la perte de sens. Chez les femmes médecins, la littérature documente également les violences verbales, psychologiques et le harcèlement sexuel, mais les niveaux d’exposition varient fortement selon les contextes. Références : [2] [11].",
+   "nuance": "La notion de violence organisationnelle est qualitative et dépend du vécu des professionnels. Les résultats sur les violences envers les femmes médecins proviennent d’études internationales.",
+   "decideur": "Charge administrative, temps consacré aux tâches non cliniques, qualité empêchée, agressions ou harcèlement, soutien institutionnel et possibilité de signaler les situations problématiques.",
+   "priorite": "Haute",
+   "refs": [
+    2,
+    11
+   ]
+  },
+  {
+   "profession": "medecins",
+   "theme": "presenteisme-organisation",
+   "display_theme_label": "Présentéisme / impact organisationnel",
+   "ordre": 5,
+   "titre": "La mauvaise santé d’un médecin a un impact qui dépasse son seul temps d’absence",
+   "message_cle": "Dans le contexte hospitalier étudié, l’absence comme le présentéisme d’un médecin ont un impact important sur l’activité et la qualité des soins. Réf. [10].",
+   "dev_court": "En chirurgie hors cardiaque, le médecin présente le coefficient d’impact le plus élevé du tableau publié, aussi bien en absentéisme qu’en présentéisme. Réf. [10].",
+   "corps_web": "La santé d’un médecin a des conséquences individuelles mais aussi organisationnelles. Dans l’analyse menée en chirurgie hors cardiaque, une journée d’absence d’un médecin est associée à 10,7 séjours perdus et un coefficient de coût de 1,49 fois le salaire journalier ; en présentéisme, 10,1 séjours sont perdus avec un coefficient de 1,45. Ces résultats illustrent l’interdépendance des métiers et le fait qu’une présence au travail avec des capacités diminuées peut elle aussi désorganiser l’activité. Ils donnent surtout un ordre de grandeur de l’impact invisible de la mauvaise santé sur le fonctionnement du service. Références : [10].",
+   "nuance": "Les coefficients sont propres au contexte et à la spécialité étudiés ; ils ne doivent pas être généralisés à tous les services ni utilisés comme un coût standard du médecin.",
+   "decideur": "Présence au travail malgré une santé dégradée, difficulté de remplacement, dépendance de l’activité à certaines fonctions médicales, surcharge des équipes et effets sur la qualité.",
+   "priorite": "Très haute",
+   "refs": [
+    10
+   ]
+  },
+  {
+   "profession": "medecins",
+   "theme": "vieillissement-maintien-emploi",
+   "display_theme_label": "Vieillissement / maintien en emploi",
+   "ordre": 6,
+   "titre": "Avec l’âge, il faut raisonner en capacité de travail plutôt qu’en âge chronologique",
+   "message_cle": "Chez les médecins vieillissants, l’enjeu principal est l’ajustement entre capacités fonctionnelles, exigences du poste et possibilité d’adaptation. Réf. [9].",
+   "dev_court": "L’expérience peut devenir une ressource protectrice, mais la charge, le travail de nuit et certaines contraintes prolongées peuvent fragiliser le maintien dans l’emploi. Réf. [9].",
+   "corps_web": "Le vieillissement des médecins ne se résume pas à une augmentation mécanique du risque avec l’âge. La littérature insiste sur l’ajustement entre les capacités fonctionnelles de la personne et les exigences de son poste. L’expérience professionnelle peut protéger sur le plan psychologique et soutenir le sens du travail, tandis que le travail de nuit prolongé, la charge et certaines contraintes cumulées peuvent réduire la capacité de travail. Les travaux recommandent donc de raisonner en âge fonctionnel et en possibilités d’adaptation plutôt qu’en âge chronologique seul, avec une finalité de maintien en emploi et non de sélection. Références : [9].",
+   "nuance": "La revue rassemble des études internationales et hétérogènes. Les recommandations sont des orientations de prévention et non la preuve qu’un dispositif unique est efficace partout.",
+   "decideur": "Travail de nuit, fatigue, capacités fonctionnelles, restrictions, expérience, adaptation des horaires ou tâches et accès à une évaluation non punitive de la capacité de travail.",
+   "priorite": "Haute",
+   "refs": [
+    9
+   ]
+  },
+  {
+   "profession": "medecins",
+   "theme": "grossesse-sante-reproductive",
+   "display_theme_label": "Grossesse / cancer / étapes de vie",
+   "ordre": 7,
+   "titre": "Des signaux existent selon le sexe et les étapes de vie, mais ils doivent rester descriptifs",
+   "message_cle": "Chez les femmes médecins, certaines différences de grossesse et de cancer sont observées dans les données disponibles, sans permettre d’en attribuer la cause au métier. Réf. [6] [7] [11].",
+   "dev_court": "Le groupe médecins/chirurgiens-dentistes/sages-femmes présente un profil préconceptionnel plutôt favorable, mais un signal de menace d’accouchement prématuré. CAPESSA décrit aussi des différences de cancer selon les groupes. Réf. [6] [7].",
+   "corps_web": "Les données disponibles montrent des différences entre groupes professionnels qui doivent être lues avec prudence. Autour de la grossesse, les médecins sont regroupées avec les chirurgiens-dentistes et les sages-femmes : ce groupe présente un recours relativement élevé à l’acide folique avant la grossesse, mais un signal de menace d’accouchement prématuré est également rapporté. Pour le cancer, les comparaisons disponibles suggèrent notamment une fréquence élevée du cancer du sein chez les femmes médecins parmi les grands groupes soignants comparés, et davantage de cancers cutanés chez les hommes médecins que dans certains autres groupes. Ces constats restent descriptifs et ne prouvent pas un lien causal avec le métier. Références : [6] [7] [11].",
+   "nuance": "Les catégories de grossesse sont agrégées. Les comparaisons de cancer peuvent être influencées par l’âge, le dépistage, les facteurs reproductifs, le niveau socio-économique et d’autres facteurs individuels.",
+   "decideur": "Grossesse, horaires et expositions, accès au dépistage, suivi des populations féminines et interprétation prudente des écarts observés entre professions.",
+   "priorite": "Moyenne",
+   "refs": [
+    6,
+    7,
+    11
+   ]
+  },
+  {
+   "profession": "ash-employes",
+   "theme": "exposome",
+   "display_theme_label": "Santé globale / cumul des expositions",
+   "ordre": 1,
+   "titre": "Une population très exposée, mais encore insuffisamment documentée",
+   "message_cle": "Les ASH et personnels employés cumulent contraintes physiques, psychosociales et sociales, alors que les données françaises restent fragmentaires. Réf. [8].",
+   "dev_court": "La littérature décrit une santé potentiellement plus dégradée et un risque d’invisibilisation des besoins de cette population. Réf. [8].",
+   "corps_web": "Les ASH et autres personnels employés du soin apparaissent comme une population exposée à plusieurs dimensions de risque en même temps : pénibilité physique, contraintes organisationnelles, faible autonomie, manque de reconnaissance et violences. La revue disponible souligne aussi un problème de visibilité : les données françaises spécifiques à ces métiers restent peu nombreuses et de qualité variable. Ce manque de données ne signifie pas une absence de risque ; il rend au contraire nécessaire de regarder les signaux disponibles à l’échelle de l’établissement et de ne pas calquer automatiquement les constats observés chez d’autres professions. Références : [8].",
+   "nuance": "La revue rassemble des études hétérogènes et certaines données concernent conjointement les aides-soignants et les ASH. Peu de résultats reposent sur de grandes cohortes françaises spécifiques aux ASH.",
+   "decideur": "État de santé perçu, cumul des contraintes, situations de sous-effectif, reconnaissance, accès aux données de santé au travail et visibilité des besoins propres aux ASH.",
+   "priorite": "Très haute",
+   "refs": [
+    8
+   ]
+  },
+  {
+   "profession": "ash-employes",
+   "theme": "tms-sante-physique",
+   "display_theme_label": "TMS / santé physique",
+   "ordre": 2,
+   "titre": "Les TMS sont un enjeu majeur, avec une progression des atteintes des membres supérieurs avec l’âge",
+   "message_cle": "Les ASH sont exposés aux gestes répétitifs, postures pénibles et parfois à la manutention de patients. Avec l’âge, les atteintes des membres supérieurs augmentent particulièrement. Réf. [5] [8].",
+   "dev_court": "Les douleurs du rachis sont également très présentes dans les études sur les personnels employés du soin. La réduction de l’exposition avec l’âge semble limitée chez les ASH. Réf. [5] [8].",
+   "corps_web": "Les TMS constituent un enjeu important pour les ASH. Selon les contextes, leur activité combine gestes répétitifs, postures contraignantes et parfois manutention de patients lorsqu’ils viennent en appui des aides-soignants. Les atteintes du rachis sont très présentes dans la littérature sur les personnels employés du soin. Avec l’âge, les données disponibles font également apparaître une augmentation marquée des troubles des membres supérieurs chez les ASH, alors que leur exposition aux contraintes semble peu diminuer au cours de la carrière. Cette persistance de l’exposition est un élément important pour comprendre l’usure professionnelle. Références : [5] [8].",
+   "nuance": "Les données TMS spécifiques aux ASH sont limitées et certaines sont regroupées avec les aides-soignants. Le rapport complet EVREST n’est pas disponible dans le corpus de travail.",
+   "decideur": "Gestes répétitifs, postures, manutention réelle, aides techniques, douleurs du rachis et des membres supérieurs, ancienneté et possibilités de changement de tâches.",
+   "priorite": "Très haute",
+   "refs": [
+    5,
+    8
+   ]
+  },
+  {
+   "profession": "ash-employes",
+   "theme": "sante-mentale-rps",
+   "display_theme_label": "Santé mentale / reconnaissance",
+   "ordre": 3,
+   "titre": "Le manque de reconnaissance est un signal récurrent",
+   "message_cle": "Burnout, forte demande, faible autonomie et manque de reconnaissance ressortent régulièrement chez les personnels employés du soin. Réf. [8].",
+   "dev_court": "Le statut socio-économique plus faible et la faible reconnaissance peuvent renforcer le sentiment de vulnérabilité et la perte de sens. Réf. [8].",
+   "corps_web": "La santé mentale des ASH et personnels employés ne peut pas être séparée de leur place dans l’organisation. La littérature retrouve de façon répétée le stress, le burnout, une forte demande de travail, une faible latitude décisionnelle et surtout un manque de reconnaissance professionnelle et statutaire. Ces facteurs peuvent se cumuler avec une position socio-économique moins favorable et renforcer le sentiment d’être peu visible ou peu considéré dans l’établissement. Les données hospitalières plus larges montrent par ailleurs que l’accumulation des risques psychosociaux est associée à davantage d’anxiété et de dépression, même si ces résultats ne sont pas isolés pour les ASH. Références : [4] [8].",
+   "nuance": "Les résultats directement spécifiques aux ASH sont surtout issus de la revue « Soignants oubliés ». Les estimations quantitatives de TRAILSS sont transversales à l’échantillon hospitalier.",
+   "decideur": "Charge, autonomie, reconnaissance, soutien de proximité, place dans l’équipe, sentiment d’utilité et possibilité de faire remonter les difficultés.",
+   "priorite": "Très haute",
+   "refs": [
+    4,
+    8
+   ]
+  },
+  {
+   "profession": "ash-employes",
+   "theme": "violences-securite",
+   "display_theme_label": "Violences / sécurité",
+   "ordre": 4,
+   "titre": "Les violences verbales et physiques concernent aussi les ASH",
+   "message_cle": "Selon les contextes, 20 à 40 % des aides-soignants et ASH rapportent des agressions verbales ou physiques. Réf. [8].",
+   "dev_court": "Les violences peuvent venir des usagers, mais aussi de l’organisation ou des collègues. Réf. [8].",
+   "corps_web": "Les ASH sont eux aussi exposés aux violences dans leur travail, notamment dans les situations de contact avec les patients ou les usagers. Les études réunies dans la revue rapportent, selon les contextes, 20 à 40 % d’agressions verbales ou physiques chez les aides-soignants et ASH. La littérature décrit également des violences liées aux relations de travail, au harcèlement ou à certaines situations organisationnelles. L’enjeu ne réside donc pas seulement dans la fréquence des événements, mais aussi dans leur répétition, leur banalisation et la qualité de la réponse apportée par l’établissement. Références : [8].",
+   "nuance": "La fourchette de 20 à 40 % regroupe plusieurs études et plusieurs contextes ; elle ne constitue pas une prévalence unique propre aux ASH.",
+   "decideur": "Situations de contact à risque, agressions répétées, harcèlement, signalement, soutien après événement et réponse du management.",
+   "priorite": "Haute",
+   "refs": [
+    8
+   ]
+  },
+  {
+   "profession": "ash-employes",
+   "theme": "grossesse-sante-reproductive",
+   "display_theme_label": "Grossesse / santé reproductive",
+   "ordre": 5,
+   "titre": "Les agents de service ressortent comme un groupe particulièrement défavorable avant la grossesse",
+   "message_cle": "Dans WOCAPREG, les agents de service ont le nombre moyen de médicaments le plus élevé avant la grossesse et le recours à l’acide folique le plus faible parmi les groupes présentés. Réf. [6].",
+   "dev_court": "Ils présentent aussi davantage d’IVG dans les données brutes et un signal de diabète gestationnel. Réf. [6].",
+   "corps_web": "Autour de la grossesse, les agents de service ressortent comme un groupe à surveiller particulièrement. Avant la grossesse, ils reçoivent en moyenne 12,1 médicaments différents, soit le niveau le plus élevé parmi les groupes présentés, et l’acide folique n’est retrouvé que chez environ 18 % des femmes. Les données brutes montrent également davantage d’IVG et un signal de diabète gestationnel dans ce groupe. Ces écarts suivent un gradient socioprofessionnel et peuvent refléter plusieurs déterminants de santé ; ils ne permettent pas, à eux seuls, de conclure que les conditions de travail en sont la cause. Références : [6].",
+   "nuance": "WOCAPREG décrit des associations par groupe professionnel. L’effet propre de la pénibilité et des contraintes professionnelles reste à étudier ; les pourcentages bruts ne doivent pas être interprétés comme des effets causaux.",
+   "decideur": "Prévention préconceptionnelle, grossesse, horaires et pénibilité, accès au suivi, médicaments et capacité à adapter temporairement certaines contraintes.",
+   "priorite": "Très haute",
+   "refs": [
+    6
+   ]
+  },
+  {
+   "profession": "ash-employes",
+   "theme": "vieillissement-maintien-emploi",
+   "display_theme_label": "Vieillissement / maintien en emploi",
+   "ordre": 6,
+   "titre": "L’exposition diminue peu avec l’âge, ce qui peut accélérer l’usure",
+   "message_cle": "Chez les ASH, les contraintes physiques semblent persister au cours de la carrière alors que les TMS des membres supérieurs augmentent. Réf. [5] [9].",
+   "dev_court": "Le maintien en emploi dépend donc fortement de la capacité à adapter les tâches et à éviter une exposition prolongée aux mêmes contraintes. Réf. [5] [9].",
+   "corps_web": "Le vieillissement professionnel des ASH doit être envisagé comme le résultat d’expositions cumulées. Les données disponibles montrent que, contrairement à certains métiers où l’exposition diminue avec l’âge, les ASH semblent rester durablement exposés aux contraintes physiques, avec une augmentation des troubles des membres supérieurs au cours de la carrière. Plus largement, la littérature sur le vieillissement des professionnels de santé insiste sur l’ajustement entre capacités fonctionnelles et exigences du poste. Lorsque les possibilités d’adaptation sont faibles, les limitations peuvent apparaître plus tôt et rendre le maintien en emploi plus difficile. Références : [5] [9].",
+   "nuance": "Les résultats spécifiques aux ASH sur le vieillissement sont limités ; une partie du message repose sur des données de groupe AS/ASH et sur une revue transversale des professionnels de santé.",
+   "decideur": "Ancienneté, évolution des douleurs, restrictions, maintien sur les postes les plus pénibles, mobilité interne et adaptation des tâches avant l’apparition de limitations majeures.",
+   "priorite": "Très haute",
+   "refs": [
+    5,
+    9
+   ]
+  },
+  {
+   "profession": "ash-employes",
+   "theme": "presenteisme-organisation",
+   "display_theme_label": "Présentéisme / absentéisme / organisation",
+   "ordre": 7,
+   "titre": "La mauvaise santé des ASH a aussi un coût organisationnel invisible",
+   "message_cle": "Dans le contexte étudié, absence et présentéisme d’un ASH réduisent l’activité et entraînent des coûts supérieurs au seul salaire perdu. Réf. [10].",
+   "dev_court": "En chirurgie hors cardiaque, une journée d’absence d’un ASH est associée à 9 séjours perdus ; une journée de présentéisme à 8,1. Réf. [10].",
+   "corps_web": "L’impact de la mauvaise santé des ASH ne se limite pas au nombre de jours d’arrêt. Dans l’analyse menée en chirurgie hors cardiaque, une journée d’absence d’un agent de service hospitalier est associée à 9 séjours perdus et un coefficient de coût de 1,38 fois le salaire journalier. Une journée de présentéisme est associée à 8,1 séjours perdus et un coefficient de 1,33. Ces résultats illustrent l’effet de l’interdépendance des métiers : lorsqu’un professionnel manque ou travaille avec des capacités diminuées, l’organisation doit absorber des ajustements, de la surcharge et parfois une perte de qualité. Références : [10].",
+   "nuance": "Ces coefficients dépendent du service et du modèle étudiés ; ils ne doivent pas être généralisés comme un coût standard pour tous les ASH.",
+   "decideur": "Absentéisme, présentéisme, difficulté de remplacement, surcharge des présents, dépendance des flux à certaines fonctions et effets sur la qualité du service.",
+   "priorite": "Haute",
+   "refs": [
+    10
+   ]
+  },
+  {
+   "profession": "sages-femmes",
+   "theme": "sante-mentale-rps",
+   "display_theme_label": "Santé mentale / RPS",
+   "ordre": 1,
+   "titre": "Les sages-femmes font partie des professions les plus exposées au job strain et à l’iso-strain",
+   "message_cle": "Forte intensité, faible autonomie et faible soutien social forment un profil particulièrement défavorable pour les sages-femmes. Réf. [4].",
+   "dev_court": "Les analyses hospitalières les situent, avec les infirmiers en soins généraux, parmi les professions les plus vulnérables au cumul forte demande + faibles ressources. Réf. [4].",
+   "corps_web": "La santé mentale constitue l’un des résultats les plus spécifiques disponibles pour les sages-femmes. Elles apparaissent, avec les infirmiers en soins généraux, parmi les professions particulièrement exposées au job strain, lorsque la forte intensité du travail s’accompagne d’une faible autonomie, et à l’iso-strain lorsque s’ajoute un faible soutien social. Plus largement, les risques psychosociaux sont associés à davantage d’anxiété et de dépression dans l’échantillon hospitalier. L’autonomie, le soutien des collègues et de la hiérarchie et la reconnaissance sont donc des dimensions particulièrement importantes à suivre dans ce métier. Références : [4].",
+   "nuance": "Les taux globaux de job strain, iso-strain, anxiété et dépression concernent l’échantillon hospitalier ; le classement relatif des sages-femmes est plus directement spécifique que ces taux.",
+   "decideur": "Intensité du travail, autonomie, soutien d’équipe et hiérarchique, reconnaissance, charge émotionnelle et capacité à récupérer après les situations difficiles.",
+   "priorite": "Très haute",
+   "refs": [
+    4
+   ]
+  },
+  {
+   "profession": "sages-femmes",
+   "theme": "grossesse-sante-reproductive",
+   "display_theme_label": "Grossesse / santé reproductive",
+   "ordre": 2,
+   "titre": "Les données de grossesse montrent des différences de groupe, mais pas une causalité professionnelle",
+   "message_cle": "Les sages-femmes sont regroupées avec médecins et chirurgiens-dentistes : le profil préconceptionnel est plutôt favorable, mais un signal de menace d’accouchement prématuré est rapporté. Réf. [6].",
+   "dev_court": "Le groupe reçoit en moyenne 8,2 médicaments différents avant la grossesse et environ 7,2 pendant, avec un recours à l’acide folique autour de 36 % avant la grossesse. Réf. [6].",
+   "corps_web": "La santé reproductive est un enjeu important pour une profession très féminisée, mais les résultats disponibles doivent être lus au niveau du groupe étudié. Dans WOCAPREG, les sages-femmes sont regroupées avec les médecins et chirurgiens-dentistes. Ce groupe présente un profil préconceptionnel plutôt favorable, avec 8,2 médicaments différents en moyenne avant la grossesse et un recours à l’acide folique autour de 36 %. Un signal de menace d’accouchement prématuré apparaît cependant dans ce groupe. Ces différences ne permettent pas d’identifier la part liée au métier, aux horaires, aux expositions ou aux caractéristiques individuelles. Références : [6] [11].",
+   "nuance": "Les sages-femmes ne sont pas isolées de médecins et chirurgiens-dentistes dans WOCAPREG. Les contraintes professionnelles sont une hypothèse à étudier, pas une cause démontrée.",
+   "decideur": "Grossesse, travail de nuit, horaires, expositions biologiques ou chimiques selon le poste, suivi préconceptionnel et possibilité d’adaptation temporaire des contraintes.",
+   "priorite": "Très haute",
+   "refs": [
+    6,
+    11
+   ]
+  },
+  {
+   "profession": "sages-femmes",
+   "theme": "sommeil-recuperation",
+   "display_theme_label": "Sommeil / récupération",
+   "ordre": 3,
+   "titre": "Les horaires atypiques et la charge peuvent fragiliser la récupération",
+   "message_cle": "Les données transversales chez les professionnels de santé associent horaires tardifs, précoces et nuits à la fatigue et aux troubles du sommeil. Réf. [1] [9].",
+   "dev_court": "Pour les sages-femmes, la littérature spécifique reste limitée, mais le travail posté et les contraintes horaires sont des expositions directement pertinentes au regard de leur organisation du travail. Réf. [1] [9].",
+   "corps_web": "La récupération est un enjeu plausible et important chez les sages-femmes, même si les données spécifiques au métier restent moins nombreuses que pour la santé mentale. Les études transversales chez les professionnels de santé retrouvent fatigue, troubles du sommeil et exposition aux horaires tardifs, précoces ou aux nuits. La revue sur le vieillissement identifie également le travail posté prolongé et le travail de nuit comme des facteurs susceptibles d’altérer la récupération et la capacité de travail. Pour les sages-femmes, ces résultats doivent donc être présentés comme un contexte professionnel pertinent plutôt que comme une prévalence spécifique démontrée. Références : [1] [9].",
+   "nuance": "Aucun taux de fatigue ou de trouble du sommeil spécifiquement sage-femme n’est disponible dans les éléments exploités.",
+   "decideur": "Travail de nuit, enchaînement des postes, repos entre deux prises de service, fatigue déclarée, récupération après garde et adaptation des horaires avec l’âge.",
+   "priorite": "Haute",
+   "refs": [
+    1,
+    9
+   ]
+  },
+  {
+   "profession": "sages-femmes",
+   "theme": "violences-securite",
+   "display_theme_label": "Violences / sécurité / genre",
+   "ordre": 4,
+   "titre": "Les violences sont documentées chez les femmes professionnelles de santé, mais les données sages-femmes restent peu spécifiques",
+   "message_cle": "Violences verbales, psychologiques, harcèlement sexuel et violences externes concernent les femmes professionnelles de santé. Réf. [11].",
+   "dev_court": "Pour les sages-femmes, le corpus disponible ne permet pas de chiffrer précisément l’exposition, ce qui constitue en soi un manque de données à garder visible. Réf. [11].",
+   "corps_web": "Les violences au travail font partie des enjeux décrits chez les femmes professionnelles de santé : violences verbales ou psychologiques, harcèlement sexuel et violences externes. Toutefois, les sages-femmes sont beaucoup moins documentées que les infirmières dans le corpus disponible. Il est donc possible de rappeler que ces expositions concernent les femmes du secteur de la santé, sans attribuer aux sages-femmes les niveaux de risque observés dans d’autres professions. Pour un établissement, l’enjeu est autant de repérer les situations vécues que de reconnaître le manque de données spécifiques au métier. Références : [11].",
+   "nuance": "Les résultats sont transversaux aux femmes professionnelles de santé et souvent internationaux. Aucun chiffre spécifique sage-femme robuste n’est disponible ici.",
+   "decideur": "Signalements, harcèlement, violences de patients ou proches, situations de travail isolé, soutien après événement et données internes par profession.",
+   "priorite": "Moyenne",
+   "refs": [
+    11
+   ]
+  },
+  {
+   "profession": "sages-femmes",
+   "theme": "tms-sante-physique",
+   "display_theme_label": "TMS / santé physique",
+   "ordre": 5,
+   "titre": "Les TMS sont un enjeu transversal, mais encore peu documenté spécifiquement chez les sages-femmes",
+   "message_cle": "Les professionnels de santé sont davantage exposés aux TMS, notamment des membres supérieurs et du dos, mais le corpus disponible n’isole pas suffisamment les sages-femmes. Réf. [1] [5] [11].",
+   "dev_court": "La prudence est donc essentielle : il faut parler d’un risque plausible lié aux postures et contraintes physiques du soin, sans lui attribuer un niveau chiffré propre au métier. Réf. [1] [5].",
+   "corps_web": "Les TMS constituent un enjeu bien documenté chez les professionnels de santé en général, avec des douleurs du dos et des membres supérieurs associées aux contraintes biomécaniques, aux gestes répétés et aux postures pénibles. En revanche, les éléments disponibles ne permettent pas d’isoler un profil spécifique des sages-femmes. Sur une fiche métier, le message doit donc rester proportionné : les contraintes physiques du travail peuvent contribuer aux douleurs et à l’usure, mais aucun chiffre de prévalence propre aux sages-femmes ne doit être avancé à partir de ce corpus. Références : [1] [5] [11].",
+   "nuance": "Il s’agit principalement de résultats transversaux aux professionnels de santé ou aux femmes professionnelles de santé.",
+   "decideur": "Postures prolongées, gestes répétitifs, douleurs déclarées, ergonomie des postes et évolution des contraintes physiques avec l’ancienneté.",
+   "priorite": "Moyenne",
+   "refs": [
+    1,
+    5,
+    11
+   ]
+  },
+  {
+   "profession": "sages-femmes",
+   "theme": "vieillissement-maintien-emploi",
+   "display_theme_label": "Vieillissement / maintien en emploi",
+   "ordre": 6,
+   "titre": "Le vieillissement doit être anticipé, mais les données métier restent encore limitées",
+   "message_cle": "Les sages-femmes sont incluses dans la littérature sur le vieillissement des professionnels de santé, sans résultats suffisamment détaillés pour définir un profil propre. Réf. [9].",
+   "dev_court": "Les principes transversaux restent pertinents : charge, travail posté et expositions cumulées peuvent réduire la capacité de travail, tandis que soutien et flexibilité peuvent la protéger. Réf. [9].",
+   "corps_web": "La littérature sur le vieillissement inclut explicitement les sages-femmes, mais peu de résultats sont isolés pour cette profession. Les enseignements les plus solides sont donc transversaux : la capacité à poursuivre son activité dépend de l’accumulation des expositions, des horaires, de la charge et de l’adéquation entre capacités fonctionnelles et exigences du poste. Le soutien social, la flexibilité et l’adaptation individualisée du travail apparaissent comme des ressources importantes. Il faut toutefois éviter de transformer ces conclusions générales en un risque propre aux sages-femmes qui ne serait pas directement démontré. Références : [9].",
+   "nuance": "La revue est internationale et hétérogène ; les résultats sages-femmes sont peu isolés.",
+   "decideur": "Ancienneté, travail de nuit, fatigue, restrictions fonctionnelles, possibilités d’adaptation des horaires ou tâches et données internes sur les départs du métier.",
+   "priorite": "Haute",
+   "refs": [
+    9
+   ]
+  },
+  {
+   "profession": "sages-femmes",
+   "theme": "presenteisme-organisation",
+   "display_theme_label": "Organisation / leviers / impact",
+   "ordre": 7,
+   "titre": "Autonomie, soutien et reconnaissance sont les leviers les mieux étayés dans ce corpus",
+   "message_cle": "Pour les sages-femmes, les ressources les plus directement étudiées sont l’autonomie, le soutien social et la reconnaissance. Réf. [4].",
+   "dev_court": "La prévention doit donc être reliée aux conditions de travail réelles plutôt que reposer uniquement sur des actions individuelles de gestion du stress. Réf. [4] [12].",
+   "corps_web": "Les résultats disponibles pour les sages-femmes orientent surtout vers des leviers organisationnels. Dans un contexte de forte demande et de faibles ressources, l’autonomie, le soutien des collègues et de la hiérarchie et la reconnaissance sont les dimensions les mieux étayées dans le corpus. Plus largement, les travaux soutenus par la Fondation MNH convergent vers l’idée qu’une prévention efficace ne peut pas reposer uniquement sur la capacité individuelle à mieux gérer le stress : elle doit aussi agir sur les conditions dans lesquelles le travail est réalisé. Pour cette profession, c’est probablement le message opérationnel le plus directement soutenu par les données disponibles. Références : [4] [12].",
+   "nuance": "Le corpus évalue peu d’interventions spécifiques aux sages-femmes. Les ressources identifiées ne correspondent pas nécessairement à des programmes dont l’efficacité a été testée expérimentalement.",
+   "decideur": "Autonomie, disponibilité du cadre, soutien entre pairs, reconnaissance, charge, organisation des horaires et suivi d’indicateurs propres aux sages-femmes.",
+   "priorite": "Très haute",
+   "refs": [
+    4,
+    12
+   ]
+  },
+  {
+   "profession": "reeducation",
+   "theme": "sante-mentale-rps",
+   "display_theme_label": "Santé mentale / RPS",
+   "ordre": 1,
+   "titre": "La santé mentale est un enjeu plausible, mais les données spécifiques aux métiers de rééducation restent rares",
+   "message_cle": "Chez les professionnels de santé, forte demande, faible soutien et faible reconnaissance sont associés à une santé mentale plus dégradée. Les métiers de rééducation sont peu isolés dans les études disponibles. Réf. [1] [4].",
+   "dev_court": "Le manque de données métier impose de distinguer clairement ce qui est connu chez l’ensemble des soignants de ce qui est réellement démontré chez les rééducateurs. Réf. [1] [4].",
+   "corps_web": "Les risques psychosociaux sont bien documentés à l’échelle des professionnels de santé : intensité du travail, faible autonomie, faible soutien et déséquilibre effort-récompense sont associés à une santé mentale plus dégradée. En revanche, les métiers de rééducation sont rarement isolés dans les analyses disponibles. La fiche doit donc présenter ces facteurs comme un contexte pertinent pour ces professionnels, sans leur attribuer les niveaux de risque observés dans d’autres groupes. Le manque de données spécifiques est ici un résultat important : il limite la possibilité de hiérarchiser précisément les RPS propres à cette famille de métiers. Références : [1] [4].",
+   "nuance": "Aucun résultat robuste directement spécifique aux professionnels de rééducation n’est disponible dans le corpus sur les RPS.",
+   "decideur": "Charge, autonomie, soutien, reconnaissance, indicateurs de santé mentale internes et différences entre métiers de rééducation plutôt qu’une lecture globale unique.",
+   "priorite": "Haute",
+   "refs": [
+    1,
+    4
+   ]
+  },
+  {
+   "profession": "reeducation",
+   "theme": "tms-sante-physique",
+   "display_theme_label": "TMS / santé physique",
+   "ordre": 2,
+   "titre": "Les TMS sont un enjeu transversal du soin, mais peu documenté spécifiquement en rééducation",
+   "message_cle": "Les soignants présentent davantage de TMS, notamment des membres supérieurs et du dos. Le corpus ne permet pas de chiffrer un risque propre aux métiers de rééducation. Réf. [1] [5].",
+   "dev_court": "Gestes répétitifs, postures pénibles et intensité du travail sont les principaux facteurs décrits à l’échelle des soignants. Réf. [5].",
+   "corps_web": "Les troubles musculosquelettiques sont fréquents chez les professionnels de santé et sont associés aux gestes répétitifs, aux postures pénibles et à l’intensité du travail. Ces mécanismes sont pertinents pour plusieurs métiers de rééducation, qui peuvent solliciter fortement le corps dans les soins et les mobilisations. Toutefois, la synthèse disponible ne fournit pas de résultat spécifique permettant de quantifier le risque chez les rééducateurs. Le message à retenir est donc celui d’une exposition plausible et cohérente avec l’activité, mais non chiffrée de façon robuste dans ce corpus. Références : [1] [5].",
+   "nuance": "La synthèse EVREST parle globalement des soignants et ne donne pas de résultat propre aux métiers de rééducation.",
+   "decideur": "Postures, répétitivité, manutention, douleurs déclarées, ergonomie et données de santé au travail spécifiques aux kinésithérapeutes et autres rééducateurs.",
+   "priorite": "Haute",
+   "refs": [
+    1,
+    5
+   ]
+  },
+  {
+   "profession": "reeducation",
+   "theme": "grossesse-sante-reproductive",
+   "display_theme_label": "Grossesse / santé reproductive",
+   "ordre": 3,
+   "titre": "Le profil préconceptionnel des métiers de rééducation apparaît plutôt favorable dans la comparaison disponible",
+   "message_cle": "Dans WOCAPREG, le groupe des métiers de rééducation reçoit en moyenne 9,0 médicaments différents avant la grossesse et environ 7,4 pendant ; l’acide folique est autour de 36 %. Réf. [6].",
+   "dev_court": "Ces résultats décrivent un groupe professionnel et ne démontrent pas un effet protecteur du métier ou de ses conditions d’exercice. Réf. [6].",
+   "corps_web": "Parmi les données réellement spécifiques disponibles pour les métiers de rééducation, WOCAPREG apporte un signal autour de la grossesse. Le groupe reçoit en moyenne 9,0 médicaments différents avant la grossesse et environ 7,4 pendant. Le recours à l’acide folique avant la grossesse est autour de 36 %, ce qui correspond à un profil préconceptionnel plutôt favorable dans la comparaison présentée. Ces différences suivent néanmoins un gradient socioprofessionnel et peuvent refléter de nombreux facteurs individuels ou sociaux ; elles ne permettent pas d’attribuer un effet protecteur au métier lui-même. Références : [6].",
+   "nuance": "Les « métiers de rééducation » sont analysés comme un groupe. WOCAPREG ne démontre pas que les conditions de travail causent les différences observées.",
+   "decideur": "Information préconceptionnelle, grossesse, expositions propres au poste, horaires et capacité à adapter temporairement certaines contraintes.",
+   "priorite": "Haute",
+   "refs": [
+    6
+   ]
+  },
+  {
+   "profession": "reeducation",
+   "theme": "sommeil-recuperation",
+   "display_theme_label": "Sommeil / récupération",
+   "ordre": 4,
+   "titre": "La fatigue et le sommeil sont des enjeux transversaux, sans données métier suffisantes",
+   "message_cle": "Fatigue, troubles du sommeil et horaires atypiques sont documentés chez les professionnels de santé, mais pas spécifiquement chez les métiers de rééducation dans ce corpus. Réf. [1] [9].",
+   "dev_court": "Il est donc préférable de surveiller ces dimensions localement plutôt que de leur attribuer un niveau de risque issu d’autres professions. Réf. [1].",
+   "corps_web": "Les données transversales chez les professionnels de santé retrouvent de la fatigue, des troubles du sommeil et une exposition à des horaires tardifs, précoces ou au travail de nuit. La revue sur le vieillissement souligne également l’importance de la récupération dans le maintien de la capacité de travail. Pour les métiers de rééducation, les éléments disponibles ne permettent cependant pas de distinguer un profil spécifique. Ces résultats peuvent servir de cadre de vigilance, mais ils ne justifient pas d’affirmer que les rééducateurs présentent le même niveau de risque que les professions les plus exposées aux horaires atypiques. Références : [1] [9].",
+   "nuance": "Aucun taux spécifique aux métiers de rééducation n’est disponible.",
+   "decideur": "Horaires réels, amplitude des journées, récupération, fatigue déclarée et différences entre exercice hospitalier, établissement médico-social et autres contextes.",
+   "priorite": "Moyenne",
+   "refs": [
+    1,
+    9
+   ]
+  },
+  {
+   "profession": "reeducation",
+   "theme": "violences-securite",
+   "display_theme_label": "Violences / sécurité / genre",
+   "ordre": 5,
+   "titre": "Les violences sont documentées chez les femmes professionnelles de santé, mais pas spécifiquement en rééducation",
+   "message_cle": "La littérature décrit violences verbales, psychologiques et harcèlement sexuel chez les femmes professionnelles de santé. Les métiers de rééducation sont peu isolés. Réf. [11].",
+   "dev_court": "Le message doit donc rester transversal et inviter à produire des données locales plutôt qu’à extrapoler des chiffres d’autres professions. Réf. [11].",
+   "corps_web": "Les violences et le harcèlement sont des enjeux de santé au travail documentés chez les femmes professionnelles de santé. Les études décrivent notamment les violences verbales ou psychologiques, le harcèlement sexuel et les violences externes, avec de fortes variations selon les services et les professions. Les métiers de rééducation sont toutefois peu représentés dans les résultats disponibles. Pour cette famille professionnelle, l’enjeu est donc de ne pas importer les chiffres observés chez les infirmières ou d’autres groupes, mais de s’assurer que ces situations sont effectivement mesurées et visibles localement. Références : [11].",
+   "nuance": "Résultats transversaux aux femmes professionnelles de santé, souvent issus d’études internationales.",
+   "decideur": "Violences de patients ou proches, harcèlement, travail isolé, signalement et suivi des événements par métier.",
+   "priorite": "Moyenne",
+   "refs": [
+    11
+   ]
+  },
+  {
+   "profession": "reeducation",
+   "theme": "vieillissement-maintien-emploi",
+   "display_theme_label": "Vieillissement / maintien en emploi",
+   "ordre": 6,
+   "titre": "Le maintien en emploi est peu étudié spécifiquement chez les rééducateurs",
+   "message_cle": "Les professions paramédicales sont incluses dans les travaux sur le vieillissement, mais les résultats propres aux rééducateurs restent rares. Réf. [9].",
+   "dev_court": "Les principes transversaux portent sur les expositions cumulées, la capacité fonctionnelle, la flexibilité et l’adaptation du poste. Réf. [9].",
+   "corps_web": "Les professionnels de rééducation sont présents dans le périmètre général des travaux sur le vieillissement, mais les résultats qui leur sont propres restent très limités. Les enseignements utilisables sont donc ceux communs aux professionnels de santé : le maintien en emploi dépend de l’accumulation des expositions, de la charge, des horaires, des capacités fonctionnelles et de la possibilité d’adapter le poste au cours du temps. La littérature insiste également sur l’intérêt du soutien, de la flexibilité et d’une approche fondée sur la capacité de travail plutôt que sur l’âge chronologique. Références : [9].",
+   "nuance": "La revue est internationale et hétérogène ; elle ne permet pas de construire un profil de vieillissement spécifique aux métiers de rééducation.",
+   "decideur": "Ancienneté, douleurs, capacités fonctionnelles, adaptation des tâches, mobilité et données locales sur les départs ou restrictions.",
+   "priorite": "Haute",
+   "refs": [
+    9
+   ]
+  },
+  {
+   "profession": "reeducation",
+   "theme": "cancer-expositions",
+   "display_theme_label": "Cancer / expositions / manque de données",
+   "ordre": 7,
+   "titre": "Les données de cancer et d’expositions restent insuffisantes pour définir un profil métier",
+   "message_cle": "Les rééducateurs sont présents dans CAPESSA, mais les résultats de cancer isolés par groupe sont insuffisants dans les supports disponibles. Réf. [7].",
+   "dev_court": "Cette absence de détail doit être conservée : elle évite de transformer des résultats généraux sur les soignants en risques spécifiques aux rééducateurs. Réf. [7].",
+   "corps_web": "Les métiers de rééducation représentent une petite part des professionnels analysés dans CAPESSA et les supports disponibles ne fournissent pas assez de résultats de cancer isolés pour construire un profil métier solide. Plus largement, les professionnels de santé peuvent être exposés à des facteurs physiques, biologiques, chimiques ou organisationnels, mais le corpus actuel ne permet pas de préciser lesquels sont déterminants pour les rééducateurs. Pour cette thématique, le résultat le plus rigoureux est donc le constat d’un manque de données spécifiques, plutôt qu’une extrapolation à partir d’autres professions. Références : [1] [7].",
+   "nuance": "Les comparaisons de cancer sont descriptives et les résultats métier sont insuffisants. Aucun lien causal propre aux professions de rééducation ne peut être établi.",
+   "decideur": "Expositions réellement présentes selon les postes, dépistage, données de santé au travail et capacité à documenter séparément les différents métiers de rééducation.",
+   "priorite": "Moyenne",
+   "refs": [
+    1,
+    7
+   ]
+  },
+  {
+   "profession": "medico-techniques",
+   "theme": "exposome",
+   "display_theme_label": "Expositions professionnelles / exposome",
+   "ordre": 1,
+   "titre": "Certaines professions médico-techniques peuvent être exposées à des agents physiques ou chimiques spécifiques",
+   "message_cle": "Travail de nuit, formaldéhyde et rayonnements ionisants font partie des expositions explorées dans les projets soutenus, selon les métiers et les postes. Réf. [1] [7].",
+   "dev_court": "Pour les métiers médico-techniques, la nature du poste est essentielle : un manipulateur radio, un technicien de laboratoire et un autre métier technique n’ont pas le même exposome. Réf. [1] [7].",
+   "corps_web": "Les professions médico-techniques se distinguent par la diversité de leurs expositions. Les projets sur l’exposome des professionnels de santé prennent en compte des facteurs organisationnels, biomécaniques, physiques, biologiques et chimiques. CAPESSA explore notamment le travail de nuit, le formaldéhyde et, selon les métiers, les rayonnements ionisants. Ces expositions sont directement pertinentes pour certains techniciens ou manipulateurs, mais pas pour l’ensemble du groupe. La lecture doit donc être faite au niveau du poste réel et de l’environnement de travail, plutôt qu’à partir d’une catégorie « médico-technique » considérée comme homogène. Références : [1] [7].",
+   "nuance": "Les analyses d’exposition sont encore incomplètes dans les supports disponibles et ne permettent pas de relier précisément chaque exposition à un résultat de santé par métier.",
+   "decideur": "Rayonnements, agents chimiques, biologiques, travail de nuit, équipements de protection, poste exact et historique d’exposition.",
+   "priorite": "Très haute",
+   "refs": [
+    1,
+    7
+   ]
+  },
+  {
+   "profession": "medico-techniques",
+   "theme": "sante-mentale-rps",
+   "display_theme_label": "Santé mentale / RPS",
+   "ordre": 2,
+   "titre": "Les RPS sont importants chez les soignants, mais peu documentés spécifiquement dans les métiers médico-techniques",
+   "message_cle": "Forte demande, faible autonomie, faible soutien et déséquilibre effort-récompense sont associés à une santé mentale plus dégradée chez les professionnels de santé. Réf. [1] [4].",
+   "dev_court": "Le corpus ne permet pas de dire si les professions médico-techniques présentent le même niveau de risque que les métiers les plus étudiés. Réf. [1] [4].",
+   "corps_web": "La littérature disponible montre clairement que les risques psychosociaux jouent un rôle dans la santé mentale des professionnels de santé. L’intensité du travail, le manque d’autonomie, le faible soutien et le déséquilibre entre efforts et récompenses sont associés à davantage de symptômes dépressifs ou anxieux. En revanche, les professions médico-techniques sont peu isolées dans les analyses. Pour cette famille de métiers, ces facteurs doivent donc être considérés comme des dimensions à mesurer directement dans l’établissement plutôt que comme un niveau de risque déjà quantifié. Références : [1] [4].",
+   "nuance": "Les données quantitatives sont transversales aux professionnels de santé ; aucun profil RPS robuste propre aux professions médico-techniques n’est disponible ici.",
+   "decideur": "Charge, autonomie, soutien, reconnaissance, contraintes propres aux plateaux techniques et indicateurs de santé mentale par métier.",
+   "priorite": "Haute",
+   "refs": [
+    1,
+    4
+   ]
+  },
+  {
+   "profession": "medico-techniques",
+   "theme": "tms-sante-physique",
+   "display_theme_label": "TMS / santé physique",
+   "ordre": 3,
+   "titre": "Les TMS constituent un signal transversal, sans résultat spécifique suffisant",
+   "message_cle": "Les soignants présentent davantage de TMS des membres supérieurs et du dos, en lien avec gestes répétitifs, postures et intensité du travail. Réf. [1] [5].",
+   "dev_court": "Pour les professions médico-techniques, le niveau de risque dépend probablement fortement du poste, mais le corpus ne permet pas de le quantifier. Réf. [5].",
+   "corps_web": "Les troubles musculosquelettiques sont un enjeu fréquent à l’échelle des professionnels de santé, notamment pour les membres supérieurs et la région dorso-lombaire. Les facteurs évoqués sont les gestes répétitifs, les postures pénibles et l’intensité du travail. Les métiers médico-techniques peuvent être concernés de façon très différente selon les tâches : travail sur écran ou appareil, gestes précis répétés, manutention ou position prolongée. Les données disponibles ne permettent toutefois pas de distinguer suffisamment ces situations ni de fournir un niveau de risque propre à chaque métier. Références : [1] [5].",
+   "nuance": "Aucun résultat spécifique aux métiers médico-techniques n’est disponible dans la synthèse EVREST.",
+   "decideur": "Gestes répétitifs, postures statiques, manutention éventuelle, ergonomie des postes, douleurs déclarées et différences entre métiers techniques.",
+   "priorite": "Haute",
+   "refs": [
+    1,
+    5
+   ]
+  },
+  {
+   "profession": "medico-techniques",
+   "theme": "grossesse-sante-reproductive",
+   "display_theme_label": "Grossesse / santé des femmes",
+   "ordre": 4,
+   "titre": "Les expositions reproductives doivent être raisonnées selon le poste, pas seulement selon la profession",
+   "message_cle": "La littérature sur les femmes professionnelles de santé décrit des enjeux liés aux radiations, désinfectants, agents infectieux ou traitements anticancéreux pendant la grossesse. Réf. [11].",
+   "dev_court": "Aucun résultat de grossesse suffisamment isolé n’est disponible pour l’ensemble des professions médico-techniques. Réf. [6] [11].",
+   "corps_web": "Pour les professions médico-techniques, la grossesse doit être envisagée à partir des expositions réellement présentes sur le poste. La littérature sur les femmes professionnelles de santé décrit des risques potentiels liés, selon les activités, aux rayonnements, à certains désinfectants, aux agents infectieux ou à d’autres produits utilisés dans les soins. En revanche, WOCAPREG ne fournit pas de résultat suffisamment isolé pour cette famille professionnelle. La démarche la plus rigoureuse consiste donc à identifier les expositions concrètes de chaque poste et à ne pas attribuer à tout le groupe des risques observés dans d’autres professions. Références : [6] [11].",
+   "nuance": "Les résultats sont transversaux aux femmes professionnelles de santé et plusieurs expositions concernent seulement certains postes.",
+   "decideur": "Grossesse déclarée, rayonnements, agents chimiques ou biologiques, protections, adaptation temporaire des tâches et suivi par la santé au travail.",
+   "priorite": "Très haute",
+   "refs": [
+    6,
+    11
+   ]
+  },
+  {
+   "profession": "medico-techniques",
+   "theme": "cancer-expositions",
+   "display_theme_label": "Cancer / dépistage",
+   "ordre": 5,
+   "titre": "Les données de cancer restent insuffisantes pour isoler un profil médico-technique",
+   "message_cle": "Les techniciens sont présents dans CAPESSA, mais les résultats site-spécifiques par métier technique restent trop limités pour définir un profil de risque. Réf. [7].",
+   "dev_court": "L’intérêt principal est pour l’instant d’étudier les expositions professionnelles potentielles, pas de conclure qu’un cancer est lié au métier. Réf. [7].",
+   "corps_web": "Les professions médico-techniques sont incluses dans les analyses de cancer, mais les supports disponibles ne permettent pas de décrire un profil détaillé par métier ou par localisation. CAPESSA est particulièrement intéressant pour cette famille professionnelle parce qu’il prévoit d’explorer certaines expositions susceptibles d’être associées au cancer, comme le travail de nuit, le formaldéhyde ou les rayonnements selon les postes. À ce stade, ces analyses doivent être considérées comme des pistes d’étude : les différences d’incidence observées ne démontrent pas qu’une exposition professionnelle est la cause d’un cancer. Références : [7].",
+   "nuance": "Les résultats métier détaillés sont insuffisants et les analyses d’exposition ne sont pas finalisées dans les supports disponibles.",
+   "decideur": "Dépistage, expositions cancérogènes potentielles, historique de poste, protection radiologique ou chimique et suivi des données de santé au travail.",
+   "priorite": "Haute",
+   "refs": [
+    7
+   ]
+  },
+  {
+   "profession": "medico-techniques",
+   "theme": "vieillissement-maintien-emploi",
+   "display_theme_label": "Vieillissement / maintien en emploi",
+   "ordre": 6,
+   "titre": "Le vieillissement est surtout documenté de façon transversale",
+   "message_cle": "Les professions paramédicales sont incluses dans la littérature sur le vieillissement, mais les résultats propres aux métiers médico-techniques restent rares. Réf. [9].",
+   "dev_court": "L’ajustement entre capacités fonctionnelles, horaires et contraintes du poste est le principal enseignement utilisable. Réf. [9].",
+   "corps_web": "Les métiers médico-techniques sont concernés par les enjeux de vieillissement professionnel, mais le corpus disponible ne fournit pas de profil suffisamment précis pour cette famille. Les travaux transversaux montrent que la capacité de travail dépend de l’accumulation des expositions, de la charge, des horaires et de la possibilité d’adapter le poste lorsque les capacités fonctionnelles évoluent. Dans les métiers techniques, cette question peut être particulièrement liée aux postures prolongées, à la précision des gestes, aux horaires ou à certaines expositions physiques. Ces hypothèses doivent néanmoins être vérifiées au niveau du métier et du poste. Références : [9].",
+   "nuance": "La revue est internationale et hétérogène ; peu de résultats isolent les professions médico-techniques.",
+   "decideur": "Ancienneté, restrictions fonctionnelles, horaires, expositions cumulées, adaptation du poste et possibilités de mobilité.",
+   "priorite": "Haute",
+   "refs": [
+    9
+   ]
+  },
+  {
+   "profession": "medico-techniques",
+   "theme": "presenteisme-organisation",
+   "display_theme_label": "Présentéisme / organisation / manque de données",
+   "ordre": 7,
+   "titre": "La mauvaise santé a un impact organisationnel, mais les coefficients métier sont encore incomplets",
+   "message_cle": "Les manipulateurs radio sont inclus dans les analyses VALORIS, mais la publication synthétisée ne fournit pas de coefficient final détaillé pour eux. Réf. [10].",
+   "dev_court": "Plus largement, absence et présentéisme entraînent désorganisation, surcharge et coûts invisibles dans les équipes hospitalières. Réf. [10].",
+   "corps_web": "Les professions médico-techniques participent à des chaînes de soins fortement interdépendantes : lorsqu’un professionnel est absent ou travaille avec des capacités diminuées, les conséquences peuvent dépasser le seul salaire ou le temps de travail perdu. Les analyses VALORIS incluent notamment les manipulateurs radio, mais les résultats publiés ne donnent pas de coefficient final suffisamment détaillé pour en faire un chiffre métier de référence. Le message utilisable est donc organisationnel : l’absence et le présentéisme peuvent perturber les flux, augmenter la charge des collègues et dégrader la qualité, mais l’ampleur exacte doit être mesurée dans chaque contexte. Références : [10].",
+   "nuance": "Les chiffres moyens multi-métiers ne doivent pas être présentés comme des coefficients propres aux professions médico-techniques.",
+   "decideur": "Difficultés de remplacement, postes indispensables au fonctionnement du plateau technique, présentéisme, retards de flux et données d’activité par métier.",
+   "priorite": "Moyenne",
+   "refs": [
+    10
+   ]
+  },
+  {
+   "profession": "pharmaciens",
+   "theme": "addictions",
+   "display_theme_label": "Addictions / substances",
+   "ordre": 1,
+   "titre": "L’accès aux médicaments est une spécificité à prendre en compte",
+   "message_cle": "La littérature décrit chez les pharmaciens une combinaison de forte responsabilité, stress professionnel et accès facilité aux médicaments qui peut favoriser certains mésusages. Réf. [14].",
+   "dev_court": "Une étude citée rapporte 58 % de consommation d’une substance psychoactive au cours de la vie, principalement des opiacés, mais ce chiffre ne peut pas être généralisé. Réf. [14].",
+   "corps_web": "Parmi les thèmes étudiés, les addictions sont celui pour lequel le corpus apporte le signal le plus spécifique aux pharmaciens. La littérature souligne une combinaison particulière de responsabilité professionnelle, stress et accès facilité aux médicaments. Une étude citée rapporte que 58 % des pharmaciens interrogés avaient déjà consommé une substance psychoactive au cours de la vie, principalement des opiacés ; d’autres travaux chez des étudiants en pharmacie rapportent également des usages non médicaux d’opiacés ou de stimulants. Ces chiffres servent surtout à montrer l’existence du problème et l’importance de l’accès aux substances, pas à estimer une prévalence française. Références : [14].",
+   "nuance": "Les chiffres proviennent d’études internationales spécifiques, parfois anciennes ou portant sur des étudiants. Ils ne constituent pas une prévalence représentative des pharmaciens français.",
+   "decideur": "Accès aux médicaments, automédication, stress, burnout, sommeil, signaux de mésusage et possibilité d’un accès confidentiel et non punitif aux soins.",
+   "priorite": "Très haute",
+   "refs": [
+    14
+   ]
+  },
+  {
+   "profession": "pharmaciens",
+   "theme": "sante-mentale-rps",
+   "display_theme_label": "Santé mentale / RPS",
+   "ordre": 2,
+   "titre": "La santé mentale est peu documentée spécifiquement chez les pharmaciens",
+   "message_cle": "Les RPS sont associés à davantage de symptômes dépressifs chez les professionnels de santé, mais le corpus n’isole pas suffisamment les pharmaciens. Réf. [1] [4].",
+   "dev_court": "Charge, reconnaissance, soutien et équilibre effort-récompense restent des dimensions pertinentes à suivre, sans leur attribuer un niveau de risque propre au métier. Réf. [1].",
+   "corps_web": "La santé mentale des pharmaciens est moins bien documentée dans ce corpus que celle des médecins ou infirmiers. À l’échelle des professionnels de santé, les études montrent cependant que le déséquilibre effort-récompense, la forte demande et le manque de soutien sont associés à davantage de symptômes dépressifs ou anxieux. Ces facteurs sont cohérents avec les contraintes décrites dans la littérature sur les addictions chez les pharmaciens, où stress, épuisement et responsabilités professionnelles sont régulièrement cités. Le message doit rester prudent : il s’agit d’un contexte transversal, pas d’une mesure spécifique du risque chez les pharmaciens. Références : [1] [4] [14].",
+   "nuance": "Aucun résultat RPS robuste directement spécifique aux pharmaciens n’est disponible dans les éléments exploités.",
+   "decideur": "Charge, responsabilités, soutien, reconnaissance, symptômes d’épuisement, ressources disponibles et données internes propres aux pharmaciens hospitaliers.",
+   "priorite": "Haute",
+   "refs": [
+    1,
+    4,
+    14
+   ]
+  },
+  {
+   "profession": "pharmaciens",
+   "theme": "sommeil-recuperation",
+   "display_theme_label": "Sommeil / récupération / accès aux soins",
+   "ordre": 3,
+   "titre": "Fatigue et retard à demander de l’aide peuvent renforcer les difficultés",
+   "message_cle": "Sommeil fragmenté, horaires et épuisement sont cités comme facteurs associés aux mésusages de substances chez les professionnels de santé. Réf. [14].",
+   "dev_court": "Le tabou et la peur des conséquences professionnelles peuvent également retarder l’accès aux soins. Réf. [14].",
+   "corps_web": "Les difficultés liées au sommeil et au soin de soi peuvent interagir avec les autres risques. La littérature sur les addictions décrit le sommeil fragmenté, les horaires et l’épuisement comme des facteurs associés au mésusage de substances chez les professionnels de santé. Elle souligne aussi un obstacle commun à plusieurs métiers : le tabou et la peur de conséquences professionnelles peuvent retarder la demande d’aide. Pour les pharmaciens, ces éléments sont particulièrement pertinents lorsqu’ils se combinent à un accès facile aux médicaments. L’enjeu est donc de repérer à la fois la fatigue, les consommations et les obstacles concrets à l’accès à un accompagnement confidentiel. Références : [14].",
+   "nuance": "Ces résultats sont principalement transversaux aux professionnels de santé et issus d’études internationales.",
+   "decideur": "Horaires, sommeil, fatigue, automédication, retard à demander de l’aide, confidentialité et connaissance des dispositifs de soutien.",
+   "priorite": "Haute",
+   "refs": [
+    14
+   ]
+  },
+  {
+   "profession": "pharmaciens",
+   "theme": "tms-sante-physique",
+   "display_theme_label": "TMS / santé physique",
+   "ordre": 4,
+   "titre": "Les TMS sont un enjeu transversal, sans profil spécifique pharmacien dans le corpus",
+   "message_cle": "Douleurs du dos et des membres supérieurs sont fréquentes chez les professionnels de santé, mais les données disponibles n’isolent pas les pharmaciens. Réf. [1] [5].",
+   "dev_court": "Il faut donc éviter de reprendre les chiffres observés chez les métiers les plus physiques comme s’ils s’appliquaient aux pharmaciens. Réf. [1] [5].",
+   "corps_web": "Les troubles musculosquelettiques sont bien documentés à l’échelle des professionnels de santé, avec des douleurs du dos et des membres supérieurs associées aux gestes répétitifs, aux postures et à l’intensité du travail. Le corpus disponible ne fournit cependant pas de résultat propre aux pharmaciens. Selon le contexte d’exercice, les contraintes peuvent être très différentes : station debout prolongée, gestes répétitifs, travail sur écran ou activités de préparation. Ces expositions doivent être évaluées directement plutôt que déduites des résultats observés chez les aides-soignants ou les infirmiers. Références : [1] [5].",
+   "nuance": "Aucune prévalence ou trajectoire TMS spécifique aux pharmaciens n’est disponible dans ce corpus.",
+   "decideur": "Station debout, gestes répétitifs, ergonomie, travail sur écran ou préparation, douleurs déclarées et différences selon les fonctions exercées.",
+   "priorite": "Moyenne",
+   "refs": [
+    1,
+    5
+   ]
+  },
+  {
+   "profession": "pharmaciens",
+   "theme": "vieillissement-maintien-emploi",
+   "display_theme_label": "Vieillissement / maintien en emploi",
+   "ordre": 5,
+   "titre": "Les pharmaciens sont présents dans la littérature sur le vieillissement, mais restent peu étudiés",
+   "message_cle": "Les pharmaciens sont explicitement cités parmi les professions parfois oubliées dans les recherches et politiques sur le vieillissement professionnel. Réf. [9].",
+   "dev_court": "Les principes transversaux portent sur l’adaptation du poste, le soutien, la flexibilité et la capacité de travail. Réf. [9].",
+   "corps_web": "La revue sur le vieillissement inclut les pharmaciens mais souligne que certaines professions, dont celle-ci, restent beaucoup moins documentées que les médecins ou les infirmiers. Les enseignements utilisables sont donc surtout transversaux : l’âge chronologique ne suffit pas à définir la capacité de travail, qui dépend aussi des expositions cumulées, des horaires, des contraintes du poste et des ressources disponibles. Le soutien, la flexibilité et l’adaptation individualisée du travail peuvent favoriser le maintien en emploi, mais peu de données permettent aujourd’hui de préciser les besoins propres aux pharmaciens. Références : [9].",
+   "nuance": "Les résultats spécifiques aux pharmaciens sont rares et la revue rassemble des études internationales hétérogènes.",
+   "decideur": "Ancienneté, fatigue, capacités fonctionnelles, horaires, adaptation du poste et données locales sur les restrictions ou départs.",
+   "priorite": "Haute",
+   "refs": [
+    9
+   ]
+  },
+  {
+   "profession": "pharmaciens",
+   "theme": "cancer-expositions",
+   "display_theme_label": "Cancer / expositions",
+   "ordre": 6,
+   "titre": "Les données de cancer ne permettent pas encore de définir un risque propre aux pharmaciens",
+   "message_cle": "Les pharmaciens sont inclus dans CAPESSA, mais aucun profil de cancer suffisamment détaillé n’est disponible dans les supports exploités. Réf. [7].",
+   "dev_court": "Les résultats doivent donc rester descriptifs et ne pas être transformés en risque professionnel spécifique. Réf. [7].",
+   "corps_web": "Les pharmaciens représentent une part identifiable des professionnels étudiés dans CAPESSA, mais les résultats disponibles ne permettent pas de décrire un profil suffisamment détaillé par localisation de cancer. Plus largement, les travaux sur l’exposome rappellent que les professionnels de santé peuvent être soumis à des expositions organisationnelles, physiques, biologiques ou chimiques, mais rien dans le corpus actuel ne permet d’identifier un facteur cancérogène propre au métier de pharmacien. Le message le plus rigoureux est donc celui d’un besoin de données supplémentaires plutôt que celui d’un risque démontré. Références : [1] [7].",
+   "nuance": "CAPESSA est descriptif et les données pharmacien sont insuffisantes pour attribuer un excès de cancer ou une causalité professionnelle.",
+   "decideur": "Dépistage, expositions réellement présentes selon l’activité, historique de poste et disponibilité de données spécifiques aux pharmaciens.",
+   "priorite": "Moyenne",
+   "refs": [
+    1,
+    7
+   ]
+  },
+  {
+   "profession": "pharmaciens",
+   "theme": "presenteisme-organisation",
+   "display_theme_label": "Présentéisme / organisation / prévention",
+   "ordre": 7,
+   "titre": "Les pharmaciens sont peu documentés dans les analyses d’impact et les interventions",
+   "message_cle": "VALORIS inclut les pharmaciens, mais les effectifs sont parfois faibles et aucun coefficient métier final n’est disponible dans le tableau principal. Réf. [10].",
+   "dev_court": "Les pharmaciens sont aussi peu représentés dans les interventions de promotion de la santé évaluées, ce qui limite les recommandations spécifiques. Réf. [2] [10].",
+   "corps_web": "La mauvaise santé d’un pharmacien peut avoir des conséquences organisationnelles importantes, notamment dans les équipes où certaines fonctions sont difficiles à remplacer. Les travaux VALORIS incluent les pharmaciens dans leurs analyses, mais les effectifs peuvent être très faibles selon les unités et la publication synthétisée ne fournit pas de coefficient final propre au métier. Le même manque de données apparaît du côté de la prévention : les pharmaciens sont peu représentés dans les interventions de promotion de la santé évaluées. Il faut donc privilégier les données locales et éviter de présenter comme « efficaces chez les pharmaciens » des dispositifs surtout étudiés chez les médecins ou infirmiers. Références : [2] [10].",
+   "nuance": "Les résultats organisationnels et interventionnels spécifiques aux pharmaciens sont insuffisants pour chiffrer l’impact ou recommander un programme particulier.",
+   "decideur": "Difficulté de remplacement, présentéisme, continuité de l’activité pharmaceutique, données locales de santé et évaluation des actions réellement mises en place.",
+   "priorite": "Moyenne",
+   "refs": [
+    2,
+    10
+   ]
+  }
+ ],
+ "pages": [
+  {
+   "slug": "accueil",
+   "title": "De la recherche aux réalités de chaque métier",
+   "body": "Comprendre ce que la recherche nous apprend aujourd'hui sur la santé des professionnels de santé.\n\nFace aux enjeux croissants liés à la santé des soignants, la Fondation MNH a soutenu de nombreux travaux de recherche visant à mieux comprendre leurs expositions, leurs difficultés et leurs besoins. Mais produire de la connaissance ne suffit pas : encore faut-il qu'elle puisse être comprise, partagée et utilisée par le plus grand nombre.\n\nCette plateforme restitue de manière claire les principaux enseignements de ces travaux, sans prétendre à l'exhaustivité, à partir des études et rapports soutenus avant août 2026."
+  },
+  {
+   "slug": "comprendre-intro",
+   "title": "Prendre soin des soignants : un enjeu de santé publique et de fonctionnement du système de soins",
+   "body": "Les professionnels de santé sont exposés, tout au long de leur carrière, à des contraintes qui peuvent affecter durablement leur santé : charge physique, horaires atypiques, intensité du travail, exigences émotionnelles, violences, manque d'autonomie, de soutien ou de reconnaissance [1,4,8,9].\n\nCes expositions peuvent se cumuler et produire des effets sur la santé physique, la santé mentale, la qualité de vie et la capacité à poursuivre son activité dans de bonnes conditions [1,9].\n\nLa santé des soignants ne constitue donc pas uniquement un enjeu individuel. Elle concerne aussi directement les équipes, les établissements de santé et, plus largement, la continuité et la qualité des soins [9,10,11]."
+  },
+  {
+   "slug": "enjeu-humain",
+   "title": "Un enjeu humain",
+   "body": "Les travaux disponibles décrivent des problématiques multiples : troubles musculosquelettiques, fatigue, risques psychosociaux, anxiété, dépression, épuisement professionnel, troubles du sommeil, conduites addictives, exposition aux violences ou encore difficultés à préserver sa propre santé [2,4,5,8,9,13,14].\n\nCertaines dimensions touchent aussi des moments spécifiques du parcours de vie, comme la grossesse, la santé reproductive, les cancers ou le vieillissement professionnel [6,7,9,11]."
+  },
+  {
+   "slug": "enjeu-organisationnel",
+   "title": "Un enjeu organisationnel",
+   "body": "Une dégradation de la santé peut conduire à des arrêts de travail, mais aussi au présentéisme, c'est-à-dire au fait de continuer à travailler malgré un état de santé dégradé [10,12].\n\nDans les organisations de soins, ces situations peuvent entraîner des remplacements difficiles, des modifications de planning, une désorganisation des équipes et une charge supplémentaire pour les professionnels présents [10].\n\nLe projet VALORIS montre que le coût de la mauvaise santé des professionnels ne se limite pas au salaire correspondant à une journée d'absence : les effets indirects sur l'activité, l'organisation et la qualité des soins peuvent être importants [10]."
+  },
+  {
+   "slug": "enjeu-systeme",
+   "title": "Un enjeu pour le système de soins",
+   "body": "La question de la santé des soignants est également liée à des enjeux plus larges de maintien en emploi, d'attractivité des métiers et de pérennité des équipes [8,9].\n\nLes travaux sur le vieillissement professionnel montrent notamment que les expositions accumulées au cours de la carrière peuvent influencer les trajectoires de santé, les capacités de travail et les sorties prématurées du métier [9]."
+  },
+  {
+   "slug": "expositions-multiples",
+   "title": "Une santé façonnée par des expositions multiples",
+   "body": "La santé des professionnels ne dépend pas d'un seul facteur. Elle résulte d'un ensemble d'expositions physiques, psychosociales, organisationnelles et liées aux modes de vie, qui peuvent se cumuler au cours de la carrière [1,9]. Le projet SOIGNANCES mobilise pour cela la notion d'exposome professionnel, c'est-à-dire l'ensemble des expositions auxquelles un professionnel est soumis dans son activité et son environnement de travail [1].\n\n**Des contraintes physiques importantes.** Manutention, gestes répétitifs, postures contraignantes, travail debout ou efforts intenses peuvent favoriser les troubles musculosquelettiques, les douleurs et l'usure physique [1,5,8].\n\n**L'organisation du travail comme déterminant de santé.** Charge de travail, horaires décalés, travail de nuit, faible autonomie, manque de soutien ou de reconnaissance ressortent régulièrement comme des déterminants importants de la santé des soignants [2,4,9].\n\n**Des risques psychosociaux étroitement liés au travail.** L'intensité du travail, les exigences émotionnelles, les violences ou le déséquilibre entre les efforts fournis et les ressources disponibles peuvent affecter la santé mentale [4,8,9].\n\n**Les conduites addictives peuvent aussi être liées aux conditions de travail.** Les addictions peuvent être favorisées par le stress, l'épuisement professionnel, les troubles du sommeil ou certaines conditions de travail. L'accès facilité à certains médicaments constitue également un risque spécifique dans certaines professions [14].\n\n**Prendre soin de soi peut devenir plus difficile.** Être professionnel de santé ne garantit pas un meilleur recours aux soins. Les contraintes de temps, la fatigue, les horaires ou l'organisation du travail peuvent compliquer l'accès aux consultations [2,3]. La peur du jugement et le caractère tabou de certaines situations peuvent retarder la demande d'aide [14].\n\n**Des effets qui s'inscrivent dans le parcours de vie.** Certaines problématiques apparaissent ou se renforcent à des étapes particulières : grossesse, santé reproductive, cancer, vieillissement, maintien en emploi [6,7,9,11]. Les recherches sur le vieillissement soulignent une logique cumulative : les conditions d'exercice du début et du milieu de carrière peuvent influencer la santé et la capacité de travail plusieurs années plus tard [9]."
+  },
+  {
+   "slug": "prudence",
+   "title": "Des résultats à interpréter avec prudence",
+   "body": "L'ensemble de ces travaux apporte des enseignements importants, mais plusieurs limites doivent être gardées en tête :\n\n- certaines études portent sur une profession précise, d'autres sur des groupes de professions ;\n- certains résultats sont quantitatifs, d'autres qualitatifs ;\n- plusieurs travaux sont encore intermédiaires ou exploratoires ;\n- les données disponibles ne permettent pas toujours d'isoler précisément l'effet propre d'un métier ;\n- les résultats ne sont donc pas systématiquement généralisables à tous les professionnels ni à tous les contextes d'exercice [1,3,8,9] ;\n- certains travaux reposent sur de la littérature grise ou sur des études locales et présentent des méthodologies hétérogènes [13].\n\nCes limites ne réduisent pas l'intérêt des travaux. Elles permettent au contraire de mieux comprendre où les connaissances sont solides et où des besoins de recherche persistent."
+  }
+ ],
+ "chain": [
+  {
+   "title": "Expositions professionnelles",
+   "detail": "Charge physique · Horaires · Organisation · Risques psychosociaux · Violences"
+  },
+  {
+   "title": "Santé du professionnel",
+   "detail": "Santé physique · Santé mentale · Qualité de vie"
+  },
+  {
+   "title": "Capacité à travailler",
+   "detail": "Fatigue · Présentéisme · Arrêts · Maintien en emploi"
+  },
+  {
+   "title": "Fonctionnement de l'équipe",
+   "detail": "Réorganisation · Remplacements · Report de charge"
+  },
+  {
+   "title": "Qualité et continuité des soins",
+   "detail": ""
+  }
+ ]
+}
