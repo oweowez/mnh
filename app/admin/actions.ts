@@ -184,6 +184,27 @@ export async function saveContent(formData: FormData) {
   redirect(`/admin/contenus/${id}?saved=1`);
 }
 
+export async function createContent(formData: FormData) {
+  await requireAdmin();
+  const profession_id = Number(formData.get("profession_id"));
+  const theme_id = Number(formData.get("theme_id"));
+  if (!profession_id || !theme_id) redirect("/admin/contenus/new?error=champs");
+  const existing = must(await db().from("contents").select("ordre").eq("profession_id", profession_id)) as Array<{ ordre: number }>;
+  const maxOrdre = existing.reduce((m, r) => Math.max(m, r.ordre), 0);
+  const theme = must(await db().from("themes").select("name").eq("id", theme_id))[0] as { name: string } | undefined;
+  const inserted = must(await db().from("contents").insert({
+    profession_id,
+    theme_id,
+    ordre: maxOrdre + 1,
+    display_theme_label: String(formData.get("display_theme_label") ?? "").trim() || (theme?.name ?? ""),
+    titre: String(formData.get("titre") ?? "").trim(),
+    statut: String(formData.get("statut") ?? "brouillon"),
+  }).select("id").single()) as { id: number };
+  refreshPublic();
+  revalidatePath("/admin/contenus");
+  redirect(`/admin/contenus/${inserted.id}`);
+}
+
 // ---------- Études ----------
 export async function saveStudy(formData: FormData) {
   await requireAdmin();

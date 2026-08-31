@@ -11,7 +11,9 @@ export default async function AdminContents({ searchParams }: { searchParams: Pr
   const contents = profession ? all.filter((c) => c.profession_slug === profession) : all;
   return (
     <>
-      <AdminHead title="Contenus" sub="Un contenu = un bloc profession × thématique du site public. Filtrez par profession pour naviguer." />
+      <AdminHead title="Contenus" sub="Un contenu = un bloc profession × thématique du site public. Filtrez par profession pour naviguer.">
+        <Link href={profession ? `/admin/contenus/new?profession=${profession}` : "/admin/contenus/new"} className="btn btn-primary">+ Nouveau contenu</Link>
+      </AdminHead>
       <div className="tabs">
         <Link href="/admin/contenus" className={`tab ${!profession ? "active" : ""}`}>Toutes ({all.length})</Link>
         {professions.map((p) => (
