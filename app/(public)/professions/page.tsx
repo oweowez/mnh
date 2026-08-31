@@ -20,9 +20,9 @@ export default function ProfessionsPage() {
         </div>
       </div>
       <div className="container section">
-        <div className="grid grid-2">
+        <div className="grid grid-3">
           {professions.map((p) => (
-            <Link key={p.id} href={`/professions/${p.slug}`} className="card entry-card">
+            <Link key={p.id} href={`/professions/${p.slug}`} className="card">
               <h3>{p.name}</h3>
               <p>{p.short_desc}</p>
               <span className="arrow">Voir la fiche →</span>

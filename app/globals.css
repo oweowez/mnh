@@ -140,7 +140,7 @@ a.card:hover { text-decoration: none; border-color: var(--marine); }
 .entry-card:nth-child(2) { background: var(--jaune-pale); }
 .entry-card:nth-child(3) { background: var(--bleu-pale); }
 a.entry-card:hover { border: 0; }
-.entry-card .arrow {
+.card .arrow {
   color: var(--marine); font-weight: 700; margin-top: 16px; display: inline-block;
   font-size: 12.5px; text-transform: uppercase; letter-spacing: .08em;
   border-bottom: 2px solid var(--turquoise); padding-bottom: 3px;

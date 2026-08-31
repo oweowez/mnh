@@ -23,7 +23,7 @@ export default async function ThemePage({ params }: { params: Promise<{ slug: st
           <p>{theme.description}</p>
         </div>
       </div>
-      <div className="container section">
+      <div className="container section narrow">
         <p className="section-sub">Ce que la recherche apprend sur cette thématique, profession par profession.</p>
         {contents.map((c) => (
           <div key={c.id}>

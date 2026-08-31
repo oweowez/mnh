@@ -23,7 +23,7 @@ export default async function ProfessionPage({ params }: { params: Promise<{ slu
           <p>{profession.short_desc}</p>
         </div>
       </div>
-      <div className="container section">
+      <div className="container section narrow">
         <p className="section-sub">
           {contents.length} thématiques documentées. Cliquez sur chaque bloc pour lire le contenu détaillé,
           la nuance scientifique et les points de vigilance pour l&apos;établissement.
