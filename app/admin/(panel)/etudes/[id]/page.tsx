@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import AdminHead from "@/components/AdminHead";
+import Icon from "@/components/Icon";
 import StudyForm from "@/components/StudyForm";
 import { getStudyById, professionsForStudy, themesForStudy } from "@/lib/repo";
 
@@ -24,7 +25,7 @@ export default async function EditStudy({ params }: { params: Promise<{ id: stri
           </>
         }
       >
-        <Link href={`/recherches/${study.slug}`} target="_blank" className="btn btn-ghost">Voir la page publique ↗</Link>
+        <Link href={`/recherches/${study.slug}`} target="_blank" className="btn btn-ghost">Voir la page publique<Icon name="external" /></Link>
       </AdminHead>
       <StudyForm study={study} />
     </>

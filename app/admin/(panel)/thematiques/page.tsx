@@ -1,8 +1,10 @@
 import Link from "next/link";
 import AdminHead from "@/components/AdminHead";
+import Icon from "@/components/Icon";
 import { listThemes, contentCountByTheme } from "@/lib/repo";
 
 export const dynamic = "force-dynamic";
+export const metadata = { title: "Thématiques" };
 
 export default async function AdminThemes() {
   const themes = await listThemes(true);
@@ -13,7 +15,7 @@ export default async function AdminThemes() {
         title="Thématiques"
         sub="Taxonomie transversale : chaque contenu associe une profession à une thématique, avec un libellé d'affichage propre à la fiche si besoin."
       >
-        <Link href="/admin/thematiques/new" className="btn btn-primary">+ Nouvelle thématique</Link>
+        <Link href="/admin/thematiques/new" className="btn btn-primary"><Icon name="plus" />Nouvelle thématique</Link>
       </AdminHead>
       <table className="data">
         <thead>

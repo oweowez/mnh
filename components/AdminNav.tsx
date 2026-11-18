@@ -30,7 +30,7 @@ export default function AdminNav({ role, pending }: { role: string; pending: num
             "/admin/utilisateurs",
             <>
               Utilisateurs
-              {pending > 0 && <span className="badge badge-attente" style={{ marginLeft: 8 }}>{pending}</span>}
+              {pending > 0 && <span className="badge badge-attente">{pending}</span>}
             </>
           )}
         </>

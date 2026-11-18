@@ -1,8 +1,10 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import AdminHead from "@/components/AdminHead";
+import Icon from "@/components/Icon";
 import { getContent, listThemes, listVersions, refsForContent } from "@/lib/repo";
 import { saveContent } from "../../../actions";
+import { formatDateTime } from "@/lib/labels";
 
 export const dynamic = "force-dynamic";
 
@@ -23,14 +25,14 @@ export default async function AdminContentEdit({
         back={{ href: `/admin/contenus?profession=${content.profession_slug}`, label: `Contenus ${content.profession_name}` }}
         sub={refs.length > 0 ? <>Références : {refs.map((r) => `[${r.ref_num}] ${r.name}`).join(" · ")}</> : undefined}
       >
-        <Link href={`/professions/${content.profession_slug}#contenu-${content.id}`} target="_blank" className="btn btn-ghost">Voir sur le site ↗</Link>
+        <Link href={`/professions/${content.profession_slug}#contenu-${content.id}`} target="_blank" className="btn btn-ghost">Voir sur le site<Icon name="external" /></Link>
       </AdminHead>
-      {saved && <p className="badge badge-ok" style={{ marginBottom: 16 }}>Modifications enregistrées — version précédente archivée</p>}
+      {saved && <p className="alert alert-ok" role="status">Modifications enregistrées — version précédente archivée.</p>}
 
       <form action={saveContent} className="form form-card">
         <input type="hidden" name="id" value={content.id} />
 
-        <div className="form-section" style={{ borderTop: 0, paddingTop: 0 }}>
+        <div className="form-section">
           <p className="form-section-title">Positionnement</p>
           <div className="form-grid-3">
             <div>
@@ -42,7 +44,7 @@ export default async function AdminContentEdit({
             <div><label>Libellé affiché</label><input type="text" name="display_theme_label" defaultValue={content.display_theme_label} /></div>
             <div><label>Ordre</label><input type="number" name="ordre" defaultValue={content.ordre} /></div>
           </div>
-          <div className="form-grid-2" style={{ marginTop: 14 }}>
+          <div className="form-grid-2" style={{ marginTop: 16 }}>
             <div><label>Priorité fiche A4</label><input type="text" name="priorite" defaultValue={content.priorite} /></div>
             <div>
               <label>Statut</label>
@@ -56,7 +58,7 @@ export default async function AdminContentEdit({
 
         <div className="form-section">
           <p className="form-section-title">Contenu</p>
-          <div style={{ display: "grid", gap: 14 }}>
+          <div className="form-stack">
             <div><label>Titre / message principal</label><input type="text" name="titre" defaultValue={content.titre} /></div>
             <div><label>Message clé (résumé très court)</label><textarea name="message_cle" defaultValue={content.message_cle} style={{ minHeight: 70 }} /></div>
             <div><label>Développement court (fiche A4)</label><textarea name="dev_court" defaultValue={content.dev_court} /></div>
@@ -66,7 +68,7 @@ export default async function AdminContentEdit({
 
         <div className="form-section">
           <p className="form-section-title">Encadrés</p>
-          <div style={{ display: "grid", gap: 14 }}>
+          <div className="form-stack">
             <div><label>Nuance scientifique</label><textarea name="nuance" defaultValue={content.nuance} /></div>
             <div><label>Ce que le décideur doit regarder</label><textarea name="decideur" defaultValue={content.decideur} /></div>
           </div>
@@ -75,18 +77,16 @@ export default async function AdminContentEdit({
         <div><button type="submit" className="btn btn-primary">Enregistrer</button></div>
       </form>
 
-      <details style={{ marginTop: 28 }}>
-        <summary style={{ cursor: "pointer", fontWeight: 700, color: "var(--marine)", fontSize: 15 }}>
-          Historique des versions ({versions.length})
-        </summary>
-        {versions.length === 0 && <p style={{ color: "var(--gris)" }}>Aucune version antérieure.</p>}
+      <details className="disclosure" style={{ marginTop: 28 }}>
+        <summary>Historique des versions ({versions.length})</summary>
+        {versions.length === 0 && <p className="hint">Aucune version antérieure.</p>}
         {versions.length > 0 && (
           <table className="data" style={{ marginTop: 12 }}>
             <thead><tr><th>Date</th><th>Motif</th><th>Par</th><th>Publication liée</th></tr></thead>
             <tbody>
               {versions.map((v) => (
                 <tr key={v.id}>
-                  <td className="cell-muted">{v.created_at.slice(0, 16).replace("T", " ")}</td>
+                  <td className="cell-muted">{formatDateTime(v.created_at)}</td>
                   <td>{v.reason}</td>
                   <td>{v.changed_by}</td>
                   <td>{v.publication_id ? <Link href={`/admin/publications/${v.publication_id}`}>#{v.publication_id}</Link> : "—"}</td>

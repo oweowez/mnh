@@ -16,7 +16,7 @@ export default async function NewContent({ searchParams }: { searchParams: Promi
         back={{ href: "/admin/contenus", label: "Contenus" }}
         sub="Créez le bloc profession × thématique, puis complétez le texte sur la page d'édition. Il est créé en brouillon par défaut : il n'apparaît sur le site qu'une fois publié."
       />
-      {error && <p className="badge badge-refus" style={{ marginBottom: 14 }}>Choisissez une profession et une thématique.</p>}
+      {error && <p className="alert alert-error" role="alert">Choisissez une profession et une thématique.</p>}
       <form action={createContent} className="form form-card">
         <div className="form-grid-2">
           <div>

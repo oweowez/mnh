@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import AdminHead from "@/components/AdminHead";
+import Icon from "@/components/Icon";
 import ThemeForm from "@/components/ThemeForm";
 import { getThemeById, contentsForTheme } from "@/lib/repo";
 
@@ -18,12 +19,12 @@ export default async function EditTheme({ params }: { params: Promise<{ id: stri
         back={{ href: "/admin/thematiques", label: "Thématiques" }}
         sub={`${contents.length} contenu(s) publié(s) sur cette thématique.`}
       >
-        <Link href={`/thematiques/${theme.slug}`} target="_blank" className="btn btn-ghost">Voir la page publique ↗</Link>
+        <Link href={`/thematiques/${theme.slug}`} target="_blank" className="btn btn-ghost">Voir la page publique<Icon name="external" /></Link>
       </AdminHead>
       <ThemeForm theme={theme} />
       {contents.length > 0 && (
         <>
-          <h2 style={{ fontSize: 16, margin: "30px 0 12px" }}>Contenus sur cette thématique</h2>
+          <h2>Contenus sur cette thématique</h2>
           <table className="data">
             <tbody>
               {contents.map((c) => (

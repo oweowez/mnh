@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Icon from "./Icon";
 
 export default function AdminHead({
   title, sub, back, children,
@@ -12,8 +13,8 @@ export default function AdminHead({
     <div className="admin-head">
       <div>
         {back && (
-          <div className="breadcrumb" style={{ marginBottom: 8 }}>
-            <Link href={back.href}>← {back.label}</Link>
+          <div className="breadcrumb">
+            <Link href={back.href}><Icon name="back" />{back.label}</Link>
           </div>
         )}
         <h1>{title}</h1>

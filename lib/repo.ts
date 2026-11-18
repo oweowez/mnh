@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { supabaseAdmin } from "./supabase";
 
 /** Client Postgres serveur (service_role — les tables sont verrouillées par RLS). */
@@ -290,3 +291,30 @@ export async function recentVersions(limit = 8): Promise<RecentVersion[]> {
     await db().from("v_recent_versions").select("*").order("id", { ascending: false }).limit(limit)
   );
 }
+
+// ---------- Aides à l'affichage public ----------
+/** Index n° de référence → étude, pour transformer les renvois « [5] » des textes en liens. */
+export type RefIndex = Record<number, { slug: string; name: string; full_title: string }>;
+export const studyRefIndex = cache(async (): Promise<RefIndex> => {
+  const rows = must<Array<Pick<Study, "ref_num" | "slug" | "name" | "full_title">>>(
+    await db().from("studies").select("ref_num, slug, name, full_title").neq("statut", "archive").not("ref_num", "is", null)
+  );
+  const index: RefIndex = {};
+  for (const r of rows) if (r.ref_num !== null) index[r.ref_num] = { slug: r.slug, name: r.name, full_title: r.full_title };
+  return index;
+});
+
+/** Nombre de fiches publiées (professions visibles) par profession et par thématique. */
+export const publishedCounts = cache(async (): Promise<{ byProfession: Record<number, number>; byTheme: Record<number, number>; total: number }> => {
+  const rows = must<Array<{ profession_id: number; theme_id: number }>>(
+    await db().from("v_contents_full").select("profession_id, theme_id")
+      .eq("statut", "publie").eq("profession_visible", 1).eq("profession_archived", 0)
+  );
+  const byProfession: Record<number, number> = {};
+  const byTheme: Record<number, number> = {};
+  for (const r of rows) {
+    byProfession[r.profession_id] = (byProfession[r.profession_id] ?? 0) + 1;
+    byTheme[r.theme_id] = (byTheme[r.theme_id] ?? 0) + 1;
+  }
+  return { byProfession, byTheme, total: rows.length };
+});

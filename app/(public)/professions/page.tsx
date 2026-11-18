@@ -1,35 +1,28 @@
-import Link from "next/link";
-import { listProfessions } from "@/lib/repo";
+import PageHead from "@/components/PageHead";
+import ProfessionCard from "@/components/ProfessionCard";
+import { listProfessions, publishedCounts } from "@/lib/repo";
 
 export const dynamic = "force-dynamic";
-export const metadata = { title: "Explorer par profession — Fondation MNH" };
+export const metadata = { title: "Explorer par profession" };
 
 export default async function ProfessionsPage() {
-  const professions = await listProfessions();
+  const [professions, counts] = await Promise.all([listProfessions(), publishedCounts()]);
   return (
     <>
-      <div className="page-head">
+      <PageHead
+        crumbs={[{ label: "Professions" }]}
+        title="Explorer par profession"
+        lead="Que nous apprend aujourd'hui la recherche sur la santé de chaque profession ? Chaque fiche restitue les principaux résultats disponibles, les chiffres les plus utiles, les facteurs professionnels associés et les points encore insuffisamment documentés."
+      />
+      <section className="section">
         <div className="container">
-          <div className="breadcrumb"><Link href="/">Accueil</Link> / Professions</div>
-          <h1>Explorer par profession</h1>
-          <p>
-            Que nous apprend aujourd&apos;hui la recherche sur la santé de cette profession ?
-            Chaque fiche restitue les principaux résultats disponibles, les chiffres les plus utiles,
-            les facteurs professionnels associés et les points encore insuffisamment documentés.
-          </p>
+          <div className="grid grid-3">
+            {professions.map((p) => (
+              <ProfessionCard key={p.id} profession={p} count={counts.byProfession[p.id]} />
+            ))}
+          </div>
         </div>
-      </div>
-      <div className="container section">
-        <div className="grid grid-3">
-          {professions.map((p) => (
-            <Link key={p.id} href={`/professions/${p.slug}`} className="card">
-              <h3>{p.name}</h3>
-              <p>{p.short_desc}</p>
-              <span className="arrow">Voir la fiche →</span>
-            </Link>
-          ))}
-        </div>
-      </div>
+      </section>
     </>
   );
 }

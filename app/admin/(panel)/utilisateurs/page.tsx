@@ -2,9 +2,11 @@ import Link from "next/link";
 import AdminHead from "@/components/AdminHead";
 import { requireSuperAdmin } from "@/lib/auth";
 import { listUsers } from "@/lib/supabase";
+import { formatDateTime } from "@/lib/labels";
 import { validateUser, refuseUser, promoteUser, demoteUser, deleteUser } from "../../actions";
 
 export const dynamic = "force-dynamic";
+export const metadata = { title: "Utilisateurs" };
 
 export default async function UtilisateursPage({ searchParams }: { searchParams: Promise<{ error?: string; filtre?: string }> }) {
   const me = await requireSuperAdmin();
@@ -18,7 +20,7 @@ export default async function UtilisateursPage({ searchParams }: { searchParams:
   const UserBtn = ({ action, userId, label, cls }: { action: (fd: FormData) => Promise<void>; userId: string; label: string; cls: string }) => (
     <form action={action} style={{ display: "inline" }}>
       <input type="hidden" name="user_id" value={userId} />
-      <button type="submit" className={`btn ${cls}`} style={{ padding: "7px 14px", fontSize: 11.5 }}>{label}</button>
+      <button type="submit" className={`btn btn-sm ${cls}`}>{label}</button>
     </form>
   );
 
@@ -28,7 +30,7 @@ export default async function UtilisateursPage({ searchParams }: { searchParams:
         title="Utilisateurs"
         sub="Les inscriptions doivent être validées pour donner accès au tableau de bord. Un super-admin peut promouvoir un administrateur pour lui donner accès à cette page."
       />
-      {error === "soimeme" && <p className="badge badge-refus" style={{ marginBottom: 14 }}>Vous ne pouvez pas modifier votre propre compte.</p>}
+      {error === "soimeme" && <p className="alert alert-error" role="alert">Vous ne pouvez pas modifier votre propre compte.</p>}
 
       <div className="tabs">
         <Link href="/admin/utilisateurs?filtre=attente" className={`tab ${tab === "attente" ? "active" : ""}`}>
@@ -51,11 +53,11 @@ export default async function UtilisateursPage({ searchParams }: { searchParams:
                 <tr key={u.id}>
                   <td>{u.name}</td>
                   <td>{u.email}</td>
-                  <td className="cell-muted">{u.created_at.slice(0, 16).replace("T", " ")}</td>
-                  <td style={{ display: "flex", gap: 8 }}>
+                  <td className="cell-muted">{formatDateTime(u.created_at)}</td>
+                  <td><div className="cell-actions">
                     <UserBtn action={validateUser} userId={u.id} label="Valider" cls="btn-success" />
                     <UserBtn action={refuseUser} userId={u.id} label="Refuser" cls="btn-danger" />
-                  </td>
+                  </div></td>
                 </tr>
               ))}
             </tbody>
@@ -79,11 +81,11 @@ export default async function UtilisateursPage({ searchParams }: { searchParams:
                       : <span className="badge badge-info">Administrateur</span>}
                   </td>
                   <td className="cell-muted">{u.validated_by ?? "—"}</td>
-                  <td style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+                  <td><div className="cell-actions">
                     {!isMe && u.role === "admin" && <UserBtn action={promoteUser} userId={u.id} label="Passer super-admin" cls="btn-primary" />}
                     {!isMe && u.role === "superadmin" && <UserBtn action={demoteUser} userId={u.id} label="Rétrograder" cls="btn-light" />}
                     {!isMe && <UserBtn action={deleteUser} userId={u.id} label="Supprimer" cls="btn-danger" />}
-                  </td>
+                  </div></td>
                 </tr>
               );
             })}

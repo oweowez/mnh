@@ -1,7 +1,8 @@
 import Link from "next/link";
+import AuthShell from "@/components/AuthShell";
 import { register } from "../actions";
 
-export const metadata = { title: "Demande d'accès — Administration MNH" };
+export const metadata = { title: "Demande d'accès à l'administration" };
 
 const MESSAGES: Record<string, string> = {
   champs: "Merci de renseigner un nom et un e-mail valide.",
@@ -12,35 +13,32 @@ const MESSAGES: Record<string, string> = {
 export default async function InscriptionPage({ searchParams }: { searchParams: Promise<{ error?: string }> }) {
   const { error } = await searchParams;
   return (
-    <div style={{ minHeight: "100vh", display: "grid", placeItems: "center", background: "var(--marine)" }}>
-      <form action={register} className="form" style={{ background: "#fff", borderRadius: 8, padding: "36px 40px", width: 420 }}>
-        <div style={{ textAlign: "center" }}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/assets/logo/logoFondationMnh.png" alt="Fondation MNH" style={{ height: 54, width: "auto" }} />
-          <h1 style={{ margin: "10px 0 0", fontSize: 21 }}>Demande d&apos;accès</h1>
-          <p style={{ color: "var(--gris)", margin: "6px 0 0", fontSize: 13.5 }}>
-            Votre inscription sera soumise à la validation d&apos;un super-administrateur
-            avant de pouvoir accéder au tableau de bord.
-          </p>
-        </div>
-        {error && <p style={{ color: "var(--rouge)", margin: 0, fontSize: 14 }}>{MESSAGES[error] ?? "Erreur."}</p>}
+    <AuthShell>
+      <h1>Demande d&apos;accès</h1>
+      <p className="sub">
+        Votre inscription sera soumise à la validation d&apos;un super-administrateur
+        avant de pouvoir accéder au tableau de bord.
+      </p>
+      {error && <p className="alert alert-error" role="alert">{MESSAGES[error] ?? "Erreur."}</p>}
+      <form action={register} className="form">
         <div>
           <label htmlFor="name">Nom complet</label>
           <input id="name" name="name" type="text" autoFocus required autoComplete="name" />
         </div>
         <div>
           <label htmlFor="email">E-mail</label>
-          <input id="email" name="email" type="text" required autoComplete="email" />
+          <input id="email" name="email" type="email" required autoComplete="email" />
         </div>
         <div>
-          <label htmlFor="password">Mot de passe (8 caractères min.)</label>
+          <label htmlFor="password">Mot de passe</label>
           <input id="password" name="password" type="password" required minLength={8} autoComplete="new-password" />
+          <p className="hint">8 caractères minimum.</p>
         </div>
-        <button type="submit" className="btn btn-primary">Envoyer ma demande</button>
-        <p style={{ fontSize: 13.5, textAlign: "center", margin: 0, color: "var(--gris)" }}>
+        <button type="submit" className="btn btn-primary btn-block">Envoyer ma demande</button>
+        <p className="auth-alt">
           Déjà un compte ? <Link href="/admin/login">Se connecter</Link>
         </p>
       </form>
-    </div>
+    </AuthShell>
   );
 }

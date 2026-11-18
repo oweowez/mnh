@@ -1,8 +1,10 @@
 import Link from "next/link";
 import AdminHead from "@/components/AdminHead";
+import Icon from "@/components/Icon";
 import { listProfessions, contentCountByProfession } from "@/lib/repo";
 
 export const dynamic = "force-dynamic";
+export const metadata = { title: "Professions" };
 
 export default async function AdminProfessions() {
   const professions = await listProfessions(true);
@@ -10,7 +12,7 @@ export default async function AdminProfessions() {
   return (
     <>
       <AdminHead title="Professions" sub="Les groupes professionnels du site public. L'ordre détermine leur position d'affichage.">
-        <Link href="/admin/professions/new" className="btn btn-primary">+ Nouvelle profession</Link>
+        <Link href="/admin/professions/new" className="btn btn-primary"><Icon name="plus" />Nouvelle profession</Link>
       </AdminHead>
       <table className="data">
         <thead>

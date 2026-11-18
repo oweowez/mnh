@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import AdminHead from "@/components/AdminHead";
+import Icon from "@/components/Icon";
 import ProfessionForm from "@/components/ProfessionForm";
 import { getProfessionById, contentsForProfession } from "@/lib/repo";
 
@@ -18,12 +19,12 @@ export default async function EditProfession({ params }: { params: Promise<{ id:
         back={{ href: "/admin/professions", label: "Professions" }}
         sub={`${contents.length} contenu(s) rattaché(s) à cette profession.`}
       >
-        <Link href={`/professions/${profession.slug}`} target="_blank" className="btn btn-ghost">Voir la page publique ↗</Link>
+        <Link href={`/professions/${profession.slug}`} target="_blank" className="btn btn-ghost">Voir la page publique<Icon name="external" /></Link>
       </AdminHead>
       <ProfessionForm profession={profession} />
       {contents.length > 0 && (
         <>
-          <h2 style={{ fontSize: 16, margin: "30px 0 12px" }}>Contenus de cette profession</h2>
+          <h2>Contenus de cette profession</h2>
           <table className="data">
             <tbody>
               {contents.map((c) => (

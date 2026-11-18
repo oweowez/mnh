@@ -1,8 +1,10 @@
 import Link from "next/link";
 import AdminHead from "@/components/AdminHead";
+import Icon from "@/components/Icon";
 import { listContents, listProfessions } from "@/lib/repo";
 
 export const dynamic = "force-dynamic";
+export const metadata = { title: "Contenus" };
 
 export default async function AdminContents({ searchParams }: { searchParams: Promise<{ profession?: string }> }) {
   const { profession } = await searchParams;
@@ -12,7 +14,7 @@ export default async function AdminContents({ searchParams }: { searchParams: Pr
   return (
     <>
       <AdminHead title="Contenus" sub="Un contenu = un bloc profession × thématique du site public. Filtrez par profession pour naviguer.">
-        <Link href={profession ? `/admin/contenus/new?profession=${profession}` : "/admin/contenus/new"} className="btn btn-primary">+ Nouveau contenu</Link>
+        <Link href={profession ? `/admin/contenus/new?profession=${profession}` : "/admin/contenus/new"} className="btn btn-primary"><Icon name="plus" />Nouveau contenu</Link>
       </AdminHead>
       <div className="tabs">
         <Link href="/admin/contenus" className={`tab ${!profession ? "active" : ""}`}>Toutes ({all.length})</Link>

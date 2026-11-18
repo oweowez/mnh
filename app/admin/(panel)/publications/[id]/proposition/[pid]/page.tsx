@@ -4,7 +4,7 @@ import AdminHead from "@/components/AdminHead";
 import DiffView from "@/components/DiffView";
 import { getPublication, getProposal, getContent } from "@/lib/repo";
 import { decideProposal } from "../../../../../actions";
-import { KIND_LABELS } from "@/lib/labels";
+import { KIND_LABELS, formatDateTime } from "@/lib/labels";
 
 export const dynamic = "force-dynamic";
 
@@ -13,14 +13,14 @@ export default async function ProposalPage({ params }: { params: Promise<{ id: s
   const pub = await getPublication(Number(id));
   const proposal = await getProposal(Number(pid));
   if (!pub || !proposal || proposal.publication_id !== pub.id) notFound();
-  const kind = KIND_LABELS[proposal.kind] ?? { label: proposal.kind, icon: "•" };
+  const kind = KIND_LABELS[proposal.kind] ?? { label: proposal.kind, tone: "" };
   const content = proposal.content_id ? await getContent(proposal.content_id) : null;
   const decided = proposal.statut !== "en_attente";
 
   return (
     <>
       <AdminHead
-        title={<>{kind.icon} {kind.label}{content && <> — {content.profession_name} → {content.display_theme_label || content.theme_name}</>}{!content && proposal.titre && <> — {proposal.titre}</>}</>}
+        title={<>{kind.label}{content && <> — {content.profession_name} → {content.display_theme_label || content.theme_name}</>}{!content && proposal.titre && <> — {proposal.titre}</>}</>}
         back={{ href: `/admin/publications/${pub.id}`, label: pub.title }}
         sub={
           <span className={`badge ${proposal.statut === "en_attente" ? "badge-attente" : proposal.statut === "refuse" ? "badge-refus" : "badge-ok"}`}>
@@ -42,17 +42,13 @@ export default async function ProposalPage({ params }: { params: Promise<{ id: s
 
       {proposal.kind === "enrichissement" && proposal.current_text && (
         <>
-          <h2 style={{ fontSize: 14, textTransform: "uppercase", letterSpacing: ".08em", color: "var(--gris)", margin: "0 0 10px" }}>
-            Contenu actuel → modification proposée
-          </h2>
+          <p className="label-caps">Contenu actuel → modification proposée</p>
           <DiffView before={proposal.current_text} after={proposal.proposed_text} />
         </>
       )}
       {proposal.kind !== "enrichissement" && proposal.proposed_text && (
         <>
-          <h2 style={{ fontSize: 14, textTransform: "uppercase", letterSpacing: ".08em", color: "var(--gris)", margin: "0 0 10px" }}>
-            Texte proposé
-          </h2>
+          <p className="label-caps">Texte proposé</p>
           <div className="diff">{proposal.proposed_text}</div>
         </>
       )}
@@ -60,14 +56,14 @@ export default async function ProposalPage({ params }: { params: Promise<{ id: s
       {!decided && proposal.kind !== "deja_couvert" && (
         <form action={decideProposal} style={{ marginTop: 22 }}>
           <input type="hidden" name="proposal_id" value={proposal.id} />
-          <details>
-            <summary style={{ cursor: "pointer", fontSize: 14, color: "var(--turquoise-fonce)", fontWeight: 600 }}>
-              Modifier le texte avant acceptation
-            </summary>
+          <details className="disclosure">
+            <summary>Modifier le texte avant acceptation</summary>
             <textarea
               name="edited_text"
               defaultValue={proposal.proposed_text}
-              style={{ width: "100%", minHeight: 180, marginTop: 10, padding: 12, border: "1px solid var(--bord)", fontFamily: "inherit", fontSize: 14 }}
+              className="field"
+              aria-label="Texte modifié"
+              style={{ minHeight: 180, marginTop: 10 }}
             />
           </details>
           <div className="actions-row">
@@ -85,8 +81,8 @@ export default async function ProposalPage({ params }: { params: Promise<{ id: s
         </form>
       )}
       {proposal.decided_at && (
-        <p style={{ color: "var(--gris)", fontSize: 13, marginTop: 18 }}>
-          Décision : {proposal.decided_by}, le {proposal.decided_at}
+        <p className="hint" style={{ marginTop: 18 }}>
+          Décision : {proposal.decided_by}, le {formatDateTime(proposal.decided_at)}
         </p>
       )}
     </>

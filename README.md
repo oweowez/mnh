@@ -23,12 +23,23 @@ accès serveur uniquement via la clé `service_role`). Pour initialiser un proje
 
 ## Espaces
 
-- **Site public** : accueil (3 entrées + chaîne d'effets), « Comprendre les enjeux »,
-  pages professions (template dynamique), pages thématiques (lecture croisée),
-  bibliothèque « Recherches & projets », recherche simple.
+- **Site public** : accueil (recherche, professions, thématiques, chaîne d'effets),
+  « Comprendre les enjeux », pages professions (template dynamique, sommaire latéral),
+  index et pages thématiques (lecture croisée), bibliothèque « Recherches & projets »,
+  recherche simple. Les renvois « [5] » des textes deviennent des liens vers les études.
 - **Administration** (`/admin`) :
   CRUD professions / thématiques / contenus / études / pages générales,
   le workflow **Publications & IA**, et la gestion des utilisateurs.
+
+## Design
+
+Charte Fondation MNH (`app/globals.css`) : marine `#083264`, nuit `#091a41`, turquoise `#79c7c7`,
+jaune `#fec700` et leurs pastels. Titres en ITC Avant Garde (`public/fonts`), texte courant en Inter
+(`next/font`). Motifs repris du logo : arcs décoratifs (`components/Arcs.tsx`) et barre jaune sous les titres.
+
+> Ne pas lancer `next build` dans ce dossier pendant que `npm run dev` tourne : les deux écrivent
+> dans `.next` et le serveur de dev se met à renvoyer des erreurs 500 (il faut alors le relancer
+> après `rm -rf .next`).
 
 ## Comptes & rôles
 

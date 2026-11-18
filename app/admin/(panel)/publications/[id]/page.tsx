@@ -47,7 +47,7 @@ export default async function PublicationDetail({
         </form>
       </AdminHead>
 
-      {error && <div className="suggestion" style={{ borderColor: "var(--rouge)" }}><strong>Erreur :</strong> {error}</div>}
+      {error && <p className="alert alert-error" role="alert"><strong>Erreur :</strong> {error}</p>}
 
       {!analysis && (
         <div className="empty">
@@ -59,7 +59,7 @@ export default async function PublicationDetail({
 
       {analysis && (
         <>
-          <h2 style={{ fontSize: 16, margin: "6px 0 12px" }}>Synthèse de l&apos;analyse</h2>
+          <h2>Synthèse de l&apos;analyse</h2>
           <dl className="kv">
             <dt>Type d&apos;étude</dt><dd>{analysis.type_etude}</dd>
             <dt>Population</dt><dd>{analysis.population}</dd>
@@ -71,8 +71,8 @@ export default async function PublicationDetail({
             <dt>Thématiques</dt><dd>{analysis.themes_concernes.join(", ") || "—"}</dd>
           </dl>
 
-          <details style={{ margin: "14px 0 0" }}>
-            <summary style={{ cursor: "pointer", fontWeight: 700, color: "var(--marine)", fontSize: 14 }}>Fiche complète</summary>
+          <details className="disclosure">
+            <summary>Fiche complète</summary>
             <dl className="kv" style={{ marginTop: 12 }}>
               <dt>Titre</dt><dd>{analysis.titre}</dd>
               <dt>Auteurs</dt><dd>{analysis.auteurs}</dd>
@@ -89,7 +89,7 @@ export default async function PublicationDetail({
             </dl>
           </details>
 
-          <h2 style={{ fontSize: 16, margin: "30px 0 12px" }}>
+          <h2>
             Impact sur le site — {proposals.length} proposition(s)
             {pending > 0 && <span className="badge badge-attente" style={{ marginLeft: 10 }}>{pending} en attente</span>}
           </h2>
@@ -100,11 +100,11 @@ export default async function PublicationDetail({
             <table className="data">
               <tbody>
                 {proposals.map((p) => {
-                  const kind = KIND_LABELS[p.kind] ?? { label: p.kind, icon: "•" };
+                  const kind = KIND_LABELS[p.kind] ?? { label: p.kind, tone: "" };
                   const content = p.content_id ? contentsById.get(p.content_id) ?? null : null;
                   return (
                     <tr key={p.id}>
-                      <td style={{ width: 200 }}>{kind.icon} <strong>{kind.label}</strong></td>
+                      <td style={{ width: 210 }}><span className={`kind kind--${kind.tone}`}>{kind.label}</span></td>
                       <td>
                         {content ? `${content.profession_name} → ${content.display_theme_label || content.theme_name}` : p.titre}
                         <div className="cell-muted">{p.rationale.slice(0, 110)}{p.rationale.length > 110 ? "…" : ""}</div>
@@ -115,7 +115,7 @@ export default async function PublicationDetail({
                         </span>
                       </td>
                       <td style={{ width: 110 }}>
-                        <Link href={`/admin/publications/${pub.id}/proposition/${p.id}`}>Examiner →</Link>
+                        <Link href={`/admin/publications/${pub.id}/proposition/${p.id}`}>Examiner</Link>
                       </td>
                     </tr>
                   );

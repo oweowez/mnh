@@ -1,8 +1,11 @@
 import Link from "next/link";
 import AdminHead from "@/components/AdminHead";
+import Icon from "@/components/Icon";
 import { listPublications, listProposals } from "@/lib/repo";
+import { formatDateTime } from "@/lib/labels";
 
 export const dynamic = "force-dynamic";
+export const metadata = { title: "Publications & IA" };
 
 const STATUT: Record<string, { label: string; cls: string }> = {
   nouvelle: { label: "À analyser", cls: "badge-attente" },
@@ -19,7 +22,7 @@ export default async function AdminPublications() {
         title="Publications & IA"
         sub="Workflow : nouvelle publication → analyse IA → propositions d'intégration → validation humaine. L'IA ne modifie jamais directement le site public."
       >
-        <Link href="/admin/publications/new" className="btn btn-primary">+ Ajouter une publication</Link>
+        <Link href="/admin/publications/new" className="btn btn-primary"><Icon name="plus" />Ajouter une publication</Link>
       </AdminHead>
       {publications.length === 0 && (
         <div className="empty">
@@ -41,7 +44,7 @@ export default async function AdminPublications() {
                   <td className="cell-muted">{p.source_type}{p.file_path ? " · PDF" : ""}</td>
                   <td><span className={`badge ${st.cls}`}>{st.label}</span></td>
                   <td>{props.length > 0 ? <>{props.length}{pending > 0 && <span className="badge badge-attente" style={{ marginLeft: 8 }}>{pending} en attente</span>}</> : "—"}</td>
-                  <td className="cell-muted">{p.created_at.slice(0, 16).replace("T", " ")}</td>
+                  <td className="cell-muted">{formatDateTime(p.created_at)}</td>
                 </tr>
               );
             })}
